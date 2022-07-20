@@ -1,0 +1,123 @@
+
+.navigation, .navigation__hidden {
+    position: fixed;
+    z-index: 2;
+    top: 10px;
+    display: flex;
+    height: 40px;
+    justify-content: flex-end;
+    align-items: center;
+    transition: all 1s ease-in-out;
+    background-color: rgb(255, 255, 255);
+    margin: 10px 0;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 100px 80px rgba(0, 0, 0, 0.02), 0 64px 46px rgba(0, 0, 0, 0.0151852), 0 38px 25px rgba(0, 0, 0, 0.0121481), 0 20px 13px rgba(0, 0, 0, 0.01), 0 8px 6px rgba(0, 0, 0, 0.00785185), 0 1px 3px rgba(0, 0, 0, 0.00481481);
+}
+
+.navigate > *:not(:last-child) {
+    margin-right: 15px;
+}
+
+.link {
+    color: inherit;
+    transition: all .5s ease-in-out;
+    font-weight: 600;
+}
+
+.link:hover {
+    color: rgba(35, 51, 178, 0.56);
+}
+
+.navigation {
+    right: 10px;
+}
+
+.navigation__hidden {
+    right: -500px;
+}
+
+.burger, .burger__active {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 30px;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.burger span, .burger__active span {
+    width: 100%;
+    height: 3px;
+    transition: all 0.25s;
+}
+
+.burger span {
+    background-color: #404456;
+}
+
+.burger__active span {
+    background-color: #e59999;
+}
+
+.burger__active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.burger__active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger__active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+@media (max-width: 1024px) {
+    .navigation, .navigation__hidden {
+        width: 150px;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .burger, .burger__active {
+        margin-right: 10px;
+    }
+
+    .navigation__hidden {
+        right: -125px;
+        height: 20px;
+    }
+
+    .navigation {
+        right: 10px;
+        height: 250px;
+    }
+    .navigation .navigate {
+        transition: opacity 6s ease;
+    }
+    .navigation__hidden .navigate {
+        transition: opacity .5s ease;
+        opacity: 0;
+    }
+    .navigation .navigate > *:not(:last-child),
+    .navigation__hidden .navigate > *:not(:last-child) {
+        margin-bottom: 15px;
+        line-height: 1.2;
+    }
+
+
+    .navigate {
+        display: flex;
+        flex-direction: column;
+        width: 60px;
+    }
+
+    .link:not(:last-of-type) {
+        margin-bottom: 5px;
+    }
+}
