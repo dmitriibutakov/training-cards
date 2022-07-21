@@ -1,0 +1,8 @@
+.block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.block >*:not(:last-child) {
+    margin-right: 10px;
+}
