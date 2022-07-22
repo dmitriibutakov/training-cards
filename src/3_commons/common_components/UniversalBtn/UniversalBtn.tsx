@@ -6,7 +6,7 @@ type UniversalBtnType = {
 }
 const UniversalBtn = (props: UniversalBtnType) => {
     return (
-        <a href={"#"} className={privateClass.btn}>{props.text}</a>
+        <button className={privateClass.btn}>{props.text}</button>
     );
 };
 
