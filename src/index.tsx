@@ -10,14 +10,13 @@ import store from "./2_BLL/store";
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
-const render = () => {
     root.render(
+        <React.StrictMode>
         <Provider store={store}>
             <App />
         </Provider>
+        </React.StrictMode>
     );
-};
-render()
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
