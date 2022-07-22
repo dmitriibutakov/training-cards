@@ -1,23 +1,25 @@
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import {PATH} from "../../3_commons/Path";
-import Login from "../Main/Auth/Login/Login";
-import SignUp from "../Main/Auth/SignUp/SignUp";
 import {Error404} from "../Main/Error404/Error404";
-import PasswordReset from "../Main/Auth/PasswordReset/PasswordReset";
 import InputButtonCheckbox from "../Main/InputButtonCheckbox/InputButtonCheckbox";
+import SignUpContainer from "../Main/Auth/SignUp/SignUpContainer";
+import ProfileContainer from "../Main/Profile/ProfileContainer";
+import SignInContainer from "../Main/Auth/SignIn/SignInContainer";
+import PasswordResetContainer from "../Main/Auth/PasswordReset/PasswordResetContainer";
 
 const Pages = () => {
     return (
         <div>
-        <Routes>
-            <Route path={PATH.login} element={<Login/>}></Route>
-            <Route path={'/*'} element={<Login/>}></Route>
-            <Route path={PATH.signUp} element={<SignUp/>}></Route>
-            <Route path={PATH.error} element={<Error404/>}></Route>
-            <Route path={PATH.passwordReset} element={<PasswordReset/>}></Route>
-            <Route path={PATH.testComponents} element={<InputButtonCheckbox/>}></Route>
-        </Routes>
+            <Routes>
+                <Route path={PATH.profile} element={<ProfileContainer/>}></Route>
+                <Route path={PATH.signIn} element={<SignInContainer/>}></Route>
+                <Route path={'/*'} element={<SignInContainer/>}></Route>
+                <Route path={PATH.signUp} element={<SignUpContainer/>}></Route>
+                <Route path={PATH.passwordReset} element={<PasswordResetContainer/>}></Route>
+                <Route path={PATH.error} element={<Error404/>}></Route>
+                <Route path={PATH.testComponents} element={<InputButtonCheckbox/>}></Route>
+            </Routes>
         </div>
     );
 };

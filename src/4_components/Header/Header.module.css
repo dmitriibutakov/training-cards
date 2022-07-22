@@ -4,7 +4,7 @@
     z-index: 2;
     top: 10px;
     display: flex;
-    height: 40px;
+    height: 10px;
     justify-content: flex-end;
     align-items: center;
     transition: all 1s ease-in-out;
@@ -34,7 +34,7 @@
 }
 
 .navigation__hidden {
-    right: -500px;
+    right: -560px;
 }
 
 .burger, .burger__active {
@@ -97,13 +97,16 @@
         right: 10px;
         height: 250px;
     }
+
     .navigation .navigate {
         transition: opacity 6s ease;
     }
+
     .navigation__hidden .navigate {
         transition: opacity .5s ease;
         opacity: 0;
     }
+
     .navigation .navigate > *:not(:last-child),
     .navigation__hidden .navigate > *:not(:last-child) {
         margin-bottom: 15px;
