@@ -26,7 +26,7 @@
 }
 
 .link:hover {
-    color: rgba(35, 51, 178, 0.56);
+    color: #366EFF;
 }
 
 .navigation {
@@ -34,7 +34,7 @@
 }
 
 .navigation__hidden {
-    right: -560px;
+    right: -600px;
 }
 
 .burger, .burger__active {
@@ -58,11 +58,11 @@
 }
 
 .burger span {
-    background-color: #404456;
+    background-color: #366EFF;
 }
 
 .burger__active span {
-    background-color: #e59999;
+    background-color: #ff5f07;
 }
 
 .burger__active span:nth-child(1) {
