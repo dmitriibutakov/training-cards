@@ -5,13 +5,15 @@ import UniversalInput from "../../../../3_commons/common_components/UniversalInp
 import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
 import UniversalNavLink from "../../../../3_commons/common_components/UniversalNavLink/UniversalNavLink";
 import {PATH} from "../../../../3_commons/Path";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from 'formik';
-import {signUpTC} from "./signUp-reducer";
-import {AppReducersTypes} from "../../../../2_BLL/store";
+import {SignUpReducerType, signUpTC} from "./signUp-reducer";
+import {AppReducersTypes, AppStateType} from "../../../../2_BLL/store";
+import Loader from "../../../../3_commons/common_components/Loader/Loader";
 
 
 const SignUp = () => {
+    const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
     const dispatch = useDispatch()
     type FormikErrorType = {
         email?: string
@@ -25,6 +27,7 @@ const SignUp = () => {
             repeatPassword: ''
         },
         validate: (values) => {
+
             const errors: FormikErrorType = {}
             if (!values.email) {
                 errors.email = 'email is required'
@@ -34,10 +37,12 @@ const SignUp = () => {
                 errors.password = "password is required"
             } else if (!values.repeatPassword) {
                 errors.repeatPassword = "password is required"
-            } else if (values.password.length < 8 && values.repeatPassword.length < 8) {
+            } else if (values.password.length < 8) {
                 errors.password = "min length 8 symbols"
-            } else if (values.password !== values.repeatPassword) {
-                alert('password is not accepted')
+            } else if (values.repeatPassword.length < 8) {
+                errors.repeatPassword = "min length 8 symbols"
+            } else if (values.repeatPassword !== values.password) {
+                errors.repeatPassword = "please repeat correct password"
             }
             return errors
         },
@@ -46,9 +51,9 @@ const SignUp = () => {
             formik.resetForm()
         },
     })
-
     return (
         <div className={commonClass.container}>
+            {isFetching && <Loader/>}
             <UniversalTitle title={'Sign Up'}/>
             <form onSubmit={formik.handleSubmit}>
                 <UniversalInput {...formik.getFieldProps("email")}
@@ -62,8 +67,8 @@ const SignUp = () => {
                 <UniversalInput {...formik.getFieldProps("repeatPassword")}
                                 placeholder={"confirm password"}
                                 type={"password"}/>
-                {formik.touched.password && formik.errors.password && <div>{formik.errors.repeatPassword}</div>}
-                <UniversalBtn type={'submit'} text={"Sign Up"}/>
+                {formik.touched.repeatPassword && formik.errors.repeatPassword && <div>{formik.errors.repeatPassword}</div>}
+                <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} type={'submit'} text={"Sign Up"}/>
             </form>
             <p>Already have an account?</p>
             <UniversalNavLink path={PATH.signIn} title={"Sign In"}/>

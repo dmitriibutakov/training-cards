@@ -14,6 +14,8 @@ const AuthReducer = (state: AuthStateType = initialState, action: AuthReducerTyp
     switch (action.type) {
         case "SET-IS-LOGIN":
             return {...state, ...action.payload}
+        case "SET-IS-FETCHING":
+            return {...state, ...action.payload}
         default:
             return state
     }

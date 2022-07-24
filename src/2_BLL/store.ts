@@ -16,5 +16,4 @@ export default store;
 
 export type AppReducersTypes = AppReducerType | AuthReducerType | SignUpReducerType
 
-
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppReducersTypes>
