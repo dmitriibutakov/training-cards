@@ -6,7 +6,7 @@ import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/U
 import UniversalNavLink from "../../../../3_commons/common_components/UniversalNavLink/UniversalNavLink";
 import {PATH} from "../../../../3_commons/Path";
 import {useDispatch} from "react-redux";
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import {signUpTC} from "./signUp-reducer";
 import {AppReducersTypes} from "../../../../2_BLL/store";
 
@@ -34,7 +34,7 @@ const SignUp = () => {
                 errors.password = "password is required"
             } else if (!values.repeatPassword) {
                 errors.repeatPassword = "password is required"
-            } else if (values.password.length < 8) {
+            } else if (values.password.length < 8 && values.repeatPassword.length < 8) {
                 errors.password = "min length 8 symbols"
             } else if (values.password !== values.repeatPassword) {
                 alert('password is not accepted')
@@ -52,10 +52,17 @@ const SignUp = () => {
             <UniversalTitle title={'Sign Up'}/>
             <form onSubmit={formik.handleSubmit}>
                 <UniversalInput {...formik.getFieldProps("email")}
-                    placeholder={"email"}/>
+                                placeholder={"email"}/>
                 {formik.touched.email && formik.errors.email && <div>{formik.errors.email}</div>}
-                <UniversalInput {...formik.getFieldProps("password")} placeholder={"password"} type={"password"}/>
-                <UniversalInput {...formik.getFieldProps("repeatPassword")} placeholder={"confirm password"} type={"password"}/>
+
+                <UniversalInput {...formik.getFieldProps("password")}
+                                placeholder={"password"}
+                                type={"password"}/>
+                {formik.touched.password && formik.errors.password && <div>{formik.errors.password}</div>}
+                <UniversalInput {...formik.getFieldProps("repeatPassword")}
+                                placeholder={"confirm password"}
+                                type={"password"}/>
+                {formik.touched.password && formik.errors.password && <div>{formik.errors.repeatPassword}</div>}
                 <UniversalBtn type={'submit'} text={"Sign Up"}/>
             </form>
             <p>Already have an account?</p>

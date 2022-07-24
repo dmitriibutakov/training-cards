@@ -7,9 +7,10 @@ type UniversalInputType = {
     type?: string
     name?: string
     onChange?: (e: React.ChangeEvent<any>) => void;
+    onBlur?: (e: React.FocusEvent<any>) => void;
     value?: string
 }
-const   UniversalInput: React.FC<UniversalInputType> = ({placeholder, type, name, onChange, value}) => {
+const   UniversalInput: React.FC<UniversalInputType> = ({placeholder, type, name, onChange, value, onBlur}) => {
     const [show, setShow] = useState<boolean>(false)
     return (
         <div className={privateClass.input__body}>
@@ -18,7 +19,8 @@ const   UniversalInput: React.FC<UniversalInputType> = ({placeholder, type, name
                    placeholder={placeholder}
                    onChange={onChange}
                    className={privateClass.input}
-                   value={value}/>
+                   value={value}
+            onBlur={onBlur}/>
             {type === "password"
                 ? <img className={privateClass.show} onClick={() => setShow(!show)} src={showImg} alt="show password"/>
                 : null}
