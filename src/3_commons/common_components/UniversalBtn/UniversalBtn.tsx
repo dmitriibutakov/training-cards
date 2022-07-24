@@ -3,10 +3,11 @@ import privateClass from "./UniversalBtn.module.css"
 
 type UniversalBtnType = {
     text: string
+    type?: "button" | "submit" | "reset"
 }
-const UniversalBtn = (props: UniversalBtnType) => {
+const UniversalBtn:React.FC<UniversalBtnType> = ({text, type}) => {
     return (
-        <button className={privateClass.btn}>{props.text}</button>
+        <button type={type} className={privateClass.btn}>{text}</button>
     );
 };
 

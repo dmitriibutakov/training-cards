@@ -2,11 +2,12 @@ import {applyMiddleware, combineReducers, legacy_createStore } from "redux";
 import AppReducer, {AppReducerType} from "./app-reducer";
 import AuthReducer, {AuthReducerType} from "./auth-reducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
-import {SignUpReducerType} from "../4_components/Main/Auth/SignUp/signUp-reducer";
+import signUpReducer, {SignUpReducerType} from "../4_components/Main/Auth/SignUp/signUp-reducer";
 
 const rootReducer = combineReducers({
     app: AppReducer,
-    auth: AuthReducer
+    auth: AuthReducer,
+    signUp: signUpReducer
 })
 
 const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))

@@ -1,26 +1,28 @@
+import {setIsFetching, SetIsFetchingType} from "../../../../3_commons/common_actions/common_actions";
+import {AuthAPI} from "../../../../1_DAL/Api";
 import {AppThunk} from "../../../../2_BLL/store";
-import {setIsFetching} from "../../../../3_commons/common_actions/common_actions";
 
-type AuthStateType = {
+type SignUpStateType = {
 }
 
-let initialState: AuthStateType = {
+let initialState: SignUpStateType = {
 }
 
-const SignUpReducer = (state: AuthStateType = initialState, action: SignUpReducerType): AuthStateType => {
+const SignUpReducer = (state: SignUpStateType = initialState, action: SignUpReducerType): SignUpStateType => {
     switch (action.type) {
-        case "SET-IS-AUTH":
-            return {...state, ...action.payload}
         default:
             return state
     }
 };
 
-export type SignUpReducerType = any
+export type SignUpReducerType = SetIsFetchingType
 
-const test = (isAuth: boolean) => ({type: "SET-IS-AUTH", payload:{isAuth}} as const)
-export const signUp = (email: string, password: string, repeatPassword: string): AppThunk => async dispatch => {
-    await dispatch(setIsFetching(true))
+
+export const signUpTC = (email: string, password: string, repeatPassword: string): AppThunk => async dispatch => {
+    dispatch(setIsFetching(true))
+    await AuthAPI.signUp(email, password).then(res => {
+        console.log(res)
+    })
 }
 
 export default SignUpReducer;
