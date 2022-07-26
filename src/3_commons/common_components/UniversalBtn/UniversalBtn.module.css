@@ -1,18 +1,21 @@
-.btn {
+.btn, .btn__disabled {
     position: relative;
     width: 120px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    margin: 20px auto;
     font-weight: 600;
     background-color: #366EFF;
     color: #fff;
     border-radius: 5px;
     text-transform: uppercase;
 }
-
+.btn__disabled {
+    background-color: #adb5bd;
+    color: #232328;
+}
 .btn:after, .btn:before {
     transition: .5s all;
 }

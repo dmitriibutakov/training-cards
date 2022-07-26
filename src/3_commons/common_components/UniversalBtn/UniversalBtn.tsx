@@ -3,12 +3,15 @@ import privateClass from "./UniversalBtn.module.css"
 
 type UniversalBtnType = {
     text: string
-    type?: any
+    type?: "button" | "submit" | "reset"
     disabled?:boolean
 }
-const UniversalBtn = (props: UniversalBtnType) => {
+const UniversalBtn:React.FC<UniversalBtnType> = ({text, type, disabled}) => {
     return (
-        <button className={privateClass.btn} type={props.type} disabled={props.disabled}>{props.text}</button>
+        <button type={type}
+                disabled={disabled}
+                className={disabled ? privateClass.btn__disabled : privateClass.btn}>{text}</button>
+
     );
 };
 

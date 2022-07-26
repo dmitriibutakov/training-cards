@@ -20,3 +20,7 @@
 .container > *:not(:last-child) {
     margin-bottom: 24px;
 }
+
+.error {
+    color: #ff5f07;
+}

@@ -6,14 +6,19 @@ import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/U
 import UniversalNavLink from "../../../../3_commons/common_components/UniversalNavLink/UniversalNavLink";
 import {PATH} from "../../../../3_commons/Path";
 import {useDispatch, useSelector} from "react-redux";
+import {useFormik} from 'formik';
 import {AppStateType} from "../../../../2_BLL/store";
-import { useFormik } from 'formik';
-import {signUp} from "./signUp-reducer";
+import Loader from "../../../../3_commons/common_components/Loader/Loader";
+import {signUpTC} from "../../../../2_BLL/auth-reducer";
+import {Navigate} from "react-router-dom";
 
 
 const SignUp = () => {
+    const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
+    const err = useSelector<AppStateType, string>(state => state.app.error)
+    const isResponse = useSelector<AppStateType, boolean>(state => state.auth.isResponse)
     const dispatch = useDispatch()
-    const isLoggedIn = useSelector<AppStateType, boolean>((state) => state.auth.isLoggedIn)
+
     type FormikErrorType = {
         email?: string
         password?: string
@@ -26,35 +31,51 @@ const SignUp = () => {
             repeatPassword: ''
         },
         validate: (values) => {
+
             const errors: FormikErrorType = {}
             if (!values.email) {
                 errors.email = 'email is required'
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+            } else if (!/^[A-Z/d._%+-]+@[A-Z/d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address'
-            }
-            if (!values.password) {
+            } else if (!values.password) {
                 errors.password = "password is required"
             } else if (!values.repeatPassword) {
                 errors.repeatPassword = "password is required"
             } else if (values.password.length < 8) {
                 errors.password = "min length 8 symbols"
+            } else if (values.repeatPassword.length < 8) {
+                errors.repeatPassword = "min length 8 symbols"
+            } else if (values.repeatPassword !== values.password) {
+                errors.repeatPassword = "confirm your password currectly"
             }
             return errors
         },
         onSubmit: values => {
-            // dispatch(signUp(values.email, values.password, values.repeatPassword))
+            dispatch<any>(signUpTC(values.email, values.password))
             formik.resetForm()
         },
     })
-
+    if (isResponse) return <Navigate to={"/sign-in"}/>
     return (
         <div className={commonClass.container}>
+            {isFetching && <Loader/>}
             <UniversalTitle title={'Sign Up'}/>
-            <form>
-                <UniversalInput placeholder={"email"}/>
-                <UniversalInput placeholder={"password"} type={"password"}/>
-                <UniversalInput placeholder={"confirm password"} type={"password"}/>
-                <UniversalBtn text={"Sign Up"}/>
+            <form onSubmit={formik.handleSubmit}>
+                <UniversalInput {...formik.getFieldProps("email")}
+                                placeholder={"email"}/>
+                {formik.touched.email && formik.errors.email && <div>{formik.errors.email}</div>}
+
+                <UniversalInput {...formik.getFieldProps("password")}
+                                placeholder={"password"}
+                                type={"password"}/>
+                {formik.touched.password && formik.errors.password && <div>{formik.errors.password}</div>}
+                <UniversalInput {...formik.getFieldProps("repeatPassword")}
+                                placeholder={"confirm password"}
+                                type={"password"}/>
+                {formik.touched.repeatPassword && formik.errors.repeatPassword &&
+                    <div>{formik.errors.repeatPassword}</div>}
+                {err && <div className={commonClass.error}>{err}</div>}
+                <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} type={'submit'} text={"Sign Up"}/>
             </form>
             <p>Already have an account?</p>
             <UniversalNavLink path={PATH.signIn} title={"Sign In"}/>

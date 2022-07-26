@@ -6,8 +6,6 @@ export const instance = axios.create({
     withCredentials: true,
 })
 
-
-
 export const AuthAPI = {
     signIn(data:LoginParamsType){
         return instance.post<any>("auth/login",data)
@@ -18,13 +16,10 @@ export const AuthAPI = {
     passwordReset(){
 
     },
-    signUp (){
-
-    }
+    signUp: (email: string, password: string) => instance.post('/auth/register', {email, password})
 }
 
 export type LoginParamsType ={
     email: string
     password:string
     rememberMe:boolean
-}

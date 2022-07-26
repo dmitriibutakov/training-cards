@@ -8,8 +8,7 @@ import {showImg} from "../../common_images/commonImages";
     type?: string | undefined
     handleChange?: any
     value?: string
-}*/
-// тип пропсов обычного инпута
+}
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 type UniversalInputType = DefaultInputPropsType & {
