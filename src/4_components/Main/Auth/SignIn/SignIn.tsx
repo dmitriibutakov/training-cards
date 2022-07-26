@@ -58,8 +58,8 @@ const SignIn = () => {
     return (
         <div className={commonClass.container}>
             <UniversalTitle title={'Sign in'}/>
-            <p>email:test_projects@yahoo.com</p>
-            <p>password: test123456</p>
+            <p>email: <b>test_projects@yahoo.com</b></p>
+            <p>password: <b>test123456</b></p>
             <form onSubmit={formik.handleSubmit}>
                 <UniversalInput placeholder={"email"} {...formik.getFieldProps("email")}/>
                 {formik.touched.email && formik.errors.email && <div style={{color: "red"}}>{formik.errors.email}</div>}
