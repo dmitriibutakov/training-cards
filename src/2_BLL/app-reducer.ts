@@ -4,7 +4,7 @@ type AppType = {
 }
 
 let initialState: AppType = {
-    errorResponse: ''
+    errorResponse: null
 }
 
 const appReducer = (state: AppType = initialState, action: AppReducerType): AppType => {
