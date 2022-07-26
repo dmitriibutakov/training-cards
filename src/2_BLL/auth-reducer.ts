@@ -47,6 +47,7 @@ export const signUpTC = (email: string, password: string): AppThunk => (dispatch
     dispatch(setIsFetching(true))
     AuthAPI.signUp(email, password)
         .then(res => {
+            console.log(res)
             dispatch(setIsFetching(false))
             dispatch(setResponse(true))
         })
