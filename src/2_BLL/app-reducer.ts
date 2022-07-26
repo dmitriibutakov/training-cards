@@ -1,3 +1,4 @@
+
 type AppType = {
     error: string
 }

@@ -10,7 +10,6 @@ export const AuthAPI = {
     },
     logOut: () => {
     },
-    passwordReset: () => {
-    },
+    passwordReset: (newPassword: string) => instance.post('/auth/set-new-password', newPassword),
     signUp: (email: string, password: string) => instance.post('/auth/register', {email, password})
 }

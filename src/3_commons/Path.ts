@@ -3,6 +3,6 @@ export const PATH = {
     signIn: '/sign-in',
     signUp: '/sign-up',
     error: '/404',
-    passwordReset: '/password-reset',
+    resetPassword: '/reset-password',
     testComponents: '/test-components'
 }
