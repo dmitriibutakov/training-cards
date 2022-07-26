@@ -10,11 +10,13 @@ import {useFormik} from 'formik';
 import {AppStateType} from "../../../../2_BLL/store";
 import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import {signUpTC} from "../../../../2_BLL/auth-reducer";
+import {Navigate} from "react-router-dom";
 
 
 const SignUp = () => {
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
     const err = useSelector<AppStateType, string>(state => state.app.error)
+    const isResponse = useSelector<AppStateType, boolean>(state => state.auth.isResponse)
     const dispatch = useDispatch()
 
     type FormikErrorType = {
@@ -53,6 +55,7 @@ const SignUp = () => {
             formik.resetForm()
         },
     })
+    if (isResponse) return <Navigate to={"/sign-in"}/>
     return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}

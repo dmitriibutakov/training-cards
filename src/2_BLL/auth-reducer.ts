@@ -7,35 +7,42 @@ import {AxiosError} from "axios";
 export type AuthStateType = {
     isLoggedIn: boolean
     isFetching: boolean
+    isResponse: boolean
 }
 
 let initialState: AuthStateType = {
     isLoggedIn: false,
     isFetching: false,
+    isResponse: false
 }
 
 const AuthReducer = (state: AuthStateType = initialState, action: AuthReducerType): AuthStateType => {
     switch (action.type) {
         case "SET-IS-LOGIN":
-            return {...state, ...action.payload}
+            return {...state, isLoggedIn: action.isLoggedIn}
         case "SET-IS-FETCHING":
-            return {...state, ...action.payload}
+            return {...state, isFetching: action.isFetching}
+        case "SET-RESPONSE":
+            return {...state, isResponse: action.response}
         default:
             return state
     }
 };
 
-export type AuthReducerType = SetIsLogin | SetIsFetchingType
+export type AuthReducerType = SetIsLoginType | SetIsFetchingType | SetResponseType
 
-type SetIsLogin = ReturnType<typeof setIsLoginAC>
+type SetIsLoginType = ReturnType<typeof setIsLoginAC>
+type SetResponseType = ReturnType<typeof setResponseAC>
 
-const setIsLoginAC = (isLoggedIn: boolean) => ({type: "SET-IS-LOGIN", payload: {isLoggedIn}} as const)
+const setIsLoginAC = (isLoggedIn: boolean) => ({type: "SET-IS-LOGIN", isLoggedIn} as const)
+const setResponseAC = (response: boolean) => ({type: "SET-RESPONSE", response} as const)
 
 export const signUpTC = (email: string, password: string): AppThunk => (dispatch) => {
     dispatch(setIsFetching(true))
     AuthAPI.signUp(email, password)
         .then(res => {
         dispatch(setIsFetching(false))
+            dispatch(setResponseAC(true))
     })
         .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
 }
