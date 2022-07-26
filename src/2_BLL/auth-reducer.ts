@@ -3,7 +3,6 @@ import {AppThunk} from "./store";
 import {AuthAPI, LoginParamsType} from "../1_DAL/Api";
 import {errorUtils} from "../3_commons/errors-utils";
 import {AxiosError} from "axios";
-import {Dispatch} from "redux";
 
 export type AuthStateType = {
     isLoggedIn: boolean
@@ -55,10 +54,13 @@ export const signUpTC = (email: string, password: string): AppThunk => (dispatch
         .finally(() => dispatch(setButtonDisable(false)))
 }
 
-export const loginTC = (data: LoginParamsType): AppThunk => (dispatch: Dispatch<AuthReducerType>) => {
+export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
     dispatch(setButtonDisable(true))
+    dispatch(setIsFetching(true))
     AuthAPI.signIn(data).then(res => {
         console.log(res)
+        dispatch(setIsFetching(false))
+        dispatch(setResponse(true))
     })
         .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
         .finally(() => {
@@ -67,4 +69,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch: Dispatch<
 
 }
 
+export const resetPasswordTC = (email: string):AppThunk => (dispatch) => {
+    dispatch(setIsFetching(true))
+}
 export default AuthReducer;

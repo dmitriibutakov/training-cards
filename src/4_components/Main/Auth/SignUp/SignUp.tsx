@@ -14,6 +14,7 @@ import {Navigate} from "react-router-dom";
 
 
 const SignUp = () => {
+    const disabled = useSelector<AppStateType, boolean>(state => state.auth.buttonDisable)
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
     const errorResponse = useSelector<AppStateType, string | null>(state => state.app.errorResponse)
     const isResponse = useSelector<AppStateType, boolean>(state => state.auth.isResponse)
@@ -51,7 +52,7 @@ const SignUp = () => {
             return errors
         },
         onSubmit: values => {
-            dispatch<any>(signUpTC(values.email, values.password))
+            dispatch(signUpTC(values.email, values.password))
             formik.resetForm()
         },
     })
@@ -80,7 +81,7 @@ const SignUp = () => {
                                 textError={formik.errors.repeatPassword}/>
 
                 {errorResponse && <div className={commonClass.error}>{errorResponse}</div>}
-                <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} type={'submit'} text={"Sign Up"}/>
+                <UniversalBtn disabled={disabled} type={'submit'} text={"Sign Up"}/>
             </form>
             <p>Already have an account?</p>
             <UniversalNavLink path={PATH.signIn} title={"Sign In"}/>
