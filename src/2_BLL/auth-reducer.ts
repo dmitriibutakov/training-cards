@@ -1,13 +1,17 @@
-import {SetIsFetchingType} from "../3_commons/common_actions/common_actions";
+import {setIsFetching, SetIsFetchingType} from "../3_commons/common_actions/common_actions";
+import {AppThunk} from "./store";
+import {AuthAPI} from "../1_DAL/Api";
+import {errorUtils} from "../3_commons/errors-utils";
+import {AxiosError} from "axios";
 
-type AuthStateType = {
+export type AuthStateType = {
     isLoggedIn: boolean
     isFetching: boolean
 }
 
 let initialState: AuthStateType = {
     isLoggedIn: false,
-    isFetching: false
+    isFetching: false,
 }
 
 const AuthReducer = (state: AuthStateType = initialState, action: AuthReducerType): AuthStateType => {
@@ -21,9 +25,20 @@ const AuthReducer = (state: AuthStateType = initialState, action: AuthReducerTyp
     }
 };
 
-export type AuthReducerType = ReturnType<typeof setIsLogin> | SetIsFetchingType
+export type AuthReducerType = SetIsLogin | SetIsFetchingType
 
+type SetIsLogin = ReturnType<typeof setIsLoginAC>
 
-const setIsLogin = (isLoggedIn: boolean) => ({type: "SET-IS-LOGIN", payload: {isLoggedIn}} as const)
+const setIsLoginAC = (isLoggedIn: boolean) => ({type: "SET-IS-LOGIN", payload: {isLoggedIn}} as const)
+
+export const signUpTC = (email: string, password: string): AppThunk => (dispatch) => {
+    dispatch(setIsFetching(true))
+    AuthAPI.signUp(email, password)
+        .then(res => {
+        dispatch(setIsFetching(false))
+    })
+        .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
+}
+
 
 export default AuthReducer;

@@ -7,14 +7,16 @@ import UniversalNavLink from "../../../../3_commons/common_components/UniversalN
 import {PATH} from "../../../../3_commons/Path";
 import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from 'formik';
-import {SignUpReducerType, signUpTC} from "./signUp-reducer";
-import {AppReducersTypes, AppStateType} from "../../../../2_BLL/store";
+import {AppStateType} from "../../../../2_BLL/store";
 import Loader from "../../../../3_commons/common_components/Loader/Loader";
+import {signUpTC} from "../../../../2_BLL/auth-reducer";
 
 
 const SignUp = () => {
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
+    const err = useSelector<AppStateType, string>(state => state.app.error)
     const dispatch = useDispatch()
+
     type FormikErrorType = {
         email?: string
         password?: string
@@ -42,12 +44,12 @@ const SignUp = () => {
             } else if (values.repeatPassword.length < 8) {
                 errors.repeatPassword = "min length 8 symbols"
             } else if (values.repeatPassword !== values.password) {
-                errors.repeatPassword = "please repeat correct password"
+                errors.repeatPassword = "confirm your password currectly"
             }
             return errors
         },
         onSubmit: values => {
-            dispatch<AppReducersTypes>(signUpTC(values.email, values.password, values.repeatPassword))
+            dispatch<any>(signUpTC(values.email, values.password))
             formik.resetForm()
         },
     })
@@ -67,7 +69,9 @@ const SignUp = () => {
                 <UniversalInput {...formik.getFieldProps("repeatPassword")}
                                 placeholder={"confirm password"}
                                 type={"password"}/>
-                {formik.touched.repeatPassword && formik.errors.repeatPassword && <div>{formik.errors.repeatPassword}</div>}
+                {formik.touched.repeatPassword && formik.errors.repeatPassword &&
+                    <div>{formik.errors.repeatPassword}</div>}
+                {err && <div className={commonClass.error}>{err}</div>}
                 <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} type={'submit'} text={"Sign Up"}/>
             </form>
             <p>Already have an account?</p>
