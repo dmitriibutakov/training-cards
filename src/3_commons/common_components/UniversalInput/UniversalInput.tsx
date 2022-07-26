@@ -2,13 +2,6 @@ import React, {DetailedHTMLProps, InputHTMLAttributes, useState} from 'react';
 import privateClass from "./UniversalInput.module.css"
 import {showImg} from "../../common_images/commonImages";
 
-/*type UniversalInputType = {
-    placeholder: string
-    name?: string
-    type?: string | undefined
-    handleChange?: any
-    value?: string
-}
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 type UniversalInputType = DefaultInputPropsType & {

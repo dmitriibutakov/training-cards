@@ -5,13 +5,13 @@ import UniversalTitle from "../../../../3_commons/common_components/UniversalTit
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
 import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
 import {PATH} from "../../../../3_commons/Path";
-import {Navigate, NavLink, Route, Routes} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import UniversalNavLink from "../../../../3_commons/common_components/UniversalNavLink/UniversalNavLink";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import UniversalCheckbox from "../../../../3_commons/common_components/UniversalCheckbox/UniversalCheckbox";
 import {useFormik} from "formik";
-import {loginTC} from "./singIn-reducer";
 import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
+import {loginTC} from "../../../../2_BLL/auth-reducer";
 
 
 const SignIn = () => {
@@ -34,26 +34,22 @@ const SignIn = () => {
         validate: (values) => {
             const errors: FormikErrorType = {};
             if (!values.email) {
-                errors.email = 'Required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'email is required';
+            } else if (!/^[A-Z/d._%+-]+@[A-Z/d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
             if (!values.password) {
-                errors.password = 'Пароль обязателен'
-            } else if (values.password.length < 3) {
-                errors.password = 'Пароль должен быть больше трех символов'
+                errors.password = 'password is required'
+            } else if (values.password.length < 8) {
+                errors.password = 'must be more than 8 symbols'
             }
             return errors;
         },
         onSubmit: values => {
-           //  dispatch(signUp(values.email, values.password, values.repeatPassword))
-           // alert(JSON.stringify(values));
             dispatch(loginTC(values))
             formik.resetForm()
-
         },
     })
-
 
     if (isLoggedIn) {
          return <Navigate to={"/profile"}/>
@@ -63,21 +59,15 @@ const SignIn = () => {
         <div className={commonClass.container}>
             <UniversalTitle title={'Sign in'}/>
             <form onSubmit={formik.handleSubmit}>
-                <UniversalInput placeholder={"email"} name={"email"} onChange={formik.handleChange}
-                                value={formik.values.email} onBlur={formik.handleBlur}/>
+                <UniversalInput placeholder={"email"} {...formik.getFieldProps("email")}/>
                 {formik.touched.email && formik.errors.email && <div style={{color: "red"}}>{formik.errors.email}</div>}
-                <UniversalInput
-                    placeholder={"password"} type={"password"} name={"password"} onChange={formik.handleChange}
-                    value={formik.values.password} onBlur={formik.handleBlur}/>
+                <UniversalInput {...formik.getFieldProps("password")}
+                                placeholder={"password"}
+                                type={"password"}/>
                 {formik.touched.password && formik.errors.password &&
                     <div style={{color: "red"}}>{formik.errors.password}</div>}
-                <div className={style.checkboxContainer}>
-                    <UniversalCheckbox children={"Remember me"} name={"rememberMe"} onChange={formik.handleChange}
-                                       checked={formik.values.rememberMe} onBlur={formik.handleBlur}/>
-                </div>
-                <div className={style.forgotPasswordContainer}>
-                    <NavLink className={style.forgotPassword} to={PATH.passwordReset}>Forgot Password</NavLink>
-                </div>
+                    <UniversalCheckbox children={"Remember me"} {...formik.getFieldProps("rememberMe")}/>
+                    <NavLink to={PATH.passwordReset}>Forgot Password</NavLink>
                 <UniversalBtn text={"Login"} type={"submit"} disabled={disabled}/>
             </form>
             <p>Don't have an account?</p>

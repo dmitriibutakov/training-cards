@@ -19,7 +19,8 @@ export const AuthAPI = {
     signUp: (email: string, password: string) => instance.post('/auth/register', {email, password})
 }
 
-export type LoginParamsType ={
+export type LoginParamsType = {
     email: string
-    password:string
-    rememberMe:boolean
+    password: string
+    rememberMe: boolean
+}

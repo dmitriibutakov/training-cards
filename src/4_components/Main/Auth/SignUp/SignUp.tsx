@@ -15,7 +15,7 @@ import {Navigate} from "react-router-dom";
 
 const SignUp = () => {
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
-    const err = useSelector<AppStateType, string>(state => state.app.error)
+    const err = useSelector<AppStateType, string | null>(state => state.app.error)
     const isResponse = useSelector<AppStateType, boolean>(state => state.auth.isResponse)
     const dispatch = useDispatch()
 
@@ -63,17 +63,18 @@ const SignUp = () => {
             <form onSubmit={formik.handleSubmit}>
                 <UniversalInput {...formik.getFieldProps("email")}
                                 placeholder={"email"}/>
-                {formik.touched.email && formik.errors.email && <div>{formik.errors.email}</div>}
-
+                {formik.touched.email && formik.errors.email &&
+                    <div style={{color: "red"}}>{formik.errors.email}</div>}
                 <UniversalInput {...formik.getFieldProps("password")}
                                 placeholder={"password"}
                                 type={"password"}/>
-                {formik.touched.password && formik.errors.password && <div>{formik.errors.password}</div>}
+                {formik.touched.password && formik.errors.password &&
+                    <div style={{color: "red"}}>{formik.errors.password}</div>}
                 <UniversalInput {...formik.getFieldProps("repeatPassword")}
                                 placeholder={"confirm password"}
                                 type={"password"}/>
                 {formik.touched.repeatPassword && formik.errors.repeatPassword &&
-                    <div>{formik.errors.repeatPassword}</div>}
+                    <div style={{color: "red"}}>{formik.errors.repeatPassword}</div>}
                 {err && <div className={commonClass.error}>{err}</div>}
                 <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} type={'submit'} text={"Sign Up"}/>
             </form>

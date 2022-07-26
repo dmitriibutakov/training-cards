@@ -17,10 +17,12 @@
     font-weight: 500;
 }
 
-.container > *:not(:last-child) {
-    margin-bottom: 24px;
+.container >*:not(:last-child) {
+    margin-bottom: 30px;
 }
-
+.container form >*:not(:last-child) {
+    margin-bottom: 20px;
+}
 .error {
     color: #ff5f07;
 }
