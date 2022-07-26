@@ -10,19 +10,27 @@ export const AuthAPI = {
         instance.post<LoginParamsType, AxiosResponse<ResponseDataType>>
         ("auth/login", data),
     logOut: () => {},
-    passwordReset: (email: string) =>
-        instance.post<{ email: string }, AxiosResponse<ResponseResetPasswordType>>
-        ("/auth/forgot", email),
+    resetPassword: (email: string, token: string) =>
+        instance.post<ResetPasswordParamsType, AxiosResponse<ResponseResetPasswordType>>
+        ("/auth/forgot", {email, token}),
     signUp: (email: string, password: string) =>
         instance.post<LoginParamsType, AxiosResponse<ResponseSignUpType<ResponseDataType>>>
         ("/auth/register", {email, password})
 }
 
-export type LoginParamsType = {
+ export type LoginParamsType = {
     email: string
     password: string
     rememberMe?: boolean
 }
+
+type ResetPasswordParamsType = {
+    email: string
+    from: "test-front-admin dmitryload@yahoo.com"
+    message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
+</div>`
+}
+
 type ResponseDataType = {
     _id: string;
     email: string;
