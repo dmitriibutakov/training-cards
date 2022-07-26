@@ -17,8 +17,8 @@ import {loginTC} from "../../../../2_BLL/auth-reducer";
 const SignIn = () => {
 
     const dispatch = useAppDispatch();
-    const isLoggedIn = useSelector<AppStateType,boolean>(state => state.auth.isLoggedIn)
-    const disabled = useSelector<AppStateType,boolean>(state => state.auth.buttonDisable)
+    const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
+    const disabled = useSelector<AppStateType, boolean>(state => state.auth.buttonDisable)
 
     type FormikErrorType = {
         email?: string
@@ -52,7 +52,7 @@ const SignIn = () => {
     })
 
     if (isLoggedIn) {
-         return <Navigate to={"/profile"}/>
+        return <Navigate to={"/profile"}/>
     }
 
     return (
@@ -61,15 +61,22 @@ const SignIn = () => {
             <p>email: <b>test_projects@yahoo.com</b></p>
             <p>password: <b>test123456</b></p>
             <form onSubmit={formik.handleSubmit}>
-                <UniversalInput placeholder={"email"} {...formik.getFieldProps("email")}/>
-                {formik.touched.email && formik.errors.email && <div style={{color: "red"}}>{formik.errors.email}</div>}
+
+                <UniversalInput placeholder={"email"}
+                                error={formik.touched.email && formik.errors.email}
+                                textError={formik.errors.email}
+                                {...formik.getFieldProps("email")}/>
+
                 <UniversalInput {...formik.getFieldProps("password")}
                                 placeholder={"password"}
-                                type={"password"}/>
-                {formik.touched.password && formik.errors.password &&
-                    <div style={{color: "red"}}>{formik.errors.password}</div>}
-                    <UniversalCheckbox children={"Remember me"} {...formik.getFieldProps("rememberMe")}/>
-                    <NavLink to={PATH.passwordReset}>Forgot Password</NavLink>
+                                type={"password"}
+                                error={formik.touched.password && formik.errors.password}
+                                textError={formik.errors.password}/>
+
+                <UniversalCheckbox children={"Remember me"}
+                                   {...formik.getFieldProps("rememberMe")}/>
+
+                <NavLink to={PATH.passwordReset}>Forgot Password</NavLink>
                 <UniversalBtn text={"Login"} type={"submit"} disabled={disabled}/>
             </form>
             <p>Don't have an account?</p>

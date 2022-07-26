@@ -7,15 +7,9 @@ export const instance = axios.create({
 })
 
 export const AuthAPI = {
-    signIn(data:LoginParamsType){
-        return instance.post<any>("auth/login",data)
-    },
-    logOut() {
-
-    },
-    passwordReset(){
-
-    },
+    signIn: (data:LoginParamsType) => instance.post<any>("auth/login",data),
+    logOut:() => {},
+    passwordReset: () => {},
     signUp: (email: string, password: string) => instance.post('/auth/register', {email, password})
 }
 

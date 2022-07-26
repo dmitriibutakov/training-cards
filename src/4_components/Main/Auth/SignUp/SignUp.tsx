@@ -5,9 +5,9 @@ import UniversalInput from "../../../../3_commons/common_components/UniversalInp
 import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
 import UniversalNavLink from "../../../../3_commons/common_components/UniversalNavLink/UniversalNavLink";
 import {PATH} from "../../../../3_commons/Path";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {useFormik} from 'formik';
-import {AppStateType} from "../../../../2_BLL/store";
+import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
 import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import {signUpTC} from "../../../../2_BLL/auth-reducer";
 import {Navigate} from "react-router-dom";
@@ -15,9 +15,9 @@ import {Navigate} from "react-router-dom";
 
 const SignUp = () => {
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
-    const err = useSelector<AppStateType, string | null>(state => state.app.error)
+    const errorResponse = useSelector<AppStateType, string | null>(state => state.app.errorResponse)
     const isResponse = useSelector<AppStateType, boolean>(state => state.auth.isResponse)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     type FormikErrorType = {
         email?: string
@@ -61,21 +61,25 @@ const SignUp = () => {
             {isFetching && <Loader/>}
             <UniversalTitle title={'Sign Up'}/>
             <form onSubmit={formik.handleSubmit}>
+
                 <UniversalInput {...formik.getFieldProps("email")}
-                                placeholder={"email"}/>
-                {formik.touched.email && formik.errors.email &&
-                    <div style={{color: "red"}}>{formik.errors.email}</div>}
+                                placeholder={"email"}
+                                error={formik.touched.email && formik.errors.email}
+                                textError={formik.errors.email}/>
+
                 <UniversalInput {...formik.getFieldProps("password")}
                                 placeholder={"password"}
-                                type={"password"}/>
-                {formik.touched.password && formik.errors.password &&
-                    <div style={{color: "red"}}>{formik.errors.password}</div>}
+                                type={"password"}
+                                error={formik.touched.password && formik.errors.password}
+                                textError={formik.errors.password}/>
+
                 <UniversalInput {...formik.getFieldProps("repeatPassword")}
                                 placeholder={"confirm password"}
-                                type={"password"}/>
-                {formik.touched.repeatPassword && formik.errors.repeatPassword &&
-                    <div style={{color: "red"}}>{formik.errors.repeatPassword}</div>}
-                {err && <div className={commonClass.error}>{err}</div>}
+                                type={"password"}
+                                error={formik.touched.repeatPassword && formik.errors.repeatPassword}
+                                textError={formik.errors.repeatPassword}/>
+
+                {errorResponse && <div className={commonClass.error}>{errorResponse}</div>}
                 <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} type={'submit'} text={"Sign Up"}/>
             </form>
             <p>Already have an account?</p>

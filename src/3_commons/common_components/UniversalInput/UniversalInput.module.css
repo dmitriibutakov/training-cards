@@ -3,7 +3,7 @@
     min-width: 200px;
 }
 .input {
-    margin: 5px 0;
+    margin: 10px 0;
     min-width: 200px;
     min-height: 20px;
     background-color: #ffffff;
@@ -17,4 +17,12 @@
     top: 25%;
     width: 20px;
     height: 20px;
+}
+.error {
+    width: 100%;
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+    font-weight: 500;
+    color: #fa4545;
 }
