@@ -1,5 +1,4 @@
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
-import style from "./Signln.module.css"
 import React from 'react';
 import UniversalTitle from "../../../../3_commons/common_components/UniversalTitle/UniversalTitle";
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
@@ -76,7 +75,7 @@ const SignIn = () => {
                 <UniversalCheckbox children={"Remember me"}
                                    {...formik.getFieldProps("rememberMe")}/>
 
-                <NavLink to={PATH.passwordReset}>Forgot Password</NavLink>
+                <NavLink to={PATH.resetPassword}>Forgot Password</NavLink>
                 <UniversalBtn text={"Login"} type={"submit"} disabled={disabled}/>
             </form>
             <p>Don't have an account?</p>
