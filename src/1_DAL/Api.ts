@@ -14,9 +14,9 @@ export const AuthAPI = {
         instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseDataType>>
         ("/auth/login", {...data}),
     logOut: () => {},
-    resetPassword: (email: string, token: string) =>
+    resetPassword: (email: string) =>
         instanceHeroku.post<ResetPasswordParamsType, AxiosResponse<ResponseResetPasswordType>>
-        (" /auth/forgot", {email, token}),
+        (" /auth/forgot", {email}),
     signUp: (email: string, password: string) =>
         instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseSignUpType<ResponseDataType>>>
         ("/auth/register", {email, password})

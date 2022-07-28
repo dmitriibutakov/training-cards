@@ -73,13 +73,14 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
         .finally(() => dispatch(setIsFetching(false)))
 }
 
-export const resetPasswordTC = (email: string, token: string): AppThunk => (dispatch) => {
+export const resetPasswordTC = (email: string): AppThunk => (dispatch) => {
     dispatch(setIsFetching(true))
-    AuthAPI.resetPassword(email, token)
+    AuthAPI.resetPassword(email)
         .then(res => {
             console.log(res)
             dispatch(setIsFetching(false))
         })
         .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
+        .finally(() => dispatch(setIsFetching(false)))
 }
 export default AuthReducer;
