@@ -1,5 +1,5 @@
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
-import React from 'react';
+import React, {useEffect} from 'react';
 import UniversalTitle from "../../../../3_commons/common_components/UniversalTitle/UniversalTitle";
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
 import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
@@ -11,6 +11,7 @@ import UniversalCheckbox from "../../../../3_commons/common_components/Universal
 import {useFormik} from "formik";
 import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
 import {loginTC} from "../../../../2_BLL/auth-reducer";
+import Loader from "../../../../3_commons/common_components/Loader/Loader";
 
 
 const SignIn = () => {
@@ -18,6 +19,7 @@ const SignIn = () => {
     const dispatch = useAppDispatch();
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
     const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
+    const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
 
     type FormikErrorType = {
         email?: string
@@ -50,12 +52,10 @@ const SignIn = () => {
         },
     })
 
-    if (isLoggedIn) {
-        return <Navigate to={"/profile"}/>
-    }
-
+    if (isLoggedIn) return <Navigate to={"/profile"}/>
     return (
         <div className={commonClass.container}>
+            {isFetching && <Loader/>}
             <UniversalTitle title={'Sign in'}/>
             <p>email: <b>test_projects@yahoo.com</b></p>
             <p>password: <b>test123456</b></p>

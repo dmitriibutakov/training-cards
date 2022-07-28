@@ -46,7 +46,7 @@ type SetResponseType = ReturnType<typeof setResponse>
 type SetButtonDisableType = ReturnType<typeof setButtonDisable>
 type SetInfoType = ReturnType<typeof setInfo>
 
-const setIsLogin = (isLoggedIn: boolean) => ({type: "SET-IS-LOGIN", isLoggedIn} as const)
+export const setIsLogin = (isLoggedIn: boolean) => ({type: "SET-IS-LOGIN", isLoggedIn} as const)
 const setInfo = (info: string) => ({type: "SET-INFO", info} as const)
 const setResponse = (response: boolean) => ({type: "SET-RESPONSE", response} as const)
 const setButtonDisable = (buttonDisable: boolean) => ({type: "SET-BTN-DISABLE", buttonDisable} as const)
@@ -57,26 +57,20 @@ export const signUpTC = (email: string, password: string): AppThunk => (dispatch
     AuthAPI.signUp(email, password)
         .then(res => {
             console.log(res)
-            dispatch(setIsFetching(false))
             dispatch(setResponse(true))
         })
         .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
-        .finally(() => dispatch(setButtonDisable(false)))
+        .finally(() => dispatch(setIsFetching(false)))
 }
 
 export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
-    dispatch(setButtonDisable(true))
     dispatch(setIsFetching(true))
     AuthAPI.signIn(data).then(res => {
         console.log(res)
-        dispatch(setIsFetching(false))
-        dispatch(setResponse(true))
+        dispatch(setIsLogin(true))
     })
         .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
-        .finally(() => {
-            dispatch(setButtonDisable(false))
-        })
-
+        .finally(() => dispatch(setIsFetching(false)))
 }
 
 export const resetPasswordTC = (email: string, token: string): AppThunk => (dispatch) => {
