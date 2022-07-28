@@ -11,3 +11,4 @@ export const errorUtils = (e: Error | AxiosError<{error: string}>, dispatch: Dis
         dispatch(setAppError(`Native error ${err.message}`))
     }
 }
+

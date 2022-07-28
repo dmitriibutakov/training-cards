@@ -1,16 +1,16 @@
 
 type AppType = {
-    errorResponse: string | null
+    errorOfResponse: string | null
 }
 
 let initialState: AppType = {
-    errorResponse: null
+    errorOfResponse: null
 }
 
 const appReducer = (state: AppType = initialState, action: AppReducerType): AppType => {
     switch (action.type) {
         case "SET-ERROR":
-            return {...state, errorResponse: action.errorResponse}
+            return {...state, errorOfResponse: action.errorOfResponse}
         default:
             return state
     }
@@ -18,6 +18,6 @@ const appReducer = (state: AppType = initialState, action: AppReducerType): AppT
 
 export type AppReducerType = SetAppErrorActionType
 export type SetAppErrorActionType = ReturnType<typeof setAppError>
-export const setAppError = (errorResponse: string) => ({type: 'SET-ERROR', errorResponse} as const)
+export const setAppError = (errorOfResponse: string) => ({type: 'SET-ERROR', errorOfResponse} as const)
 
 export default appReducer;

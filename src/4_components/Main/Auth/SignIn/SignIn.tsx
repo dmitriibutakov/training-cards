@@ -17,7 +17,6 @@ const SignIn = () => {
 
     const dispatch = useAppDispatch();
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
-    const disabled = useSelector<AppStateType, boolean>(state => state.auth.buttonDisable)
 
     type FormikErrorType = {
         email?: string
@@ -76,7 +75,9 @@ const SignIn = () => {
                                    {...formik.getFieldProps("rememberMe")}/>
 
                 <NavLink to={PATH.resetPassword}>Forgot Password</NavLink>
-                <UniversalBtn text={"Login"} type={"submit"} disabled={disabled}/>
+                <UniversalBtn text={"Login"}
+                              type={"submit"}
+                              disabled={Object.keys(formik.errors).length !== 0}/>
             </form>
             <p>Don't have an account?</p>
             <UniversalNavLink path={PATH.signUp} title={"Sign Up"}/>

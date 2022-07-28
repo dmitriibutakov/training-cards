@@ -7,10 +7,12 @@
     justify-content: center;
     margin: 20px auto;
     font-weight: 600;
-    background-color: #366EFF;
-    color: #fff;
     border-radius: 5px;
     text-transform: uppercase;
+}
+.btn {
+    background-color: #366EFF;
+    color: #fff;
 }
 .btn__disabled {
     background-color: #adb5bd;
