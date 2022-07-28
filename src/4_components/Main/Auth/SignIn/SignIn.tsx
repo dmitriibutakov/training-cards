@@ -51,7 +51,6 @@ const SignIn = () => {
             formik.resetForm()
         },
     })
-
     if (isLoggedIn) return <Navigate to={"/profile"}/>
     return (
         <div className={commonClass.container}>
