@@ -21,7 +21,7 @@ const Header = () => {
             </div>
             <nav className={privateClass.navigate}>
                 <NavLink to={PATH.profile} className={privateClass.link}>Profile</NavLink>
-                <NavLink to={PATH.signIn} className={privateClass.link}>Sign Out</NavLink>
+                <NavLink to={PATH.signIn} className={privateClass.link}>Sign In</NavLink>
                 <NavLink to={PATH.signUp} className={privateClass.link}>Sign Up</NavLink>
                 <NavLink to={PATH.resetPassword} className={privateClass.link}>Reset Password</NavLink>
                 <NavLink to={PATH.testComponents} className={privateClass.link}>Test Components</NavLink>
