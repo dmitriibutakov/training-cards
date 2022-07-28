@@ -17,6 +17,7 @@ const SignIn = () => {
 
     const dispatch = useAppDispatch();
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
+    const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
 
     type FormikErrorType = {
         email?: string
@@ -79,6 +80,7 @@ const SignIn = () => {
                               type={"submit"}
                               disabled={Object.keys(formik.errors).length !== 0}/>
             </form>
+            {errorOfResponse && <div className={commonClass.error}>{errorOfResponse}</div>}
             <p>Don't have an account?</p>
             <UniversalNavLink path={PATH.signUp} title={"Sign Up"}/>
         </div>

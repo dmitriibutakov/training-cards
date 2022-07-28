@@ -11,14 +11,14 @@ export const instanceHeroku = axios.create({
 })
 export const AuthAPI = {
     signIn: (data: LoginParamsType) =>
-        instance.post<LoginParamsType, AxiosResponse<ResponseDataType>>
-        ("/auth/login", data),
+        instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseDataType>>
+        ("/auth/login", {...data}),
     logOut: () => {},
     resetPassword: (email: string, token: string) =>
         instanceHeroku.post<ResetPasswordParamsType, AxiosResponse<ResponseResetPasswordType>>
         (" /auth/forgot", {email, token}),
     signUp: (email: string, password: string) =>
-        instance.post<LoginParamsType, AxiosResponse<ResponseSignUpType<ResponseDataType>>>
+        instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseSignUpType<ResponseDataType>>>
         ("/auth/register", {email, password})
 }
 
@@ -30,7 +30,7 @@ export const AuthAPI = {
 
 type ResetPasswordParamsType = {
     email: string
-    from: "test-front-admin dmitryload@yahoo.com"
+    from: "dmitryload@yahoo.com"
     message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
 </div>`
 }
