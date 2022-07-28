@@ -16,10 +16,8 @@ export const AuthAPI = {
     logOut: () => {
     },
     resetPassword: (email: string,
-                    from: "dmitryload@yahoo.com",
-                    message: `<div style="background-color: lime; padding: 15px">password recovery link: 
-<a href='http://localhost:3000/#/set-new-password/$token$'>
-link</a></div>`) =>
+                    from: string,
+                    message: string) =>
         instanceHeroku.post<ResetPasswordParamsType, AxiosResponse<ResponseResetPasswordType>>
         (" /auth/forgot", {email, from, message}),
     signUp: (email: string, password: string) =>
