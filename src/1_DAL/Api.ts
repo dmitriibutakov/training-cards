@@ -33,9 +33,8 @@ export type LoginParamsType = {
 
 type ResetPasswordParamsType = {
     email: string
-    from: "dmitryload@yahoo.com"
-    message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
-</div>`
+    from: string
+    message: string
 }
 
 type ResponseDataType = {
@@ -56,5 +55,5 @@ type ResponseSignUpType<T = {}> = {
 }
 type ResponseResetPasswordType = {
     info: string
-    error?: string
+    error: string
 }
