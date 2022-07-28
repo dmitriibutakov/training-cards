@@ -13,16 +13,21 @@ export const AuthAPI = {
     signIn: (data: LoginParamsType) =>
         instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseDataType>>
         ("/auth/login", {...data}),
-    logOut: () => {},
-    resetPassword: (email: string) =>
+    logOut: () => {
+    },
+    resetPassword: (email: string,
+                    from: "dmitryload@yahoo.com",
+                    message: `<div style="background-color: lime; padding: 15px">password recovery link: 
+<a href='http://localhost:3000/#/set-new-password/$token$'>
+link</a></div>`) =>
         instanceHeroku.post<ResetPasswordParamsType, AxiosResponse<ResponseResetPasswordType>>
-        (" /auth/forgot", {email}),
+        (" /auth/forgot", {email, from, message}),
     signUp: (email: string, password: string) =>
         instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseSignUpType<ResponseDataType>>>
         ("/auth/register", {email, password})
 }
 
- export type LoginParamsType = {
+export type LoginParamsType = {
     email: string
     password: string
     rememberMe?: boolean

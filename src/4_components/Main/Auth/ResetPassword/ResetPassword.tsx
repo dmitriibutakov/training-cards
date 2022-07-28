@@ -31,7 +31,7 @@ const ResetPassword = () => {
             return errors
         },
         onSubmit: values => {
-            dispatch(resetPasswordTC(values.email, ""))
+            dispatch(resetPasswordTC(values.email))
             formik.resetForm()
         },
     })
