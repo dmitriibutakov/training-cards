@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from "axios"
+import axios, { AxiosResponse } from "axios"
 
 
 export const instance = axios.create({
@@ -12,17 +12,22 @@ export const instanceHeroku = axios.create({
 export const AuthAPI = {
     signIn: (data: LoginParamsType) =>
         instance.post<LoginParamsType, AxiosResponse<ResponseDataType>>
-        ("/auth/login", data),
-    logOut: () => {},
+            ("/auth/login", data),
+    logOut: () =>
+        instance.delete<AxiosResponse<ResponseDataType>>
+            ("/auth/me",),
+    editProfile: (name: string) =>
+        instance.put<string, AxiosResponse<ResponseEditProfile>>
+            ("/auth/me", { name }),
     resetPassword: (email: string, token: string) =>
         instanceHeroku.post<ResetPasswordParamsType, AxiosResponse<ResponseResetPasswordType>>
-        (" /auth/forgot", {email, token}),
+            (" /auth/forgot", { email, token }),
     signUp: (email: string, password: string) =>
         instance.post<LoginParamsType, AxiosResponse<ResponseSignUpType<ResponseDataType>>>
-        ("/auth/register", {email, password})
+            ("/auth/register", { email, password })
 }
 
- export type LoginParamsType = {
+export type LoginParamsType = {
     email: string
     password: string
     rememberMe?: boolean
@@ -35,18 +40,19 @@ type ResetPasswordParamsType = {
 </div>`
 }
 
-type ResponseDataType = {
+export type ResponseDataType = {
     _id: string;
     email: string;
     name: string;
     avatar?: string;
     publicCardPacksCount: number;
-    created: Date;
-    updated: Date;
+    created: string;
+    updated?: string;
     isAdmin: boolean;
     verified: boolean;
     rememberMe: boolean;
     error?: string;
+    info?: string
 }
 type ResponseSignUpType<T = {}> = {
     addedUser: T
@@ -54,4 +60,9 @@ type ResponseSignUpType<T = {}> = {
 type ResponseResetPasswordType = {
     info: string
     error?: string
+}
+type ResponseEditProfile = {
+    token: string
+    tokenDeathTime: number
+    updatedUser: ResponseDataType
 }

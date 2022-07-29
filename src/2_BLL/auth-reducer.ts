@@ -3,6 +3,7 @@ import {AppThunk} from "./store";
 import {AuthAPI, LoginParamsType} from "../1_DAL/Api";
 import {errorUtils} from "../3_commons/errors-utils";
 import {AxiosError} from "axios";
+import { setProfile } from "./app-reducer";
 
 export type AuthStateType = {
     isLoggedIn: boolean
@@ -69,6 +70,8 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
     dispatch(setIsFetching(true))
     AuthAPI.signIn(data).then(res => {
         console.log(res)
+        dispatch(setProfile(res.data))
+        dispatch(setIsLogin(true))
         dispatch(setIsFetching(false))
         dispatch(setResponse(true))
     })
@@ -88,4 +91,16 @@ export const resetPasswordTC = (email: string, token: string): AppThunk => (disp
         })
         .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
 }
+
+export const logoutTC = (): AppThunk => (dispatch) => {
+    dispatch(setIsFetching(true))
+    AuthAPI.logOut()
+        .then(res => {
+            console.log(res)
+            dispatch(setIsLogin(false))
+            dispatch(setIsFetching(false))
+        })
+        .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
+}
+
 export default AuthReducer;

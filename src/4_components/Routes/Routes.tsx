@@ -7,12 +7,14 @@ import SignUp from "../Main/Auth/SignUp/SignUp";
 import Profile from "../Main/Profile/Profile";
 import SignIn from "../Main/Auth/SignIn/SignIn";
 import ResetPassword from "../Main/Auth/ResetPassword/ResetPassword";
+import EditProfile from '../Main/Profile/EditProfile';
 
 const Pages = () => {
     return (
         <div>
             <Routes>
                 <Route path={PATH.profile} element={<Profile/>}></Route>
+                <Route path={PATH.editProfile} element={<EditProfile/>}></Route>
                 <Route path={PATH.signIn} element={<SignIn/>}></Route>
                 <Route path={'/*'} element={<SignIn/>}></Route>
                 <Route path={PATH.signUp} element={<SignUp/>}></Route>
