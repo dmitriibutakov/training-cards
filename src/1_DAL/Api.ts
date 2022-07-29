@@ -6,24 +6,26 @@ export const instance = axios.create({
     withCredentials: true,
 })
 export const instanceHeroku = axios.create({
-    baseURL: ' https://neko-back.herokuapp.com/2.0',
+    baseURL: 'https://neko-back.herokuapp.com/2.0',
     withCredentials: true,
 })
 export const AuthAPI = {
     signIn: (data: LoginParamsType) =>
-        instance.post<LoginParamsType, AxiosResponse<ResponseDataType>>
-            ("/auth/login", data),
+        instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseDataType>>
+            ("/auth/login", { ...data }),
     logOut: () =>
         instance.delete<AxiosResponse<ResponseDataType>>
             ("/auth/me",),
     editProfile: (name: string) =>
         instance.put<string, AxiosResponse<ResponseEditProfile>>
             ("/auth/me", { name }),
-    resetPassword: (email: string, token: string) =>
+    resetPassword: (email: string,
+        from: string,
+        message: string) =>
         instanceHeroku.post<ResetPasswordParamsType, AxiosResponse<ResponseResetPasswordType>>
-            (" /auth/forgot", { email, token }),
+            (" /auth/forgot", { email, from, message }),
     signUp: (email: string, password: string) =>
-        instance.post<LoginParamsType, AxiosResponse<ResponseSignUpType<ResponseDataType>>>
+        instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseSignUpType<ResponseDataType>>>
             ("/auth/register", { email, password })
 }
 
@@ -35,9 +37,8 @@ export type LoginParamsType = {
 
 type ResetPasswordParamsType = {
     email: string
-    from: "test-front-admin dmitryload@yahoo.com"
-    message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
-</div>`
+    from: string
+    message: string
 }
 
 export type ResponseDataType = {

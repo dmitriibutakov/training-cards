@@ -2,8 +2,12 @@ import React, {useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../3_commons/Path";
 import privateClass from "./Header.module.css"
+import {useSelector} from "react-redux";
+import {AppStateType, useAppDispatch} from "../../2_BLL/store";
+import {setIsLogin} from "../../2_BLL/auth-reducer";
 
 const Header = () => {
+
     const [active, setActive] = useState<boolean>(false)
     const changeClass = () => setActive(!active)
     const setClassBurger = active ? privateClass.burger__active : privateClass.burger

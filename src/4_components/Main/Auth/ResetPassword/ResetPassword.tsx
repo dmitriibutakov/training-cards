@@ -11,8 +11,8 @@ import UniversalInput from "../../../../3_commons/common_components/UniversalInp
 
 const ResetPassword = () => {
     const dispatch = useAppDispatch();
-    const disabled = useSelector<AppStateType, boolean>(state => state.auth.buttonDisable)
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
+    const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
 
     type FormikErrorType = {
         email?: string
@@ -31,7 +31,7 @@ const ResetPassword = () => {
             return errors
         },
         onSubmit: values => {
-            dispatch(resetPasswordTC(values.email, ""))
+            dispatch(resetPasswordTC(values.email))
             formik.resetForm()
         },
     })
@@ -44,8 +44,9 @@ const ResetPassword = () => {
                                 error={formik.touched.email && formik.errors.email}
                                 textError={formik.errors.email}
                                 {...formik.getFieldProps("email")}/>
-            <UniversalBtn text={"send"}/>
+            <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
             </form>
+            {errorOfResponse && <div className={commonClass.error}>{errorOfResponse}</div>}
         </div>
     );
 };
