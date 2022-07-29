@@ -6,13 +6,11 @@ import { ResponseDataType, AuthAPI } from './../1_DAL/Api';
 
 export type AppType = {
     errorOfResponse: string | null
-    isEditProfile: boolean
     profile: ResponseDataType
 }
 
 let initialState: AppType = {
     errorOfResponse: null,
-    isEditProfile: false,
     profile: {
         created: "",
         email: "",
