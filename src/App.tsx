@@ -4,8 +4,8 @@ import Pages from "./4_components/Routes/Routes";
 import Header from "./4_components/Header/Header";
 import {BrowserRouter} from "react-router-dom";
 
-
 const App = () => {
+    console.log("App")
     return (
         <BrowserRouter>
         <div className={privateClass.body}>

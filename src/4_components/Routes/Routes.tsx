@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {PATH} from "../../3_commons/Path";
 import {Error404} from "../Main/Error404/Error404";

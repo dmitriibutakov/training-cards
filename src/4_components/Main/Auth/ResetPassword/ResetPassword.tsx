@@ -9,22 +9,22 @@ import {useSelector} from "react-redux";
 import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
 import {Navigate} from "react-router-dom";
+import {ErrorFormikType} from "../../../../3_commons/validate";
+import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 
-const ResetPassword = () => {
+const ResetPassword = React.memo(() => {
+    console.log("resetPassword")
     const dispatch = useAppDispatch();
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
     const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
     const isEmailSent = useSelector<AppStateType, boolean>(state => state.auth.isEmailSent)
 
-    type FormikErrorType = {
-        email?: string
-    }
     const formik = useFormik({
         initialValues: {
             email: ''
         },
         validate: (values) => {
-            const errors: FormikErrorType = {}
+            const errors: ErrorFormikType = {}
             if (!values.email) {
                 errors.email = 'email is required'
             } else if (!/^[A-Z/d._%+-]+@[A-Z/d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -47,11 +47,12 @@ const ResetPassword = () => {
                                 error={formik.touched.email && formik.errors.email}
                                 textError={formik.errors.email}
                                 {...formik.getFieldProps("email")}/>
+                <ErrorResponse errorOfResponse={errorOfResponse}/>
             <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
             </form>
-            {errorOfResponse && <div className={commonClass.error}>{errorOfResponse}</div>}
+
         </div>
     );
-};
+});
 
 export default ResetPassword;

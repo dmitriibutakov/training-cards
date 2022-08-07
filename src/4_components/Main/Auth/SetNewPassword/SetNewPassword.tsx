@@ -7,27 +7,26 @@ import commonClass from "../../../../3_commons/common_classes/commonContainer.mo
 import {useFormik} from "formik";
 import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
+import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
+import {ErrorFormikType, validatePassword} from "../../../../3_commons/validate";
+import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 
 export const SetNewPassword = () => {
+    console.log("SetNewPassword")
     const dispatch = useAppDispatch();
     const { token } = useParams();
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
+    const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
 
-    type FormikErrorType = {
-        password?: string
-    }
     const formik = useFormik({
         initialValues: {
-            password: ""
+            password: "",
+            repeatPassword: ""
         },
         validate: (values) => {
-
-            const errors: FormikErrorType = {}
-            if (!values.password) {
-                errors.password = "password is required"
-            } else if (values.password.length < 8) {
-                errors.password = "min length 8 symbols"
-            }
+            const errors: ErrorFormikType = {}
+            validatePassword(values, errors)
+            return errors
         },
         onSubmit: ({password}: {password: string}) => {
             token && dispatch(setNewPasswordTC(password, token))
@@ -45,6 +44,13 @@ export const SetNewPassword = () => {
                                 type={"password"}
                                 error={formik.touched.password && formik.errors.password}
                                 textError={formik.errors.password}/>
+                <UniversalInput {...formik.getFieldProps("repeatPassword")}
+                                placeholder={"repeat password"}
+                                type={"password"}
+                                error={formik.touched.repeatPassword && formik.errors.repeatPassword}
+                                textError={formik.errors.repeatPassword}/>
+                <UniversalBtn text={"send"}/>
+                <ErrorResponse errorOfResponse={errorOfResponse}/>
             </form>
         </div>
     );

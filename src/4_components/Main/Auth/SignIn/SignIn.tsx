@@ -12,20 +12,17 @@ import {useFormik} from "formik";
 import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
 import {loginTC} from "../../../../2_BLL/auth-reducer";
 import Loader from "../../../../3_commons/common_components/Loader/Loader";
+import {ErrorFormikType} from "../../../../3_commons/validate";
+import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 
 
 const SignIn = () => {
-
+    console.log("SignIn")
     const dispatch = useAppDispatch();
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
     const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
 
-    type FormikErrorType = {
-        email?: string
-        password?: string
-        rememberMe?: boolean
-    }
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -33,7 +30,7 @@ const SignIn = () => {
             rememberMe: false
         },
         validate: (values) => {
-            const errors: FormikErrorType = {};
+            const errors: ErrorFormikType = {};
             if (!values.email) {
                 errors.email = 'email is required';
             } else if (!/^[A-Z/d._%+-]+@[A-Z/d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -81,7 +78,7 @@ const SignIn = () => {
                               type={"submit"}
                               disabled={Object.keys(formik.errors).length !== 0}/>
             </form>
-            {errorOfResponse && <div className={commonClass.error}>{errorOfResponse}</div>}
+            <ErrorResponse errorOfResponse={errorOfResponse}/>
             <p>Don't have an account?</p>
             <UniversalNavLink path={PATH.signUp} title={"Sign Up"}/>
         </div>

@@ -11,19 +11,17 @@ import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
 import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import {signUpTC} from "../../../../2_BLL/auth-reducer";
 import {Navigate} from "react-router-dom";
+import {ErrorFormikType, validatePassword} from "../../../../3_commons/validate";
+import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 
 
 const SignUp = () => {
+    console.log("SignUp")
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
     const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
     const isResponse = useSelector<AppStateType, boolean>(state => state.auth.isResponse)
     const dispatch = useAppDispatch()
 
-    type FormikErrorType = {
-        email?: string
-        password?: string
-        repeatPassword?: string
-    }
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -31,23 +29,13 @@ const SignUp = () => {
             repeatPassword: ''
         },
         validate: (values) => {
-
-            const errors: FormikErrorType = {}
+            const errors: ErrorFormikType = {}
             if (!values.email) {
                 errors.email = 'email is required'
             } else if (!/^[A-Z/d._%+-]+@[A-Z/d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address'
-            } else if (!values.password) {
-                errors.password = "password is required"
-            } else if (!values.repeatPassword) {
-                errors.repeatPassword = "password is required"
-            } else if (values.password.length < 8) {
-                errors.password = "min length 8 symbols"
-            } else if (values.repeatPassword.length < 8) {
-                errors.repeatPassword = "min length 8 symbols"
-            } else if (values.repeatPassword !== values.password) {
-                errors.repeatPassword = "confirm your password currently"
             }
+            validatePassword(values, errors)
             return errors
         },
         onSubmit: values => {
@@ -78,8 +66,7 @@ const SignUp = () => {
                                 type={"password"}
                                 error={formik.touched.repeatPassword && formik.errors.repeatPassword}
                                 textError={formik.errors.repeatPassword}/>
-
-                {errorOfResponse && <div className={commonClass.error}>{errorOfResponse}</div>}
+                <ErrorResponse errorOfResponse={errorOfResponse}/>
                 <UniversalBtn disabled={Object.keys(formik.errors).length !== 0}
                               type={'submit'}
                               text={"Sign Up"}/>

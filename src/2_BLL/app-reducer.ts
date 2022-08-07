@@ -40,7 +40,7 @@ export type AppReducerType = SetAppErrorActionType | SetProfileActionType | edit
 export type SetAppErrorActionType = ReturnType<typeof setAppError>
 export type SetProfileActionType = ReturnType<typeof setProfile>
 export type editProfileActionType = ReturnType<typeof editProfile>
-export const setAppError = (errorOfResponse: string) => ({ type: 'SET-ERROR', errorOfResponse } as const)
+export const setAppError = (errorOfResponse: string | null) => ({ type: 'SET-ERROR', errorOfResponse } as const)
 export const setProfile = (profile: ResponseDataType) => ({ type: 'SET-PROFILE', profile } as const)
 export const editProfile = (name: string) => ({ type: 'EDIT-PROFILE', name } as const)
 
