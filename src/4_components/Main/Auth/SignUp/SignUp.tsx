@@ -46,7 +46,7 @@ const SignUp = () => {
             } else if (values.repeatPassword.length < 8) {
                 errors.repeatPassword = "min length 8 symbols"
             } else if (values.repeatPassword !== values.password) {
-                errors.repeatPassword = "confirm your password currectly"
+                errors.repeatPassword = "confirm your password currently"
             }
             return errors
         },

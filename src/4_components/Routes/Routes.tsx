@@ -15,6 +15,7 @@ const Pages = () => {
     return (
         <div>
             <Routes>
+                <Route path="/" element={<SignIn/>}/>
                 <Route path={PATH.profile} element={<Profile/>}></Route>
                 <Route path={PATH.emailPasswordSent} element={<EmailPasswordSent/>}></Route>
                 <Route path={PATH.editProfile} element={<EditProfile/>}></Route>
