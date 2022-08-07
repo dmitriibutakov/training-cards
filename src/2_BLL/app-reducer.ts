@@ -1,8 +1,8 @@
-import { errorUtils } from './../3_commons/errors-utils';
+import { errorUtils } from '../3_commons/errors-utils';
 import { AxiosError } from 'axios';
-import { setIsFetching } from './../3_commons/common_actions/common_actions';
+import { setIsFetching } from '../3_commons/common_actions/common_actions';
 import { AppThunk } from './store';
-import { ResponseDataType, AuthAPI } from './../1_DAL/Api';
+import { ResponseDataType, AuthAPI } from '../1_DAL/Api';
 
 export type AppType = {
     errorOfResponse: string | null

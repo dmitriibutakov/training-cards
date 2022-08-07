@@ -3,7 +3,7 @@ import {AppThunk} from "./store";
 import {AuthAPI, LoginParamsType} from "../1_DAL/Api";
 import {errorUtils} from "../3_commons/errors-utils";
 import {AxiosError} from "axios";
-import { setProfile } from "./app-reducer";
+import {setProfile} from "./app-reducer";
 
 export type AuthStateType = {
     isLoggedIn: boolean
@@ -11,6 +11,7 @@ export type AuthStateType = {
     isResponse: boolean
     buttonDisable: boolean
     info: string | null
+    isEmailSent: boolean
 }
 
 let initialState: AuthStateType = {
@@ -18,7 +19,8 @@ let initialState: AuthStateType = {
     isFetching: false,
     isResponse: false,
     buttonDisable: true,
-    info: null
+    info: null,
+    isEmailSent: false
 }
 
 const AuthReducer = (state: AuthStateType = initialState, action: AuthReducerType): AuthStateType => {
@@ -31,72 +33,100 @@ const AuthReducer = (state: AuthStateType = initialState, action: AuthReducerTyp
             return {...state, isResponse: action.response}
         case "SET-INFO":
             return {...state, info: action.info}
+        case "SET-EMAIL-SENT":
+            return {...state, isEmailSent: action.isEmailSent}
+
         default:
             return state
     }
 };
 
+//types
 export type AuthReducerType = SetIsLoginType
     | SetIsFetchingType
     | SetResponseType
-    | SetButtonDisableType
     | SetInfoType
+    | SetEmailSendType
 
 type SetIsLoginType = ReturnType<typeof setIsLogin>
 type SetResponseType = ReturnType<typeof setResponse>
-type SetButtonDisableType = ReturnType<typeof setButtonDisable>
 type SetInfoType = ReturnType<typeof setInfo>
+type SetEmailSendType = ReturnType<typeof setEmailSent>
 
+//actions
 export const setIsLogin = (isLoggedIn: boolean) => ({type: "SET-IS-LOGIN", isLoggedIn} as const)
 const setInfo = (info: string) => ({type: "SET-INFO", info} as const)
 const setResponse = (response: boolean) => ({type: "SET-RESPONSE", response} as const)
-const setButtonDisable = (buttonDisable: boolean) => ({type: "SET-BTN-DISABLE", buttonDisable} as const)
+const setEmailSent = (isEmailSent: boolean) => ({type: "SET-EMAIL-SENT", isEmailSent} as const)
 
-export const signUpTC = (email: string, password: string): AppThunk => (dispatch) => {
-    dispatch(setButtonDisable(true))
-    dispatch(setIsFetching(true))
-    AuthAPI.signUp(email, password)
-        .then(res => {
-            console.log(res)
-            dispatch(setResponse(true))
-        })
-        .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
-        .finally(() => dispatch(setIsFetching(false)))
+//thunks
+export const signUpTC = (email: string, password: string): AppThunk => async dispatch => {
+    try {
+        dispatch(setIsFetching(true))
+        const response = await AuthAPI.signUp(email, password)
+        console.log(response)
+        dispatch(setResponse(true))
+    } catch (err) {
+        errorUtils(err as Error | AxiosError, dispatch)
+    } finally {
+        dispatch(setIsFetching(false))
+    }
 }
 
-export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
-    dispatch(setIsFetching(true))
-    AuthAPI.signIn(data).then(res => {
-        console.log(res)
-        dispatch(setProfile(res.data))
+export const loginTC = (data: LoginParamsType): AppThunk => async dispatch => {
+    try {
+        dispatch(setIsFetching(true))
+        const response = await AuthAPI.signIn(data)
+        console.log(response)
+        dispatch(setProfile(response.data))
         dispatch(setIsLogin(true))
         dispatch(setIsFetching(false))
         dispatch(setResponse(true))
-    })
-        .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
-        .finally(() => dispatch(setIsFetching(false)))
+    } catch (err) {
+        errorUtils(err as Error | AxiosError, dispatch)
+    } finally {
+        dispatch(setIsFetching(false))
+    }
 }
 
-export const resetPasswordTC = (email: string): AppThunk => (dispatch) => {
-    dispatch(setIsFetching(true))
-    AuthAPI.resetPassword(email)
-        .then(res => {
-            console.log(res)
-            dispatch(setIsFetching(false))
-        })
-        .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
-        .finally(() => dispatch(setIsFetching(false)))
+export const resetPasswordTC = (email: string): AppThunk => async dispatch => {
+    try {
+        dispatch(setIsFetching(true))
+        const response = await AuthAPI.resetPassword(email)
+        console.log(response)
+        dispatch(setEmailSent(true))
+        dispatch(setIsFetching(false))
+    } catch (err) {
+        errorUtils(err as Error | AxiosError, dispatch)
+    } finally {
+        dispatch(setIsFetching(false))
+    }
 }
 
-export const logoutTC = (): AppThunk => (dispatch) => {
-    dispatch(setIsFetching(true))
-    AuthAPI.logOut()
-        .then(res => {
-            console.log(res)
-            dispatch(setIsLogin(false))
-            dispatch(setIsFetching(false))
-        })
-        .catch((err: AxiosError<{ error: string }>) => errorUtils(err, dispatch))
+export const logoutTC = (): AppThunk => async dispatch => {
+    try {
+        dispatch(setIsFetching(true))
+        const response = await AuthAPI.logOut()
+        console.log(response)
+        dispatch(setIsLogin(false))
+    } catch (err) {
+        errorUtils(err as Error | AxiosError, dispatch)
+    } finally {
+        dispatch(setIsFetching(false))
+    }
 }
+
+export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => async dispatch => {
+    try {
+        dispatch(setIsFetching(true))
+        const response = await AuthAPI.setNewPassword(password, resetPasswordToken);
+        dispatch(setInfo(response.data.info));
+        dispatch(setIsLogin(true));
+    } catch (err) {
+        errorUtils(err as Error | AxiosError, dispatch)
+    } finally {
+        dispatch(setIsFetching(false))
+    }
+};
 
 export default AuthReducer;

@@ -6,5 +6,7 @@ export const PATH = {
     error: '/404',
     resetPassword: '/reset-password',
     testComponents: '/test-components',
-    logOut: '/log-out'
+    logOut: '/log-out',
+    emailPasswordSent: '/email-password-sent',
+    setNewPassword: '/password_recovery/:token'
 }

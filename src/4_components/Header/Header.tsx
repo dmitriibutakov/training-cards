@@ -2,9 +2,6 @@ import React, {useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../3_commons/Path";
 import privateClass from "./Header.module.css"
-import {useSelector} from "react-redux";
-import {AppStateType, useAppDispatch} from "../../2_BLL/store";
-import {setIsLogin} from "../../2_BLL/auth-reducer";
 
 const Header = () => {
 

@@ -1,7 +1,6 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react'
-import s from './UniversalCheckbox.module.css'
+import privateClass from './UniversalCheckbox.module.css'
 
-// тип пропсов обычного инпута
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 type SuperCheckboxPropsType = DefaultInputPropsType & {
@@ -25,15 +24,15 @@ const UniversalCheckbox: React.FC<SuperCheckboxPropsType> = (
     }
 
     return (
-        <div className={s.labelCheck}>
+        <div className={privateClass.labelCheck}>
             <input
                 id={"happy"}
                 type={'checkbox'}
                 onChange={onChangeCallback}
-                className={s.checkbox}
+                className={privateClass.checkbox}
                 {...restProps}
             />
-            <label htmlFor="happy"> {children && <span className={s.spanClassName}>{children}</span>}</label>
+            <label htmlFor="happy"> {children && <span className={privateClass.spanClassName}>{children}</span>}</label>
         </div>
     )
 }

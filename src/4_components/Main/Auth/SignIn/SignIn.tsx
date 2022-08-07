@@ -1,5 +1,5 @@
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
-import React, {useEffect} from 'react';
+import React from 'react';
 import UniversalTitle from "../../../../3_commons/common_components/UniversalTitle/UniversalTitle";
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
 import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";

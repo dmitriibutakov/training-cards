@@ -8,19 +8,22 @@ import Profile from "../Main/Profile/Profile";
 import SignIn from "../Main/Auth/SignIn/SignIn";
 import ResetPassword from "../Main/Auth/ResetPassword/ResetPassword";
 import EditProfile from '../Main/Profile/EditProfile';
+import EmailPasswordSent from "../Main/Auth/EmailPasswordSent/EmailPasswordSent";
+import {SetNewPassword} from "../Main/Auth/SetNewPassword/SetNewPassword";
 
 const Pages = () => {
     return (
         <div>
             <Routes>
                 <Route path={PATH.profile} element={<Profile/>}></Route>
+                <Route path={PATH.emailPasswordSent} element={<EmailPasswordSent/>}></Route>
                 <Route path={PATH.editProfile} element={<EditProfile/>}></Route>
                 <Route path={PATH.signIn} element={<SignIn/>}></Route>
-                <Route path={'/*'} element={<SignIn/>}></Route>
                 <Route path={PATH.signUp} element={<SignUp/>}></Route>
                 <Route path={PATH.resetPassword} element={<ResetPassword/>}></Route>
                 <Route path={PATH.error} element={<Error404/>}></Route>
                 <Route path={PATH.testComponents} element={<InputButtonCheckbox/>}></Route>
+                <Route path={PATH.setNewPassword} element={<SetNewPassword/>}/>
             </Routes>
         </div>
     );

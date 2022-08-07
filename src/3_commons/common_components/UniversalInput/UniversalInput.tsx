@@ -5,7 +5,7 @@ import {showImg} from "../../common_images/commonImages";
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 type UniversalInputType = DefaultInputPropsType & {
-  error?: string | false | undefined
+    error?: string | false | undefined
     textError?: string
 }
 const UniversalInput: React.FC<UniversalInputType> = ({error, textError, placeholder, type, ...restProps}) => {

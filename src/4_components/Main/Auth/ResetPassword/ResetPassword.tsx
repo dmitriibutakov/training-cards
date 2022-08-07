@@ -8,11 +8,13 @@ import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
 import {useSelector} from "react-redux";
 import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
+import {Navigate} from "react-router-dom";
 
 const ResetPassword = () => {
     const dispatch = useAppDispatch();
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
     const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
+    const isEmailSent = useSelector<AppStateType, boolean>(state => state.auth.isEmailSent)
 
     type FormikErrorType = {
         email?: string
@@ -35,7 +37,8 @@ const ResetPassword = () => {
             formik.resetForm()
         },
     })
-    return (
+    if (isEmailSent) return <Navigate to={"/email-password-sent"}/>
+        return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}
             <UniversalTitle title={'Reset Password'}/>
