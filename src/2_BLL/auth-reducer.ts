@@ -120,6 +120,7 @@ export const setNewPasswordTC = (password: string, resetPasswordToken: string): 
     try {
         dispatch(setIsFetching(true))
         const response = await AuthAPI.setNewPassword(password, resetPasswordToken);
+        console.log(response.data.info)
         dispatch(setInfo(response.data.info));
         dispatch(setIsLogin(true));
     } catch (err) {

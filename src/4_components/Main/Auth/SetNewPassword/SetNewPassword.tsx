@@ -17,6 +17,7 @@ export const SetNewPassword = () => {
     const { token } = useParams();
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
     const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
+    const info = useSelector<AppStateType, string | null>(state => state.auth.info)
 
     const formik = useFormik({
         initialValues: {
@@ -49,8 +50,9 @@ export const SetNewPassword = () => {
                                 type={"password"}
                                 error={formik.touched.repeatPassword && formik.errors.repeatPassword}
                                 textError={formik.errors.repeatPassword}/>
-                <UniversalBtn text={"send"}/>
                 <ErrorResponse errorOfResponse={errorOfResponse}/>
+                {info && <p>{info}</p>}
+                <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
             </form>
         </div>
     );
