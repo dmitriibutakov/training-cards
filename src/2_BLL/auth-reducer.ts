@@ -79,10 +79,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
 
 export const resetPasswordTC = (email: string): AppThunk => (dispatch) => {
     dispatch(setIsFetching(true))
-    AuthAPI.resetPassword(email, `dmitryload@yahoo.com`, `<div style="background-color: lime; padding: 15px">
-    password recovery link: 
-<a href='https://training-cards.herokuapp.com/reset-password/$token$'>
-link</a></div>`)
+    AuthAPI.resetPassword(email)
         .then(res => {
             console.log(res)
             dispatch(setIsFetching(false))
