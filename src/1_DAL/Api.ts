@@ -25,7 +25,7 @@ export const AuthAPI = {
         ('/auth/forgot', {
             email, from: `test-front-admin <hvi17@yandex.ru>`,
             message: `<div style='background-color: #ceeeff; border-radius: 10px; padding: 15px'>
-                          password recovery link: <a href='http://localhost:3000/#/password_recovery/$token$'>link</a>
+                          password recovery link: <a href='https://training-cards.herokuapp.com/set-new-password/$token$'>link</a>
                       </div>`,
         }),
 
