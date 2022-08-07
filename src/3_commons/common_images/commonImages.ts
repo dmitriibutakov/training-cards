@@ -1,5 +1,5 @@
 import show from "./eye.png"
-import unknown_avatar from "./unknown_avatar.png"
+import incognito from "./incognito.png"
 
 export const showImg = show
-export const unknownAvatarImg = unknown_avatar
+export const incognitoImg = incognito

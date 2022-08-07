@@ -74,7 +74,9 @@ const SignIn = () => {
                 <UniversalCheckbox children={"Remember me"}
                                    {...formik.getFieldProps("rememberMe")}/>
 
-                <NavLink to={PATH.resetPassword}>Forgot Password</NavLink>
+                <div>
+                    <NavLink to={PATH.resetPassword}>Forgot Password</NavLink>
+                </div>
                 <UniversalBtn text={"Login"}
                               type={"submit"}
                               disabled={Object.keys(formik.errors).length !== 0}/>

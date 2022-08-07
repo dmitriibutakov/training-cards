@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios"
+import axios, {AxiosResponse} from "axios"
 
 
 export const instance = axios.create({
@@ -12,21 +12,21 @@ export const instanceHeroku = axios.create({
 export const AuthAPI = {
     signIn: (data: LoginParamsType) =>
         instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseDataType>>
-            ("/auth/login", { ...data }),
+        ("/auth/login", {...data}),
     logOut: () =>
-        instance.delete<AxiosResponse<ResponseDataType>>
-            ("/auth/me",),
+        instanceHeroku.delete<AxiosResponse<ResponseDataType>>
+        ("/auth/me"),
     editProfile: (name: string) =>
-        instance.put<string, AxiosResponse<ResponseEditProfile>>
-            ("/auth/me", { name }),
+        instanceHeroku.put<string, AxiosResponse<ResponseEditProfile>>
+        ("/auth/me", {name}),
     resetPassword: (email: string,
-        from: string,
-        message: string) =>
+                    from: string,
+                    message: string) =>
         instanceHeroku.post<ResetPasswordParamsType, AxiosResponse<ResponseResetPasswordType>>
-            (" /auth/forgot", { email, from, message }),
+        (" /auth/forgot", {email, from, message}),
     signUp: (email: string, password: string) =>
         instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseSignUpType<ResponseDataType>>>
-            ("/auth/register", { email, password })
+        ("/auth/register", {email, password})
 }
 
 export type LoginParamsType = {

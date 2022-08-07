@@ -1,41 +1,36 @@
-import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
-import { ResponseDataType } from "../../../1_DAL/Api";
-import { logoutTC } from '../../../2_BLL/auth-reducer';
-import { AppStateType, useAppDispatch } from "../../../2_BLL/store";
+import {useSelector} from "react-redux";
+import {Navigate, useNavigate} from "react-router-dom";
+import {ResponseDataType} from "../../../1_DAL/Api";
+import {logoutTC} from '../../../2_BLL/auth-reducer';
+import {AppStateType, useAppDispatch} from "../../../2_BLL/store";
 import privateClass from "../../../3_commons/common_classes/commonContainer.module.css";
 import UniversalTitle from "../../../3_commons/common_components/UniversalTitle/UniversalTitle";
-import { unknownAvatarImg } from '../../../3_commons/common_images/commonImages';
-import s from './Profile.module.css'
+import UniversalBtn from "../../../3_commons/common_components/UniversalBtn/UniversalBtn";
+import {incognitoImg} from "../../../3_commons/common_images/commonImages";
+import UniversalAvatar from "../../../3_commons/common_components/UniversalAvatar/UniversalAvatar";
 
 const Profile = () => {
-
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
     const profile = useSelector<AppStateType, ResponseDataType>(state => state.app.profile)
-    const avatar = useSelector<AppStateType, string>(state => state.app.profile.avatar || unknownAvatarImg);
+    const avatar = useSelector<AppStateType, string>(state => state.app.profile.avatar || incognitoImg);
 
     const editProfileHandler = () => {
         navigate("/edit")
     }
 
-    const logoutUtil = () => {
-        dispatch(logoutTC())
-    }
+    const logoutHandler = () => (dispatch(logoutTC()))
 
-    if (!isLoggedIn) return <Navigate to={"/sign-in"} />
+    if (!isLoggedIn) return <Navigate to={"/sign-in"}/>
 
     return (
         <div className={privateClass.container}>
-            <div className={s.profileInfo}>
-                <UniversalTitle title={'Personal Information'} />
-                <img src={avatar} alt="avatar" />
-                <div className={s.profileName}>{profile.name}</div>
-                <div className={s.profileWork}>Front-end developer</div>
-                <button onClick={editProfileHandler} >Edit profile</button>
-                <button onClick={logoutUtil}>LogOUT</button>
-            </div>
+            <UniversalTitle title={'Personal Information'}/>
+            <UniversalAvatar avatarImg={avatar}/>
+            <h1>{profile.name}</h1>
+            <UniversalBtn onClicked={editProfileHandler} text={"Edit profile"}/>
+            <UniversalBtn onClicked={logoutHandler} text={"Logout"}/>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 .container {
-    margin: 5px;
+    margin: 20px 5px;
     padding: 35px;
     display: flex;
     flex-direction: column;
@@ -15,6 +15,15 @@
 .container p {
     font-size: 18px;
     font-weight: 500;
+}
+.container h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+.container span img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
 }
 
 .container >*:not(:last-child) {
