@@ -9,12 +9,12 @@ export const instanceHeroku = axios.create({
     withCredentials: true,
 })
 export const AuthAPI = {
-    me: () => {
-        return instanceHeroku.post<ResponseDataProfileType>("auth/me");
-    },
+    me: () => (instanceHeroku.post<ResponseDataProfileType>("auth/me")),
+
     signIn: (data: LoginParamsType) =>
         instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseDataProfileType>>
         ("/auth/login", {...data}),
+
     logOut: () =>
         instanceHeroku.delete<AxiosResponse<ResponseDataProfileType>>
         ("/auth/me"),
@@ -29,21 +29,18 @@ export const AuthAPI = {
             email, from: `test-front-admin <hvi17@yandex.ru>`,
             message: `<div style='background-color: #ceeeff; border-radius: 10px; padding: 15px'>
                           password recovery link: <a href='https://training-cards.herokuapp.com/set-new-password/$token$'>link</a>
-                      </div>`,
-        }),
+                      </div>`}),
 
     signUp: (email: string, password: string) =>
         instanceHeroku.post<LoginParamsType,
             AxiosResponse<ResponseSignUpType<ResponseDataProfileType>>>
         ("/auth/register", {email, password}),
 
-    setNewPassword: (password: string, resetPasswordToken: string) => {
-        return instanceHeroku.post<{ info: string; error: string },
+    setNewPassword: (password: string, resetPasswordToken: string) =>
+        (instanceHeroku.post<{ info: string; error: string },
             AxiosResponse<ResponseResetPasswordType>>(`auth/set-new-password`, {
             password,
-            resetPasswordToken,
-        });
-    },
+            resetPasswordToken})),
 }
 
 export type LoginParamsType = {

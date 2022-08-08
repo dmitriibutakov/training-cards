@@ -42,11 +42,7 @@ const AuthReducer = (state: AuthStateType = initialState, action: AuthReducerTyp
 };
 
 //types
-export type AuthReducerType = SetIsLoginType
-    | SetIsFetchingType
-    | SetResponseType
-    | SetInfoType
-    | SetEmailSendType
+export type AuthReducerType = SetIsLoginType | SetIsFetchingType | SetResponseType | SetInfoType | SetEmailSendType
 
 type SetIsLoginType = ReturnType<typeof setIsLogin>
 type SetResponseType = ReturnType<typeof setResponse>

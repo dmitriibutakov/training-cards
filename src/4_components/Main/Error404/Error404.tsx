@@ -3,8 +3,6 @@ import privateClass from "./Error404.module.css"
 
 export const Error404 = () => {
     return (
-
-
         <div className={privateClass.main}>
             <svg xmlns="http://www.w3.org/2000/svg" href="http://www.w3.org/1999/xlink" width="470" height="290"
                  viewBox="0 0 470 290">
@@ -69,8 +67,6 @@ export const Error404 = () => {
                     </g>
                 </g>
             </svg>
-
-
         </div>
     )
 }

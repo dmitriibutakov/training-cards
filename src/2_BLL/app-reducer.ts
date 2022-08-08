@@ -63,10 +63,9 @@ export const editProfileTC = (name: string): AppThunk => async dispatch => {
         dispatch(setIsFetching(false))
     }
 }
-
-
 export const initAppTC = (): AppThunk => async dispatch => {
     try {
+        dispatch(setIsFetching(true))
         const response = await AuthAPI.me()
         console.log(response.data)
         dispatch(setProfileData(response.data))
@@ -76,6 +75,7 @@ export const initAppTC = (): AppThunk => async dispatch => {
         console.log(err)
     } finally {
         dispatch(setIsInit(true));
+        dispatch(setIsFetching(false))
     }
 };
 
