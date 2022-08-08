@@ -49,7 +49,6 @@ export const setAppError = (errorOfResponse: string | null) => ({type: 'SET-ERRO
 export const setProfileData = (profile: ResponseDataProfileType) => ({type: 'SET-PROFILE', profile} as const)
 const setIsInit = (init: boolean) => ({type: 'SET-INIT', init} as const)
 
-
 //thunks
 export const editProfileTC = (name: string): AppThunk => async dispatch => {
     try {
@@ -63,7 +62,7 @@ export const editProfileTC = (name: string): AppThunk => async dispatch => {
         dispatch(setIsFetching(false))
     }
 }
-export const initAppTC = (): AppThunk => async dispatch => {
+export const initAppTC = (): AppThunk => async (dispatch, getState) => {
     try {
         dispatch(setIsFetching(true))
         const response = await AuthAPI.me()
@@ -71,7 +70,10 @@ export const initAppTC = (): AppThunk => async dispatch => {
         dispatch(setProfileData(response.data))
         dispatch(setIsLogin(true))
     } catch (err) {
+        const { isLoggedIn } = getState().auth;
+        if (isLoggedIn) {
             errorUtils(err as Error | AxiosError, dispatch)
+        }
         console.log(err)
     } finally {
         dispatch(setIsInit(true));

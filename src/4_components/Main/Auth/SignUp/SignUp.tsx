@@ -10,16 +10,15 @@ import {useFormik} from 'formik';
 import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
 import Loader from "../../../../3_commons/Loader/Loader";
 import {signUpTC} from "../../../../2_BLL/auth-reducer";
-import {Navigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {ErrorFormikType, validatePassword} from "../../../../3_commons/validate";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 
-
 const SignUp = () => {
     console.log("SignUp")
+    const navigate = useNavigate()
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
     const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
-    const isResponse = useSelector<AppStateType, boolean>(state => state.auth.isResponse)
     const dispatch = useAppDispatch()
 
     const formik = useFormik({
@@ -41,9 +40,9 @@ const SignUp = () => {
         onSubmit: values => {
             dispatch(signUpTC(values.email, values.password))
             formik.resetForm()
+            setTimeout(()=> {navigate("/sign-in")}, 500)
         },
     })
-    if (isResponse) return <Navigate to={"/sign-in"}/>
     return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}

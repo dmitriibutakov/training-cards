@@ -8,7 +8,6 @@ import {setProfileData} from "./app-reducer";
 export type AuthStateType = {
     isLoggedIn: boolean
     isFetching: boolean
-    isResponse: boolean
     buttonDisable: boolean
     info: string | null
     isEmailSent: boolean
@@ -17,7 +16,6 @@ export type AuthStateType = {
 let initialState: AuthStateType = {
     isLoggedIn: false,
     isFetching: false,
-    isResponse: false,
     buttonDisable: true,
     info: null,
     isEmailSent: false
@@ -29,30 +27,25 @@ const AuthReducer = (state: AuthStateType = initialState, action: AuthReducerTyp
             return {...state, isLoggedIn: action.isLoggedIn}
         case "SET-IS-FETCHING":
             return {...state, isFetching: action.isFetching}
-        case "SET-RESPONSE":
-            return {...state, isResponse: action.response}
         case "SET-INFO":
             return {...state, info: action.info}
         case "SET-EMAIL-SENT":
             return {...state, isEmailSent: action.isEmailSent}
-
         default:
             return state
     }
 };
 
 //types
-export type AuthReducerType = SetIsLoginType | SetIsFetchingType | SetResponseType | SetInfoType | SetEmailSendType
+export type AuthReducerType = SetIsLoginType | SetIsFetchingType | SetInfoType | SetEmailSendType
 
 type SetIsLoginType = ReturnType<typeof setIsLogin>
-type SetResponseType = ReturnType<typeof setResponse>
 type SetInfoType = ReturnType<typeof setInfo>
 type SetEmailSendType = ReturnType<typeof setEmailSent>
 
 //actions
 export const setIsLogin = (isLoggedIn: boolean) => ({type: "SET-IS-LOGIN", isLoggedIn} as const)
 const setInfo = (info: string) => ({type: "SET-INFO", info} as const)
-const setResponse = (response: boolean) => ({type: "SET-RESPONSE", response} as const)
 const setEmailSent = (isEmailSent: boolean) => ({type: "SET-EMAIL-SENT", isEmailSent} as const)
 
 //thunks
@@ -61,7 +54,6 @@ export const signUpTC = (email: string, password: string): AppThunk => async dis
         dispatch(setIsFetching(true))
         const response = await AuthAPI.signUp(email, password)
         console.log(response)
-        dispatch(setResponse(true))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)
     } finally {
@@ -76,7 +68,6 @@ export const signInTC = (data: LoginParamsType): AppThunk => async dispatch => {
         dispatch(setProfileData(response.data))
         dispatch(setIsLogin(true))
         dispatch(setIsFetching(false))
-        dispatch(setResponse(true))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)
     } finally {

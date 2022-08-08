@@ -8,6 +8,7 @@ import {setAppError} from "../../2_BLL/app-reducer";
 const Header = () => {
     const dispatch = useAppDispatch()
     const deleteError = () => {
+        console.log("set-error")
         dispatch(setAppError(null))
     }
     console.log("Header")
