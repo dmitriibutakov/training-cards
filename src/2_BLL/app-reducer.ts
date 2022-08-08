@@ -70,6 +70,12 @@ export const initAppTC = (): AppThunk => async (dispatch, getState) => {
         dispatch(setProfileData(response.data))
         dispatch(setIsLogin(true))
     }
+    catch (err) {
+        const {isLoggedIn} = getState().auth
+        if (isLoggedIn) {
+            errorUtils(err as Error | AxiosError, dispatch)
+        }
+    }
     finally {
         dispatch(setIsInit(true));
         dispatch(setIsFetching(false))
