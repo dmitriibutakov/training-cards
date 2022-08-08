@@ -10,8 +10,8 @@ import {useSelector} from "react-redux";
 import UniversalCheckbox from "../../../../3_commons/common_components/UniversalCheckbox/UniversalCheckbox";
 import {useFormik} from "formik";
 import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
-import {loginTC} from "../../../../2_BLL/auth-reducer";
-import Loader from "../../../../3_commons/common_components/Loader/Loader";
+import {signInTC} from "../../../../2_BLL/auth-reducer";
+import Loader from "../../../../3_commons/Loader/Loader";
 import {ErrorFormikType} from "../../../../3_commons/validate";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 
@@ -44,7 +44,7 @@ const SignIn = () => {
             return errors;
         },
         onSubmit: values => {
-            dispatch(loginTC(values))
+            dispatch(signInTC(values))
             formik.resetForm()
         },
     })

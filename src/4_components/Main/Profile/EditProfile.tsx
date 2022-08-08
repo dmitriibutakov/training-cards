@@ -1,7 +1,6 @@
 import {ChangeEvent, useState} from "react";
 import {useSelector} from "react-redux";
 import {Navigate, useNavigate} from "react-router-dom";
-import {ResponseDataType} from "../../../1_DAL/Api";
 import {editProfileTC} from "../../../2_BLL/app-reducer";
 import {AppStateType, useAppDispatch} from "../../../2_BLL/store";
 import privateClass from "../../../3_commons/common_classes/commonContainer.module.css";
@@ -10,13 +9,14 @@ import UniversalInput from "../../../3_commons/common_components/UniversalInput/
 import UniversalBtn from "../../../3_commons/common_components/UniversalBtn/UniversalBtn";
 import {incognitoImg} from "../../../3_commons/common_images/commonImages";
 import UniversalAvatar from "../../../3_commons/common_components/UniversalAvatar/UniversalAvatar";
+import {ResponseDataProfileType} from "../../../1_DAL/Api";
 
 const EditProfile = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
-    const profile = useSelector<AppStateType, ResponseDataType>(state => state.app.profile)
+    const profile = useSelector<AppStateType, ResponseDataProfileType>(state => state.app.profile)
     const avatar = useSelector<AppStateType, string>(state => state.app.profile.avatar || incognitoImg);
 
     const [name, setName] = useState(profile.name)

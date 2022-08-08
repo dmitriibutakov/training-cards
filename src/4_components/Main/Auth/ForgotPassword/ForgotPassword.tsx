@@ -6,7 +6,7 @@ import {useFormik} from "formik";
 import {resetPasswordTC} from "../../../../2_BLL/auth-reducer";
 import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
 import {useSelector} from "react-redux";
-import Loader from "../../../../3_commons/common_components/Loader/Loader";
+import Loader from "../../../../3_commons/Loader/Loader";
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
 import {Navigate} from "react-router-dom";
 import {ErrorFormikType} from "../../../../3_commons/validate";

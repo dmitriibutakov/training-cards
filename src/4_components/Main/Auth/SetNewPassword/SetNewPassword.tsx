@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {setNewPasswordTC} from "../../../../2_BLL/auth-reducer";
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
 import {useFormik} from "formik";
-import Loader from "../../../../3_commons/common_components/Loader/Loader";
+import Loader from "../../../../3_commons/Loader/Loader";
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
 import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
 import {ErrorFormikType, validatePassword} from "../../../../3_commons/validate";

@@ -8,7 +8,7 @@ import {PATH} from "../../../../3_commons/Path";
 import {useSelector} from "react-redux";
 import {useFormik} from 'formik';
 import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
-import Loader from "../../../../3_commons/common_components/Loader/Loader";
+import Loader from "../../../../3_commons/Loader/Loader";
 import {signUpTC} from "../../../../2_BLL/auth-reducer";
 import {Navigate} from "react-router-dom";
 import {ErrorFormikType, validatePassword} from "../../../../3_commons/validate";

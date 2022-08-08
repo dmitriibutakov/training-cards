@@ -3,7 +3,7 @@ import {AppThunk} from "./store";
 import {AuthAPI, LoginParamsType} from "../1_DAL/Api";
 import {errorUtils} from "../3_commons/errors-utils";
 import {AxiosError} from "axios";
-import {setProfile} from "./app-reducer";
+import {setProfileData} from "./app-reducer";
 
 export type AuthStateType = {
     isLoggedIn: boolean
@@ -72,13 +72,12 @@ export const signUpTC = (email: string, password: string): AppThunk => async dis
         dispatch(setIsFetching(false))
     }
 }
-
-export const loginTC = (data: LoginParamsType): AppThunk => async dispatch => {
+export const signInTC = (data: LoginParamsType): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
         const response = await AuthAPI.signIn(data)
         console.log(response)
-        dispatch(setProfile(response.data))
+        dispatch(setProfileData(response.data))
         dispatch(setIsLogin(true))
         dispatch(setIsFetching(false))
         dispatch(setResponse(true))
@@ -88,7 +87,6 @@ export const loginTC = (data: LoginParamsType): AppThunk => async dispatch => {
         dispatch(setIsFetching(false))
     }
 }
-
 export const resetPasswordTC = (email: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
@@ -102,7 +100,6 @@ export const resetPasswordTC = (email: string): AppThunk => async dispatch => {
         dispatch(setIsFetching(false))
     }
 }
-
 export const logoutTC = (): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
@@ -115,7 +112,6 @@ export const logoutTC = (): AppThunk => async dispatch => {
         dispatch(setIsFetching(false))
     }
 }
-
 export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))

@@ -9,11 +9,14 @@ export const instanceHeroku = axios.create({
     withCredentials: true,
 })
 export const AuthAPI = {
+    me: () => {
+        return instanceHeroku.post<ResponseDataProfileType>("auth/me");
+    },
     signIn: (data: LoginParamsType) =>
-        instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseDataType>>
+        instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseDataProfileType>>
         ("/auth/login", {...data}),
     logOut: () =>
-        instanceHeroku.delete<AxiosResponse<ResponseDataType>>
+        instanceHeroku.delete<AxiosResponse<ResponseDataProfileType>>
         ("/auth/me"),
 
     editProfile: (name: string) =>
@@ -31,7 +34,7 @@ export const AuthAPI = {
 
     signUp: (email: string, password: string) =>
         instanceHeroku.post<LoginParamsType,
-            AxiosResponse<ResponseSignUpType<ResponseDataType>>>
+            AxiosResponse<ResponseSignUpType<ResponseDataProfileType>>>
         ("/auth/register", {email, password}),
 
     setNewPassword: (password: string, resetPasswordToken: string) => {
@@ -49,7 +52,7 @@ export type LoginParamsType = {
     rememberMe?: boolean
 }
 
-export type ResponseDataType = {
+export type ResponseDataProfileType = {
     _id: string;
     email: string;
     name: string;
@@ -73,5 +76,5 @@ type ResponseResetPasswordType = {
 type ResponseEditProfile = {
     token: string
     tokenDeathTime: number
-    updatedUser: ResponseDataType
+    updatedUser: ResponseDataProfileType
 }
