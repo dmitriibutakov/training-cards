@@ -12,7 +12,7 @@ import {Navigate} from "react-router-dom";
 import {ErrorFormikType} from "../../../../3_commons/validate";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 
-const ResetPassword = React.memo(() => {
+const ForgotPassword = React.memo(() => {
     console.log("resetPassword")
     const dispatch = useAppDispatch();
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
@@ -55,4 +55,4 @@ const ResetPassword = React.memo(() => {
     );
 });
 
-export default ResetPassword;
+export default ForgotPassword;

@@ -72,7 +72,7 @@ const SignIn = () => {
                                    {...formik.getFieldProps("rememberMe")}/>
 
                 <div>
-                    <NavLink to={PATH.resetPassword}>Forgot Password</NavLink>
+                    <NavLink to={PATH.forgotPassword}>forgot password?</NavLink>
                 </div>
                 <UniversalBtn text={"Login"}
                               type={"submit"}

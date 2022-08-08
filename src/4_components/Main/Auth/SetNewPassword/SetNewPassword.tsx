@@ -1,6 +1,6 @@
 import React from 'react';
 import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {setNewPasswordTC} from "../../../../2_BLL/auth-reducer";
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
@@ -34,7 +34,7 @@ export const SetNewPassword = () => {
             formik.resetForm()
         },
     })
-
+if (info) return <Navigate to={"sign-in"}/>
     return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}
