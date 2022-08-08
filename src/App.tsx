@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import privateClass from "./App.module.css"
 import Pages from "./4_components/Routes/Routes";
 import Header from "./4_components/Header/Header";
-import {BrowserRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {AppStateType, useAppDispatch} from "./2_BLL/store";
 import {initAppTC} from "./2_BLL/app-reducer";
 import {useSelector} from "react-redux";
@@ -19,12 +19,12 @@ const App = () => {
         return <Preloader/>
     }
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className={privateClass.body}>
                 <Header/>
                 <Pages/>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     );
 };
 
