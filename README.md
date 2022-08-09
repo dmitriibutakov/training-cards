@@ -1,1 +1,1 @@
-link: https://dmitryload.github.io/training-cards
+link: https://training-cards.herokuapp.com
