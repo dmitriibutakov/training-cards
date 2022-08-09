@@ -1,7 +1,6 @@
 import React from 'react';
-import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
+import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
 import {Navigate, useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
 import {setNewPasswordTC} from "../../../../2_BLL/auth-reducer";
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
 import {useFormik} from "formik";
@@ -14,8 +13,8 @@ export const SetNewPassword = () => {
     console.log("SetNewPassword")
     const dispatch = useAppDispatch();
     const { token } = useParams();
-    const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
-    const info = useSelector<AppStateType, string | null>(state => state.auth.info)
+    const isFetching = useAppSelector(state => state.auth.isFetching)
+    const info = useAppSelector(state => state.auth.info)
 
     const formik = useFormik({
         initialValues: {

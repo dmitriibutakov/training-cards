@@ -1,15 +1,14 @@
-import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
 import React from 'react';
+import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
 import UniversalTitle from "../../../../3_commons/common_components/UniversalTitle/UniversalTitle";
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
 import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
 import {PATH} from "../../../../3_commons/Path";
 import {Navigate, NavLink} from "react-router-dom";
 import UniversalNavLink from "../../../../3_commons/common_components/UniversalNavLink/UniversalNavLink";
-import {useSelector} from "react-redux";
 import UniversalCheckbox from "../../../../3_commons/common_components/UniversalCheckbox/UniversalCheckbox";
 import {useFormik} from "formik";
-import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
+import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
 import {signInTC} from "../../../../2_BLL/auth-reducer";
 import Loader from "../../../../3_commons/Loader/Loader";
 import {ErrorFormikType} from "../../../../3_commons/validate";
@@ -19,9 +18,9 @@ import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse
 const SignIn = () => {
     console.log("SignIn")
     const dispatch = useAppDispatch();
-    const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
-    const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
-    const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const errorOfResponse = useAppSelector(state => state.app.errorOfResponse)
+    const isFetching = useAppSelector(state => state.auth.isFetching)
 
     const formik = useFormik({
         initialValues: {
@@ -48,7 +47,7 @@ const SignIn = () => {
             formik.resetForm()
         },
     })
-    if (isLoggedIn) return <Navigate to={"/profile"}/>
+    if (isLoggedIn) return <Navigate to={"/packs"}/>
     return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}

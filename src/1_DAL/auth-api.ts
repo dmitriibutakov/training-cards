@@ -1,14 +1,7 @@
-import axios, {AxiosResponse} from "axios"
+import {AxiosResponse} from "axios"
+import {instanceHeroku} from "./instance";
 
-export const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0',
-    withCredentials: true,
-})
-export const instanceHeroku = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
-    withCredentials: true,
-})
-export const AuthAPI = {
+export const authApi = {
     me: () => (instanceHeroku.post<ResponseDataProfileType>("auth/me")),
 
     signIn: (data: LoginParamsType) =>
@@ -29,7 +22,8 @@ export const AuthAPI = {
             email, from: `test-front-admin <hvi17@yandex.ru>`,
             message: `<div style='background-color: #ceeeff; border-radius: 10px; padding: 15px'>
                           password recovery link: <a href='https://training-cards.herokuapp.com/set-new-password/$token$'>link</a>
-                      </div>`}),
+                      </div>`
+        }),
 
     signUp: (email: string, password: string) =>
         instanceHeroku.post<LoginParamsType,
@@ -40,7 +34,8 @@ export const AuthAPI = {
         (instanceHeroku.post<{ info: string; error: string },
             AxiosResponse<ResponseResetPasswordType>>(`auth/set-new-password`, {
             password,
-            resetPasswordToken})),
+            resetPasswordToken
+        })),
 }
 
 export type LoginParamsType = {

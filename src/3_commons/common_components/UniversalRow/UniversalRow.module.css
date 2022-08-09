@@ -1,0 +1,16 @@
+.row {
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(13, 88, 166, 0.47);
+}
+.link {
+    background-color: #fff;
+    margin-right: 10px;
+}
+.link img {
+    height: 25px;
+    width: 25px;
+}

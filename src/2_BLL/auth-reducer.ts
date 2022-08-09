@@ -1,9 +1,10 @@
 import {setIsFetching, SetIsFetchingType} from "../3_commons/common_actions/common_actions";
 import {AppThunk} from "./store";
-import {AuthAPI, LoginParamsType} from "../1_DAL/Api";
+import {authApi, LoginParamsType} from "../1_DAL/auth-api";
 import {errorUtils} from "../3_commons/errors-utils";
 import {AxiosError} from "axios";
 import {setProfileData} from "./app-reducer";
+import {stringInit} from "../3_commons/init-variables";
 
 export type AuthStateType = {
     isLoggedIn: boolean
@@ -18,7 +19,7 @@ let initialState: AuthStateType = {
     isFetching: false,
     buttonDisable: true,
     info: null,
-    isEmailSent: false
+    isEmailSent: false,
 }
 
 const AuthReducer = (state: AuthStateType = initialState, action: AuthReducerType): AuthStateType => {
@@ -52,7 +53,7 @@ const setEmailSent = (isEmailSent: boolean) => ({type: "SET-EMAIL-SENT", isEmail
 export const signUpTC = (email: string, password: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
-        const response = await AuthAPI.signUp(email, password)
+        const response = await authApi.signUp(email, password)
         console.log(response)
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)
@@ -63,7 +64,7 @@ export const signUpTC = (email: string, password: string): AppThunk => async dis
 export const signInTC = (data: LoginParamsType): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
-        const response = await AuthAPI.signIn(data)
+        const response = await authApi.signIn(data)
         console.log(response)
         dispatch(setProfileData(response.data))
         dispatch(setIsLogin(true))
@@ -77,7 +78,7 @@ export const signInTC = (data: LoginParamsType): AppThunk => async dispatch => {
 export const resetPasswordTC = (email: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
-        const response = await AuthAPI.resetPassword(email)
+        const response = await authApi.resetPassword(email)
         console.log(response)
         dispatch(setEmailSent(true))
         dispatch(setIsFetching(false))
@@ -90,7 +91,7 @@ export const resetPasswordTC = (email: string): AppThunk => async dispatch => {
 export const logoutTC = (): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
-        const response = await AuthAPI.logOut()
+        const response = await authApi.logOut()
         console.log(response)
         dispatch(setIsLogin(false))
     } catch (err) {
@@ -102,7 +103,7 @@ export const logoutTC = (): AppThunk => async dispatch => {
 export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
-        const response = await AuthAPI.setNewPassword(password, resetPasswordToken);
+        const response = await authApi.setNewPassword(password, resetPasswordToken);
         console.log(response.data.info)
         dispatch(setInfo(response.data.info));
     } catch (err) {

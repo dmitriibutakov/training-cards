@@ -5,9 +5,8 @@ import UniversalInput from "../../../../3_commons/common_components/UniversalInp
 import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
 import UniversalNavLink from "../../../../3_commons/common_components/UniversalNavLink/UniversalNavLink";
 import {PATH} from "../../../../3_commons/Path";
-import {useSelector} from "react-redux";
 import {useFormik} from 'formik';
-import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
+import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
 import Loader from "../../../../3_commons/Loader/Loader";
 import {signUpTC} from "../../../../2_BLL/auth-reducer";
 import {useNavigate} from "react-router-dom";
@@ -17,8 +16,8 @@ import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse
 const SignUp = () => {
     console.log("SignUp")
     const navigate = useNavigate()
-    const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
-    const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
+    const isFetching = useAppSelector(state => state.auth.isFetching)
+    const errorOfResponse = useAppSelector(state => state.app.errorOfResponse)
     const dispatch = useAppDispatch()
 
     const formik = useFormik({

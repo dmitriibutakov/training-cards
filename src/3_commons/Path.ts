@@ -5,8 +5,10 @@ export const PATH = {
     signUp: '/sign-up',
     error: '/404',
     forgotPassword: '/forgot-password',
-    testComponents: '/test-components',
     logOut: '/log-out',
     emailPasswordSent: '/email-password-sent',
     setNewPassword: '/set-new-password/:token'
+}
+export const PACKS = {
+    packs: "/packs"
 }

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {NavLink} from "react-router-dom";
-import {PATH} from "../../3_commons/Path";
+import {PACKS, PATH} from "../../3_commons/Path";
 import privateClass from "./Header.module.css"
 import {useAppDispatch} from "../../2_BLL/store";
 import {setAppError} from "../../2_BLL/app-reducer";
@@ -18,8 +18,8 @@ const Header = () => {
     const setClassHeader = active ? privateClass.navigation : privateClass.navigation__hidden
     return (
         <div onClick={deleteError}>
-        <div className={setClassHeader}>
-            <div onClick={changeClass} className={setClassBurger}>
+        <div onClick={changeClass} className={setClassHeader}>
+            <div className={setClassBurger}>
                 <span></span>
                 <span></span>
                 <span></span>
@@ -28,8 +28,7 @@ const Header = () => {
                 <NavLink to={PATH.profile} className={privateClass.link}>Profile</NavLink>
                 <NavLink to={PATH.signIn} className={privateClass.link}>Sign In</NavLink>
                 <NavLink to={PATH.signUp} className={privateClass.link}>Sign Up</NavLink>
-                <NavLink to={PATH.forgotPassword} className={privateClass.link}>Forgot Password</NavLink>
-                <NavLink to={PATH.testComponents} className={privateClass.link}>Test Components</NavLink>
+                <NavLink to={PACKS.packs} className={privateClass.link}>Packs</NavLink>
                 <NavLink to={PATH.error} className={privateClass.link}>404</NavLink>
             </nav>
         </div>

@@ -4,8 +4,7 @@ import UniversalTitle from "../../../../3_commons/common_components/UniversalTit
 import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
 import {useFormik} from "formik";
 import {resetPasswordTC} from "../../../../2_BLL/auth-reducer";
-import {AppStateType, useAppDispatch} from "../../../../2_BLL/store";
-import {useSelector} from "react-redux";
+import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
 import Loader from "../../../../3_commons/Loader/Loader";
 import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
 import {Navigate} from "react-router-dom";
@@ -15,9 +14,9 @@ import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse
 const ForgotPassword = React.memo(() => {
     console.log("resetPassword")
     const dispatch = useAppDispatch();
-    const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
-    const errorOfResponse = useSelector<AppStateType, string | null>(state => state.app.errorOfResponse)
-    const isEmailSent = useSelector<AppStateType, boolean>(state => state.auth.isEmailSent)
+    const isFetching = useAppSelector(state => state.auth.isFetching)
+    const errorOfResponse = useAppSelector(state => state.app.errorOfResponse)
+    const isEmailSent = useAppSelector(state => state.auth.isEmailSent)
 
     const formik = useFormik({
         initialValues: {

@@ -4,11 +4,11 @@ import {showImg} from "../../common_images/commonImages";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-type UniversalInputType = DefaultInputPropsType & {
+type UniversalInputPropsType = DefaultInputPropsType & {
     error?: string | false | undefined
     textError?: string
 }
-const UniversalInput: React.FC<UniversalInputType> = ({error, textError, placeholder, type, ...restProps}) => {
+const UniversalInput: React.FC<UniversalInputPropsType> = ({error, textError, placeholder, type, ...restProps}) => {
     const [show, setShow] = useState<boolean>(false)
     return (
         <div className={privateClass.input__body}>
