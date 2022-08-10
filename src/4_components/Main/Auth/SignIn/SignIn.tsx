@@ -16,11 +16,10 @@ import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse
 
 
 const SignIn = () => {
-    console.log("SignIn")
     const dispatch = useAppDispatch();
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const errorOfResponse = useAppSelector(state => state.app.errorOfResponse)
-    const isFetching = useAppSelector(state => state.auth.isFetching)
+    const isFetching = useAppSelector(state => state.app.isFetching)
 
     const formik = useFormik({
         initialValues: {

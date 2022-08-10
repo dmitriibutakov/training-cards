@@ -1,9 +1,8 @@
-
 export type ErrorFormikType = {
     password?: string, repeatPassword?: string, email?: string,
 }
 
-export const validatePassword = (values: {password: string, repeatPassword: string}, errors: ErrorFormikType) => {
+export const validatePassword = (values: { password: string, repeatPassword: string }, errors: ErrorFormikType) => {
     if (!values.password) {
         errors.password = "password is required"
     } else if (!values.repeatPassword) {

@@ -6,10 +6,10 @@ import {setAppError} from "../../../2_BLL/app-reducer";
 type UniversalBtnPropsType = {
     text: string
     type?: "button" | "submit" | "reset"
-    disabled?:boolean
+    disabled?: boolean
     onClicked?: () => void
 }
-const UniversalBtn:React.FC<UniversalBtnPropsType> = ({text, type, disabled, onClicked}) => {
+const UniversalBtn: React.FC<UniversalBtnPropsType> = ({text, type, disabled, onClicked}) => {
     const dispatch = useAppDispatch()
     const onClickedHandler = () => {
         onClicked && onClicked()

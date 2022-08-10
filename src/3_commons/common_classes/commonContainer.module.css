@@ -18,26 +18,31 @@
     flex-direction: column;
     align-items: center;
 }
+
 .container p {
     font-size: 18px;
     font-weight: 500;
 }
+
 .container h1 {
     font-size: 24px;
     font-weight: 700;
 }
+
 .container span img {
     height: 100px;
     width: 100px;
     border-radius: 50%;
 }
 
-.container >*:not(:last-child) {
+.container > *:not(:last-child) {
     margin-bottom: 30px;
 }
-.container form >*:not(:last-child) {
+
+.container form > *:not(:last-child) {
     margin-bottom: 20px;
 }
+
 .error {
     color: #fa4545;
 }

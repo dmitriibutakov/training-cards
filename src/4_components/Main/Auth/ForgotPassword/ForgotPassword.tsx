@@ -12,11 +12,10 @@ import {ErrorFormikType} from "../../../../3_commons/validate";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 
 const ForgotPassword = React.memo(() => {
-    console.log("resetPassword")
     const dispatch = useAppDispatch();
-    const isFetching = useAppSelector(state => state.auth.isFetching)
+    const isFetching = useAppSelector(state => state.app.isFetching)
     const errorOfResponse = useAppSelector(state => state.app.errorOfResponse)
-    const isEmailSent = useAppSelector(state => state.auth.isEmailSent)
+    const isResponse = useAppSelector(state => state.app.isResponse)
 
     const formik = useFormik({
         initialValues: {
@@ -36,8 +35,8 @@ const ForgotPassword = React.memo(() => {
             formik.resetForm()
         },
     })
-    if (isEmailSent) return <Navigate to={"/email-password-sent"}/>
-        return (
+    if (isResponse) return <Navigate to={"/email-password-sent"}/>
+    return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}
             <UniversalTitle title={'Reset Password'}/>
@@ -47,7 +46,7 @@ const ForgotPassword = React.memo(() => {
                                 textError={formik.errors.email}
                                 {...formik.getFieldProps("email")}/>
                 <ErrorResponse errorOfResponse={errorOfResponse}/>
-            <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
+                <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
             </form>
 
         </div>

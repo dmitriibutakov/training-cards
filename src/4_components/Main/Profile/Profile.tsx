@@ -15,7 +15,7 @@ const Profile = () => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const profile = useAppSelector(state => state.app.profile)
     const avatar = useAppSelector(state => state.app.profile.avatar || incognitoImg);
-    const isFetching = useAppSelector(state => state.auth.isFetching)
+    const isFetching = useAppSelector(state => state.app.isFetching)
 
     if (isFetching) return <Preloader/>
     if (!isLoggedIn) return <Navigate to={"/sign-in"}/>
@@ -24,8 +24,8 @@ const Profile = () => {
             <UniversalTitle title={'Personal Information'}/>
             <UniversalAvatar avatarImg={avatar}/>
             <h1>{profile.name}</h1>
-            <UniversalBtn onClicked={()=>navigate("/edit")} text={"Edit profile"}/>
-            <UniversalBtn onClicked={()=>dispatch(logoutTC())} text={"Logout"}/>
+            <UniversalBtn onClicked={() => navigate("/edit")} text={"Edit profile"}/>
+            <UniversalBtn onClicked={() => dispatch(logoutTC())} text={"Logout"}/>
         </div>
     );
 };

@@ -43,7 +43,7 @@ const addNewPack = (pack: PackType) => ({type: "ADD-NEW-PACK", pack} as const)
 
 //thunks
 export const getPacksTC = (): AppThunk => async (dispatch, getState) => {
-    const userId = getState().app.userId
+    const userId = getState().app.profile._id
     const pack = {userId, pageCount: 8}
     try {
         dispatch(setIsFetching(true))
@@ -59,9 +59,7 @@ export const addPackTC = (name?: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
         const response = await packsApi.createPack(name)
-        console.log(response.data)
         await dispatch(getPacksTC())
-        console.log(response.data.cardPacks)
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)
     } finally {

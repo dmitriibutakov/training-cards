@@ -6,7 +6,6 @@ type PacksTablePropsType = {
     cardPacks: Array<PackType>
 }
 const PacksTable: React.FC<PacksTablePropsType> = ({cardPacks}) => {
-    console.log("packs table render")
     return (
         <>
             {

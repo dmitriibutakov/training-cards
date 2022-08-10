@@ -1,17 +1,17 @@
 import {errorUtils} from '../3_commons/errors-utils';
 import {AxiosError} from 'axios';
-import {setIsFetching} from '../3_commons/common_actions/common_actions';
+import {setIsFetching, SetIsFetchingType} from '../3_commons/common_actions/common_actions';
 import {AppThunk} from './store';
 import {authApi, ResponseDataProfileType} from '../1_DAL/auth-api';
 import {setIsLogin} from "./auth-reducer";
 import {numberInit, stringInit} from "../3_commons/init-variables";
-import {getPacksTC} from "./packs-reducer";
 
 export type AppType = {
     errorOfResponse: string | null
     profile: ResponseDataProfileType
     isInit: boolean
-    userId: string
+    isFetching: boolean
+    isResponse: boolean
 }
 
 let initialState: AppType = {
@@ -27,7 +27,8 @@ let initialState: AppType = {
         _id: stringInit,
     },
     isInit: false,
-    userId: stringInit
+    isFetching: false,
+    isResponse: false
 }
 
 const appReducer = (state: AppType = initialState, action: AppReducerType): AppType => {
@@ -38,25 +39,27 @@ const appReducer = (state: AppType = initialState, action: AppReducerType): AppT
             return {...state, profile: action.profile}
         case "SET-INIT":
             return {...state, isInit: action.init}
-        case "SET-ID":
-            return {...state, userId: action.userId}
+        case "SET-IS-FETCHING":
+            return {...state, isFetching: action.isFetching}
+        case "SET-RESPONSE":
+            return {...state, isResponse: action.response}
         default:
             return state
     }
 };
 
 //types
-export type AppReducerType = SetAppErrorType | SetProfileDataType | SetIsInitType | SetUserIdType
+export type AppReducerType = SetAppErrorType | SetProfileDataType | SetIsInitType | SetIsFetchingType | SetResponseType
 export type SetAppErrorType = ReturnType<typeof setAppError>
 type SetProfileDataType = ReturnType<typeof setProfileData>
 type SetIsInitType = ReturnType<typeof setIsInit>
-type SetUserIdType = ReturnType<typeof setUserId>
+type SetResponseType = ReturnType<typeof setResponse>
 
 //actions
 export const setAppError = (errorOfResponse: string | null) => ({type: 'SET-ERROR', errorOfResponse} as const)
 export const setProfileData = (profile: ResponseDataProfileType) => ({type: 'SET-PROFILE', profile} as const)
 const setIsInit = (init: boolean) => ({type: 'SET-INIT', init} as const)
-const setUserId = (userId: string) => ({type: "SET-ID", userId} as const)
+export const setResponse = (response: boolean) => ({type: "SET-RESPONSE", response} as const)
 
 //thunks
 export const initAppTC = (): AppThunk => async (dispatch, getState) => {
@@ -64,7 +67,6 @@ export const initAppTC = (): AppThunk => async (dispatch, getState) => {
         dispatch(setIsFetching(true))
         const response = await authApi.me()
         dispatch(setProfileData(response.data))
-        dispatch(setUserId(response.data._id))
         dispatch(setIsLogin(true))
     } catch (err) {
         const {isLoggedIn} = getState().auth
@@ -81,7 +83,6 @@ export const editProfileTC = (name: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
         const response = await authApi.editProfile(name)
-        console.log(response)
         dispatch(setProfileData(response.data.updatedUser))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

@@ -9,14 +9,17 @@
     border-radius: 5px;
     text-transform: uppercase;
 }
+
 .btn {
     background-color: #366EFF;
     color: #fff;
 }
+
 .btn__disabled {
     background-color: #adb5bd;
     color: #232328;
 }
+
 .btn:after, .btn:before {
     transition: .5s all;
 }

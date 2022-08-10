@@ -5,6 +5,7 @@
     --time: 3s;
     --size: 3px;
 }
+
 .loader__block {
     width: 100%;
     height: 4px;
@@ -12,13 +13,14 @@
     right: 0;
     top: 0;
 }
+
 .loader {
     top: 0;
     background-color: var(--main-color);
     overflow: hidden;
     width: 100%;
     height: 100%;
-     left: 0;
+    left: 0;
     display: flex;
     align-items: center;
     align-content: center;
@@ -43,5 +45,7 @@
 }
 
 @keyframes getWidth {
-    100% { width: 100%; }
+    100% {
+        width: 100%;
+    }
 }

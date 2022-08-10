@@ -10,11 +10,10 @@ import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/U
 import {ErrorFormikType, validatePassword} from "../../../../3_commons/validate";
 
 export const SetNewPassword = () => {
-    console.log("SetNewPassword")
     const dispatch = useAppDispatch();
-    const { token } = useParams();
-    const isFetching = useAppSelector(state => state.auth.isFetching)
-    const info = useAppSelector(state => state.auth.info)
+    const {token} = useParams();
+    const isFetching = useAppSelector(state => state.app.isFetching)
+    const isResponse = useAppSelector(state => state.app.isResponse)
 
     const formik = useFormik({
         initialValues: {
@@ -26,12 +25,12 @@ export const SetNewPassword = () => {
             validatePassword(values, errors)
             return errors
         },
-        onSubmit: ({password}: {password: string}) => {
+        onSubmit: ({password}: { password: string }) => {
             token && dispatch(setNewPasswordTC(password, token))
             formik.resetForm()
         },
     })
-if (info) return <Navigate to={"sign-in"}/>
+    if (isResponse) return <Navigate to={"sign-in"}/>
     return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}
@@ -47,7 +46,6 @@ if (info) return <Navigate to={"sign-in"}/>
                                 type={"password"}
                                 error={formik.touched.repeatPassword && formik.errors.repeatPassword}
                                 textError={formik.errors.repeatPassword}/>
-                {info && <p>{info}</p>}
                 <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
             </form>
         </div>

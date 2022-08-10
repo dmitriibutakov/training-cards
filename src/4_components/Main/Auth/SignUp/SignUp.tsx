@@ -14,9 +14,8 @@ import {ErrorFormikType, validatePassword} from "../../../../3_commons/validate"
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 
 const SignUp = () => {
-    console.log("SignUp")
     const navigate = useNavigate()
-    const isFetching = useAppSelector(state => state.auth.isFetching)
+    const isFetching = useAppSelector(state => state.app.isFetching)
     const errorOfResponse = useAppSelector(state => state.app.errorOfResponse)
     const dispatch = useAppDispatch()
 
@@ -39,7 +38,9 @@ const SignUp = () => {
         onSubmit: values => {
             dispatch(signUpTC(values.email, values.password))
             formik.resetForm()
-            setTimeout(()=> {navigate("/sign-in")}, 500)
+            setTimeout(() => {
+                navigate("/sign-in")
+            }, 500)
         },
     })
     return (
