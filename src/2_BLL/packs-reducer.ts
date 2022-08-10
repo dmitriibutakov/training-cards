@@ -1,4 +1,4 @@
-import {packsApi, PackType} from "../1_DAL/packs-api";
+import {PackParamType, packsApi, PackType} from "../1_DAL/packs-api";
 import {numberInit, stringInit} from "../3_commons/init-variables";
 import {AppThunk} from "./store";
 import {setIsFetching} from "../3_commons/common_actions/common_actions";
@@ -7,6 +7,11 @@ import {AxiosError} from "axios";
 
 export type PacksStateType = {
     cardPacks: Array<PackType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
 }
 let initialState: PacksStateType = {
     cardPacks: [
@@ -18,47 +23,52 @@ let initialState: PacksStateType = {
             created: stringInit,
             updated: stringInit
         }
-    ]
+    ],
+    cardPacksTotalCount: numberInit,
+    maxCardsCount: numberInit,
+    minCardsCount: numberInit,
+    page: 1,
+    pageCount: 8,
 }
 
 export const packsReducer = (state: PacksStateType = initialState, action: PacksReducerType): PacksStateType => {
     switch (action.type) {
         case "SET-PACKS":
             return {...state, cardPacks: action.cardPacks}
-        case "ADD-NEW-PACK":
-            return {...state, cardPacks: [...state.cardPacks, action.pack]}
+        case "SET-PAGE":
+            return {...state, page: action.page}
         default:
             return state
     }
 }
 
 //types
-export type PacksReducerType = SetPacksType | AddNewPackType
-type SetPacksType = ReturnType<typeof setPacks>
-type AddNewPackType = ReturnType<typeof addNewPack>
+export type PacksReducerType = ReturnType<typeof setPacks> | ReturnType<typeof setPage>
 
 //actions
 const setPacks = (cardPacks: Array<PackType>) => ({type: "SET-PACKS", cardPacks} as const)
-const addNewPack = (pack: PackType) => ({type: "ADD-NEW-PACK", pack} as const)
+export const setPage = (page: number) => ({type: "SET-PAGE", page} as const)
 
 //thunks
 export const getPacksTC = (): AppThunk => async (dispatch, getState) => {
-    const userId = getState().app.profile._id
-    const pack = {userId, pageCount: 8}
+    const { _id } = getState().app.profile
+    const { pageCount } = getState().packs
     try {
+        const { page } = getState().packs
         dispatch(setIsFetching(true))
-        const response = await packsApi.getPacks(pack)
+        const response = await packsApi.getPacks({_id, pageCount, page})
         dispatch(setPacks(response.data.cardPacks))
+        console.log(response.data.cardPacks)
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)
     } finally {
         dispatch(setIsFetching(false))
     }
 }
-export const addPackTC = (name?: string): AppThunk => async dispatch => {
+export const addPackTC = (name?: string, ): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
-        const response = await packsApi.createPack(name)
+        await packsApi.createPack(name)
         await dispatch(getPacksTC())
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

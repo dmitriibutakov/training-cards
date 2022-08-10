@@ -1,0 +1,43 @@
+.body {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 250px;
+    height: 7px;
+    justify-content: center;
+    background: rgba(211, 211, 211, 0.58);
+}
+
+.min {
+    position: absolute;
+    left: -5px;
+    bottom: -8px;
+    background-color: #ff5f07;
+}
+
+.max {
+    position: absolute;
+    left: 5px;
+    bottom: -8px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    border-radius: 5px;
+    outline: none;
+    background: none;
+    pointer-events: none;
+    -webkit-transition: .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    pointer-events: auto;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4cabf8;
+    cursor: pointer;
+}

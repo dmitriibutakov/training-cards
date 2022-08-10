@@ -46,6 +46,7 @@ export const signInTC = (data: LoginParamsType): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
         const response = await authApi.signIn(data)
+        console.log(response.data)
         await dispatch(getPacksTC())
         dispatch(setProfileData(response.data))
         dispatch(setIsLogin(true))

@@ -1,0 +1,19 @@
+.paginator {
+    margin: 20px 0  10px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(19, 91, 145, 0.14);
+    color:#135B91;
+    font-size: 18px;
+    min-width: 200px;
+    height: 40px;
+    border-radius: 20px;
+}
+.paginator>*:not(:last-of-type) {
+    margin-right: 2px;
+}
+.currentPage {
+    font-weight: 700;
+}
