@@ -5,7 +5,7 @@ export const packsApi = {
                    packName, min, max, userId,
                    sortPacks, page, pageCount
                }: PackParamType) =>
-        instanceHeroku.get<ResponseGetCardsType>(`cards/pack?packName?=${packName}&min?=${min}&max?=${max}&sortPacks?=${sortPacks}&page?=${page}&pageCount?=${pageCount}&user_id=${userId}`),
+        instanceHeroku.get<ResponseGetCardsType>(`cards/pack?packName?=${packName}&min?=${min}&max?=${max}&sortPacks?=${sortPacks}&page?=${page}&pageCount=${pageCount}&user_id=${userId}`),
     createPack: (name?: string) => instanceHeroku.post("cards/pack", {cardsPack: {name}})
 }
 export type PackParamType = {

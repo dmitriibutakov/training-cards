@@ -14,6 +14,7 @@ const App = () => {
     useEffect(() => {
         dispatch(initAppTC())
     }, [])
+
     console.log("App")
     if (!isInit) {
         return <Preloader/>

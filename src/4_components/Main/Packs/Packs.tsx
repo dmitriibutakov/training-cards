@@ -1,43 +1,42 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import commonClass from "../../../3_commons/common_classes/commonTable.module.css"
 import {useAppDispatch, useAppSelector} from "../../../2_BLL/store";
-import {PackParamType} from "../../../1_DAL/packs-api";
 import NotAuthorized from "./PacksTable/NotAuthorized/NotAuthorized";
-import {getPacksTC} from "../../../2_BLL/packs-reducer";
-import Preloader from "../../../3_commons/Preloader/Preloader";
+import {addPackTC, getPacksTC} from "../../../2_BLL/packs-reducer";
 import UniversalTitle from "../../../3_commons/common_components/UniversalTitle/UniversalTitle";
-import PacksHeader from "./PacksTable/PacksUtils/PacksHeader/PacksHeader";
+import PacksHeader from "./PacksUtils/PacksHeader/PacksHeader";
 import PacksTable from "./PacksTable/PacksTable";
+import Preloader from "../../../3_commons/Preloader/Preloader";
 
 
 const Packs = () => {
     console.log("packs render")
     const dispatch = useAppDispatch()
-    const userId = useAppSelector(state => state.app.userId)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const isFetching = useAppSelector(state => state.auth.isFetching)
+    const packs = useAppSelector(state => state.packs.cardPacks)
 
-    const testPack: PackParamType = {
-        packName: "english",
-        min: 0,
-        max: 10,
-        sortPacks: 0,
-        page: 1,
-        pageCount: 10,
-        userId: userId
-    }
+    const [inputError, setInputError] = useState <string | null>("")
+    const addPack = useCallback(function (title: string) {
+        if (title.length < 1 || title.length > 10) {
+            setInputError("value must be more 1 or less 10 symbols")
+        } else {
+            setInputError(null)
+            dispatch(addPackTC(title))
+        }
+    }, [])
 
     useEffect(() => {
-        dispatch(getPacksTC(testPack))
+        dispatch(getPacksTC())
     }, [])
 
     if (!isLoggedIn) return <NotAuthorized/>
     if (isFetching) return <Preloader/>
     return (
         <div className={commonClass.table}>
-            <UniversalTitle title={"Packs list"}/>
-            <PacksHeader/>
-            <PacksTable/>
+            <UniversalTitle title={"Training packs"}/>
+            <PacksHeader inputError={inputError} addPack={addPack}/>
+            <PacksTable cardPacks={packs}/>
         </div>
     );
 };

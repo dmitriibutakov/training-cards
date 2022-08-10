@@ -1,4 +1,4 @@
-import {PackParamType, packsApi, PackType} from "../1_DAL/packs-api";
+import {packsApi, PackType} from "../1_DAL/packs-api";
 import {numberInit, stringInit} from "../3_commons/init-variables";
 import {AppThunk} from "./store";
 import {setIsFetching} from "../3_commons/common_actions/common_actions";
@@ -17,7 +17,7 @@ let initialState: PacksStateType = {
             cardsCount: numberInit,
             created: stringInit,
             updated: stringInit
-        },
+        }
     ]
 }
 
@@ -25,20 +25,26 @@ export const packsReducer = (state: PacksStateType = initialState, action: Packs
     switch (action.type) {
         case "SET-PACKS":
             return {...state, cardPacks: action.cardPacks}
+        case "ADD-NEW-PACK":
+            return {...state, cardPacks: [...state.cardPacks, action.pack]}
         default:
             return state
     }
 }
 
 //types
-export type PacksReducerType = SetPacksType
+export type PacksReducerType = SetPacksType | AddNewPackType
 type SetPacksType = ReturnType<typeof setPacks>
+type AddNewPackType = ReturnType<typeof addNewPack>
 
 //actions
 const setPacks = (cardPacks: Array<PackType>) => ({type: "SET-PACKS", cardPacks} as const)
+const addNewPack = (pack: PackType) => ({type: "ADD-NEW-PACK", pack} as const)
 
 //thunks
-export const getPacksTC = (pack: PackParamType): AppThunk => async dispatch => {
+export const getPacksTC = (): AppThunk => async (dispatch, getState) => {
+    const userId = getState().app.userId
+    const pack = {userId, pageCount: 8}
     try {
         dispatch(setIsFetching(true))
         const response = await packsApi.getPacks(pack)
@@ -49,11 +55,12 @@ export const getPacksTC = (pack: PackParamType): AppThunk => async dispatch => {
         dispatch(setIsFetching(false))
     }
 }
-export const createPackTC = (name?: string): AppThunk => async dispatch => {
+export const addPackTC = (name?: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
         const response = await packsApi.createPack(name)
-        dispatch(setPacks(response.data.cardPacks))
+        console.log(response.data)
+        await dispatch(getPacksTC())
         console.log(response.data.cardPacks)
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

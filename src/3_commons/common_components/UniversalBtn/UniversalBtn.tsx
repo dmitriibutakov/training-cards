@@ -2,7 +2,6 @@ import React from 'react';
 import privateClass from "./UniversalBtn.module.css"
 import {useAppDispatch} from "../../../2_BLL/store";
 import {setAppError} from "../../../2_BLL/app-reducer";
-import {setIsFetching} from "../../common_actions/common_actions";
 
 type UniversalBtnPropsType = {
     text: string

@@ -5,6 +5,7 @@ import {AppThunk} from './store';
 import {authApi, ResponseDataProfileType} from '../1_DAL/auth-api';
 import {setIsLogin} from "./auth-reducer";
 import {numberInit, stringInit} from "../3_commons/init-variables";
+import {getPacksTC} from "./packs-reducer";
 
 export type AppType = {
     errorOfResponse: string | null
@@ -58,23 +59,10 @@ const setIsInit = (init: boolean) => ({type: 'SET-INIT', init} as const)
 const setUserId = (userId: string) => ({type: "SET-ID", userId} as const)
 
 //thunks
-export const editProfileTC = (name: string): AppThunk => async dispatch => {
-    try {
-        dispatch(setIsFetching(true))
-        const response = await authApi.editProfile(name)
-        console.log(response)
-        dispatch(setProfileData(response.data.updatedUser))
-    } catch (err) {
-        errorUtils(err as Error | AxiosError, dispatch)
-    } finally {
-        dispatch(setIsFetching(false))
-    }
-}
 export const initAppTC = (): AppThunk => async (dispatch, getState) => {
     try {
         dispatch(setIsFetching(true))
         const response = await authApi.me()
-        console.log(response.data)
         dispatch(setProfileData(response.data))
         dispatch(setUserId(response.data._id))
         dispatch(setIsLogin(true))
@@ -89,4 +77,16 @@ export const initAppTC = (): AppThunk => async (dispatch, getState) => {
     }
 };
 
+export const editProfileTC = (name: string): AppThunk => async dispatch => {
+    try {
+        dispatch(setIsFetching(true))
+        const response = await authApi.editProfile(name)
+        console.log(response)
+        dispatch(setProfileData(response.data.updatedUser))
+    } catch (err) {
+        errorUtils(err as Error | AxiosError, dispatch)
+    } finally {
+        dispatch(setIsFetching(false))
+    }
+}
 export default appReducer;
