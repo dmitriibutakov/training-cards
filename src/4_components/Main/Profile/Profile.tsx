@@ -3,10 +3,10 @@ import {Navigate, useNavigate} from "react-router-dom";
 import {logoutTC} from '../../../2_BLL/auth-reducer';
 import {useAppDispatch, useAppSelector} from "../../../2_BLL/store";
 import privateClass from "../../../3_commons/common_classes/commonContainer.module.css";
-import UniversalTitle from "../../../3_commons/common_components/UniversalTitle/UniversalTitle";
-import UniversalBtn from "../../../3_commons/common_components/UniversalBtn/UniversalBtn";
+import Title from "../../../3_commons/common_components/Title/Title";
+import Button from "../../../3_commons/common_components/Button/Button";
 import {incognitoImg} from "../../../3_commons/common_images/commonImages";
-import UniversalAvatar from "../../../3_commons/common_components/UniversalAvatar/UniversalAvatar";
+import Avatar from "../../../3_commons/common_components/Avatar/Avatar";
 import Preloader from "../../../3_commons/Preloader/Preloader";
 
 const Profile = () => {
@@ -21,11 +21,11 @@ const Profile = () => {
     if (!isLoggedIn) return <Navigate to={"/sign-in"}/>
     return (
         <div className={privateClass.container}>
-            <UniversalTitle title={'Personal Information'}/>
-            <UniversalAvatar avatarImg={avatar}/>
+            <Title title={'Personal Information'}/>
+            <Avatar avatarImg={avatar}/>
             <h1>{profile.name}</h1>
-            <UniversalBtn onClicked={() => navigate("/edit")} text={"Edit profile"}/>
-            <UniversalBtn onClicked={() => dispatch(logoutTC())} text={"Logout"}/>
+            <Button onClicked={() => navigate("/edit")} text={"Edit profile"}/>
+            <Button onClicked={() => dispatch(logoutTC())} text={"Logout"}/>
         </div>
     );
 };

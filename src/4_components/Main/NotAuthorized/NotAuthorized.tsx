@@ -1,17 +1,17 @@
 import React from 'react';
 import commonClass from "../../../3_commons/common_classes/commonContainer.module.css";
-import UniversalBtn from "../../../3_commons/common_components/UniversalBtn/UniversalBtn";
+import Button from "../../../3_commons/common_components/Button/Button";
 import {useNavigate} from "react-router-dom";
-import UniversalTitle from "../../../3_commons/common_components/UniversalTitle/UniversalTitle";
+import Title from "../../../3_commons/common_components/Title/Title";
 
 const NotAuthorized = () => {
     const navigate = useNavigate()
     return (
         <div className={commonClass.container}>
-            <UniversalTitle title={`you are not authorized :(`}/>
+            <Title title={`you are not authorized :(`}/>
             <p>To continue, you need to log-in or register</p>
-            <UniversalBtn text={"login"} onClicked={() => navigate("/sign-in")}/>
-            <UniversalBtn text={"register"} onClicked={() => navigate("/sign-up")}/>
+            <Button text={"login"} onClicked={() => navigate("/sign-in")}/>
+            <Button text={"register"} onClicked={() => navigate("/sign-up")}/>
         </div>
     );
 };

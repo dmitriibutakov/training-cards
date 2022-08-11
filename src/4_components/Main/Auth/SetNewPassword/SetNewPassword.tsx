@@ -5,8 +5,8 @@ import {setNewPasswordTC} from "../../../../2_BLL/auth-reducer";
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
 import {useFormik} from "formik";
 import Loader from "../../../../3_commons/Loader/Loader";
-import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
-import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
+import Input from "../../../../3_commons/common_components/Input/Input";
+import Button from "../../../../3_commons/common_components/Button/Button";
 import {ErrorFormikType, validatePassword} from "../../../../3_commons/validate";
 
 export const SetNewPassword = () => {
@@ -36,17 +36,17 @@ export const SetNewPassword = () => {
             {isFetching && <Loader/>}
             <h1>Create new password</h1>
             <form onSubmit={formik.handleSubmit}>
-                <UniversalInput {...formik.getFieldProps("password")}
-                                placeholder={"password"}
-                                type={"password"}
-                                error={formik.touched.password && formik.errors.password}
-                                textError={formik.errors.password}/>
-                <UniversalInput {...formik.getFieldProps("repeatPassword")}
-                                placeholder={"repeat password"}
-                                type={"password"}
-                                error={formik.touched.repeatPassword && formik.errors.repeatPassword}
-                                textError={formik.errors.repeatPassword}/>
-                <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
+                <Input {...formik.getFieldProps("password")}
+                       placeholder={"password"}
+                       type={"password"}
+                       error={formik.touched.password && formik.errors.password}
+                       textError={formik.errors.password}/>
+                <Input {...formik.getFieldProps("repeatPassword")}
+                       placeholder={"repeat password"}
+                       type={"password"}
+                       error={formik.touched.repeatPassword && formik.errors.repeatPassword}
+                       textError={formik.errors.repeatPassword}/>
+                <Button disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
             </form>
         </div>
     );

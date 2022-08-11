@@ -1,12 +1,12 @@
 import React from 'react';
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
-import UniversalTitle from "../../../../3_commons/common_components/UniversalTitle/UniversalTitle";
-import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
+import Title from "../../../../3_commons/common_components/Title/Title";
+import Button from "../../../../3_commons/common_components/Button/Button";
 import {useFormik} from "formik";
 import {resetPasswordTC} from "../../../../2_BLL/auth-reducer";
 import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
 import Loader from "../../../../3_commons/Loader/Loader";
-import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
+import Input from "../../../../3_commons/common_components/Input/Input";
 import {Navigate} from "react-router-dom";
 import {ErrorFormikType} from "../../../../3_commons/validate";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
@@ -39,14 +39,14 @@ const ForgotPassword = React.memo(() => {
     return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}
-            <UniversalTitle title={'Reset Password'}/>
+            <Title title={'Reset Password'}/>
             <form onSubmit={formik.handleSubmit}>
-                <UniversalInput placeholder={"email"}
-                                error={formik.touched.email && formik.errors.email}
-                                textError={formik.errors.email}
-                                {...formik.getFieldProps("email")}/>
+                <Input placeholder={"email"}
+                       error={formik.touched.email && formik.errors.email}
+                       textError={formik.errors.email}
+                       {...formik.getFieldProps("email")}/>
                 <ErrorResponse errorOfResponse={errorOfResponse}/>
-                <UniversalBtn disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
+                <Button disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
             </form>
 
         </div>

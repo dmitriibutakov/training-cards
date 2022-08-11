@@ -1,15 +1,15 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useState} from 'react';
-import privateClass from "./UniversalInput.module.css"
+import privateClass from "./Input.module.css"
 import {addImg, showImg} from "../../common_images/commonImages";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-type UniversalInputPropsType = DefaultInputPropsType & {
+type InputPropsType = DefaultInputPropsType & {
     error?: string | false | null
     textError?: string | null
     onButtonClickHandler?: (title: string, error?: string) => void
 }
-const UniversalInput: React.FC<UniversalInputPropsType> = ({
+const Input: React.FC<InputPropsType> = ({
                                                                error,
                                                                textError,
                                                                placeholder,
@@ -44,4 +44,4 @@ const UniversalInput: React.FC<UniversalInputPropsType> = ({
     );
 };
 
-export default UniversalInput;
+export default Input;

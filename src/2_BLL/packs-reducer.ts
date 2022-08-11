@@ -51,24 +51,45 @@ export const setPage = (page: number) => ({type: "SET-PAGE", page} as const)
 
 //thunks
 export const getPacksTC = (): AppThunk => async (dispatch, getState) => {
-    const { _id } = getState().app.profile
-    const { pageCount } = getState().packs
     try {
-        const { page } = getState().packs
+        const {_id} = getState().app.profile
+        const {pageCount} = getState().packs
+        const {page} = getState().packs
         dispatch(setIsFetching(true))
         const response = await packsApi.getPacks({_id, pageCount, page})
         dispatch(setPacks(response.data.cardPacks))
-        console.log(response.data.cardPacks)
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)
     } finally {
         dispatch(setIsFetching(false))
     }
 }
-export const addPackTC = (name?: string, ): AppThunk => async dispatch => {
+export const addPackTC = (name?: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
         await packsApi.createPack(name)
+        await dispatch(getPacksTC())
+    } catch (err) {
+        errorUtils(err as Error | AxiosError, dispatch)
+    } finally {
+        dispatch(setIsFetching(false))
+    }
+}
+export const deletePackTC = (id: string): AppThunk => async dispatch => {
+    try {
+        dispatch(setIsFetching(true))
+        await packsApi.deletePack(id)
+        await dispatch(getPacksTC())
+    } catch (err) {
+        errorUtils(err as Error | AxiosError, dispatch)
+    } finally {
+        dispatch(setIsFetching(false))
+    }
+}
+const editPackTC = (id: string, title: string): AppThunk => async dispatch => {
+    try {
+        dispatch(setIsFetching(true))
+        await packsApi.editPack(id, title)
         await dispatch(getPacksTC())
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

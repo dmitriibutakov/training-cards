@@ -2,13 +2,13 @@ import React, {useCallback, useState} from 'react';
 import commonClass from "../../../3_commons/common_classes/commonTable.module.css"
 import {useAppDispatch, useAppSelector} from "../../../2_BLL/store";
 import NotAuthorized from "../NotAuthorized/NotAuthorized";
-import {addPackTC, setPage} from "../../../2_BLL/packs-reducer";
-import UniversalTitle from "../../../3_commons/common_components/UniversalTitle/UniversalTitle";
-import PacksHeader from "./PacksHeader/PacksHeader";
-import PacksTable from "./PacksTable/PacksTable";
+import {addPackTC, deletePackTC, setPage} from "../../../2_BLL/packs-reducer";
+import Title from "../../../3_commons/common_components/Title/Title";
+import Table from "../../../3_commons/common_components/Table/Table";
 import Preloader from "../../../3_commons/Preloader/Preloader";
-import UniversalPaginator from "../../../3_commons/common_components/UniversalPaginator/UniversalPaginator";
+import Paginator from "../../../3_commons/common_components/Paginator/Paginator";
 import PacksUtils from "./PacksUtils/PacksUtils";
+import ErrorResponse from "../../../3_commons/common_components/ErrorResponse";
 
 
 const Packs = () => {
@@ -18,12 +18,14 @@ const Packs = () => {
     const {isLoggedIn} = useAppSelector(state => state.auth)
     const {pageCount} = useAppSelector(state => state.packs)
     const {cardPacks} = useAppSelector(state => state.packs)
-    const {page} = useAppSelector(state=>state.packs)
+    const {page} = useAppSelector(state => state.packs)
+    const {errorOfResponse} = useAppSelector(state => state.app)
     const [inputError, setInputError] = useState<string | null>("")
     const setPageHandler = (page: number) => {
         dispatch(setPage(page))
     }
-    const addPack = useCallback(function (title: string) {
+
+    const addPackCallback = useCallback((title: string) => {
         if (title.length < 1 || title.length > 10) {
             setInputError("value must be more 1 or less 10 symbols")
         } else {
@@ -31,16 +33,26 @@ const Packs = () => {
             dispatch(addPackTC(title))
         }
     }, [])
-
+    const deletePackCallback = useCallback((id: string) => {
+        dispatch(deletePackTC(id))
+    }, [])
+    const editPackCallback = (useCallback((id: string, title: string) => {
+    }, []))
 
     if (!isLoggedIn) return <NotAuthorized/>
     if (isFetching) return <Preloader/>
     return (
         <div className={commonClass.table}>
-            <UniversalTitle title={"Training packs"}/>
-            <PacksUtils inputError={inputError} addPack={addPack}/>
-            <PacksTable cardPacks={cardPacks}/>
-            <UniversalPaginator page={page} quantityValue={publicCardPacksCount / pageCount} onClickPage={setPageHandler}/>
+            <Title title={"Packs list"}/>
+            <PacksUtils inputError={inputError} addPack={addPackCallback}/>
+            <Table headers={["Name", "Quantity cards", "Last update", "Actions"]}
+                   editCallback={editPackCallback}
+                   collection={cardPacks}
+                   deleteCallback={deletePackCallback}/>
+            <Paginator page={page}
+                       quantityValue={publicCardPacksCount / pageCount}
+                       onClickPage={setPageHandler}/>
+            <ErrorResponse errorOfResponse={errorOfResponse}/>
         </div>
     );
 };

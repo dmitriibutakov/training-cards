@@ -12,7 +12,6 @@
     position: absolute;
     left: -5px;
     bottom: -8px;
-    background-color: #ff5f07;
 }
 
 .max {
@@ -38,6 +37,6 @@
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #4cabf8;
+    background: #366EFF;
     cursor: pointer;
 }

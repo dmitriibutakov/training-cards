@@ -1,13 +1,13 @@
 import React from 'react';
-import privateClass from "./UniversalAvatar.module.css"
+import privateClass from "./Avatar.module.css"
 
 type UniversalAvatarPropsType = {
     avatarImg: string
 }
-const UniversalAvatar: React.FC<UniversalAvatarPropsType> = ({avatarImg}) => {
+const Avatar: React.FC<UniversalAvatarPropsType> = ({avatarImg}) => {
     return (
         <span className={privateClass.span}><img src={avatarImg} alt="avatar"/></span>
     );
 };
 
-export default UniversalAvatar;
+export default Avatar;

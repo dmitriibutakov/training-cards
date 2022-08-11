@@ -28,6 +28,7 @@
 }
 
 .show, .add {
+    cursor: pointer;
     right: 0;
 }
 

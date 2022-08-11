@@ -14,6 +14,7 @@ const App = () => {
     const page = useAppSelector(state => state.packs.page)
 
     const dispatch = useAppDispatch()
+
     useEffect(() => {
         if (isLoggedIn) {
             dispatch(getPacksTC());

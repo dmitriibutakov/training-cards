@@ -3,7 +3,7 @@
     padding: 10px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgba(13, 88, 166, 0.47);
+    border-bottom: 1px solid #366EFF;
 }
 
 .row > * {

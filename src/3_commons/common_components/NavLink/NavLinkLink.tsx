@@ -1,15 +1,14 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import privateClass from "./UniversalNavLink.module.css"
+import privateClass from "./NavLinkLink.module.css"
 
-type UniversalNavLinkPropsType = {
+type NavLinkLinkPropsType = {
     path: string
     title: string
 }
-const UniversalNavLink: React.FC<UniversalNavLinkPropsType> = ({path, title}) => {
+const NavLinkLink: React.FC<NavLinkLinkPropsType> = ({path, title}) => {
     return (
         <NavLink className={privateClass.navlink} to={path}>{title}</NavLink>
     );
 };
-
-export default UniversalNavLink;
+export default NavLinkLink

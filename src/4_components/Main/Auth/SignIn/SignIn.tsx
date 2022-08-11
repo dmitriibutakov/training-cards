@@ -1,12 +1,12 @@
 import React from 'react';
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
-import UniversalTitle from "../../../../3_commons/common_components/UniversalTitle/UniversalTitle";
-import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
-import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
+import Title from "../../../../3_commons/common_components/Title/Title";
+import Input from "../../../../3_commons/common_components/Input/Input";
+import Button from "../../../../3_commons/common_components/Button/Button";
 import {PATH} from "../../../../3_commons/Path";
 import {Navigate, NavLink} from "react-router-dom";
-import UniversalNavLink from "../../../../3_commons/common_components/UniversalNavLink/UniversalNavLink";
-import UniversalCheckbox from "../../../../3_commons/common_components/UniversalCheckbox/UniversalCheckbox";
+import NavLinkLink from "../../../../3_commons/common_components/NavLink/NavLinkLink";
+import Checkbox from "../../../../3_commons/common_components/Checkbox/Checkbox";
 import {useFormik} from "formik";
 import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
 import {signInTC} from "../../../../2_BLL/auth-reducer";
@@ -17,9 +17,9 @@ import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse
 
 const SignIn = () => {
     const dispatch = useAppDispatch();
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    const errorOfResponse = useAppSelector(state => state.app.errorOfResponse)
-    const isFetching = useAppSelector(state => state.app.isFetching)
+    const {isLoggedIn} = useAppSelector(state => state.auth)
+    const {errorOfResponse} = useAppSelector(state => state.app)
+    const {isFetching} = useAppSelector(state => state.app)
 
     const formik = useFormik({
         initialValues: {
@@ -50,35 +50,35 @@ const SignIn = () => {
     return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}
-            <UniversalTitle title={'Sign in'}/>
+            <Title title={'Sign in'}/>
             <p>email: <b>test_projects@yahoo.com</b></p>
             <p>password: <b>test123456</b></p>
             <form onSubmit={formik.handleSubmit}>
 
-                <UniversalInput placeholder={"email"}
-                                error={formik.touched.email && formik.errors.email}
-                                textError={formik.errors.email}
-                                {...formik.getFieldProps("email")}/>
+                <Input placeholder={"email"}
+                       error={formik.touched.email && formik.errors.email}
+                       textError={formik.errors.email}
+                       {...formik.getFieldProps("email")}/>
 
-                <UniversalInput {...formik.getFieldProps("password")}
-                                placeholder={"password"}
-                                type={"password"}
-                                error={formik.touched.password && formik.errors.password}
-                                textError={formik.errors.password}/>
+                <Input {...formik.getFieldProps("password")}
+                       placeholder={"password"}
+                       type={"password"}
+                       error={formik.touched.password && formik.errors.password}
+                       textError={formik.errors.password}/>
 
-                <UniversalCheckbox children={"Remember me"}
-                                   {...formik.getFieldProps("rememberMe")}/>
+                <Checkbox children={"Remember me"}
+                          {...formik.getFieldProps("rememberMe")}/>
 
                 <div>
-                    <NavLink to={PATH.forgotPassword}>forgot password?</NavLink>
+                    <NavLinkLink path={PATH.forgotPassword} title={"forgot password?"}/>
                 </div>
-                <UniversalBtn text={"Login"}
-                              type={"submit"}
-                              disabled={Object.keys(formik.errors).length !== 0}/>
+                <Button text={"Login"}
+                        type={"submit"}
+                        disabled={Object.keys(formik.errors).length !== 0}/>
             </form>
             <ErrorResponse errorOfResponse={errorOfResponse}/>
             <p>Don't have an account?</p>
-            <UniversalNavLink path={PATH.signUp} title={"Sign Up"}/>
+            <NavLinkLink path={PATH.signUp} title={"Sign Up"}/>
         </div>
     );
 };

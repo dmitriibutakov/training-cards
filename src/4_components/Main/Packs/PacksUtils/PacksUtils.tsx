@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import privateClass from "./PacksUtils.module.css"
-import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
+import Input from "../../../../3_commons/common_components/Input/Input";
 import DoubleRange from "./DoubleRange/DoubleRange";
 
 type PacksUtilsPropsType = {
@@ -24,8 +24,8 @@ const PacksUtils: React.FC<PacksUtilsPropsType> = ({addPack, inputError}) => {
                 <DoubleRange setMin={setMin} setMax={setMax} valueAll={valueAll} onChangeRange={onChangeRange}/>
                 <span>{max}</span>
             </div>
-            <UniversalInput error={inputError} textError={inputError} onButtonClickHandler={addPack} type={"text"}
-                            placeholder={"create new pack"}/>
+            <Input error={inputError} textError={inputError} onButtonClickHandler={addPack} type={"text"}
+                   placeholder={"create new pack"}/>
         </div>
     );
 };

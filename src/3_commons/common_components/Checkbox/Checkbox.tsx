@@ -1,13 +1,13 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react'
-import privateClass from './UniversalCheckbox.module.css'
+import privateClass from './Checkbox.module.css'
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-type SuperCheckboxPropsType = DefaultInputPropsType & {
+type CheckboxPropsType = DefaultInputPropsType & {
     onChangeChecked?: (checked: boolean) => void
 }
 
-const UniversalCheckbox: React.FC<SuperCheckboxPropsType> = (
+const Checkbox: React.FC<CheckboxPropsType> = (
     {
         onChange, onChangeChecked,
         children,
@@ -37,4 +37,4 @@ const UniversalCheckbox: React.FC<SuperCheckboxPropsType> = (
     )
 }
 
-export default UniversalCheckbox
+export default Checkbox

@@ -10,6 +10,8 @@
 
 .row > * {
     flex: 0 0 25%;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .link img {

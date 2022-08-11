@@ -1,15 +1,15 @@
 import React from 'react';
-import privateClass from "./UniversalBtn.module.css"
+import privateClass from "./Button.module.css"
 import {useAppDispatch} from "../../../2_BLL/store";
 import {setAppError} from "../../../2_BLL/app-reducer";
 
-type UniversalBtnPropsType = {
+type ButtonPropsType = {
     text: string
     type?: "button" | "submit" | "reset"
     disabled?: boolean
     onClicked?: () => void
 }
-const UniversalBtn: React.FC<UniversalBtnPropsType> = ({text, type, disabled, onClicked}) => {
+const Button: React.FC<ButtonPropsType> = ({text, type, disabled, onClicked}) => {
     const dispatch = useAppDispatch()
     const onClickedHandler = () => {
         onClicked && onClicked()
@@ -24,4 +24,4 @@ const UniversalBtn: React.FC<UniversalBtnPropsType> = ({text, type, disabled, on
     );
 };
 
-export default UniversalBtn;
+export default Button;

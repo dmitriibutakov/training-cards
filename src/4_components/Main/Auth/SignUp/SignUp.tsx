@@ -1,9 +1,9 @@
 import React from 'react';
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
-import UniversalTitle from "../../../../3_commons/common_components/UniversalTitle/UniversalTitle";
-import UniversalInput from "../../../../3_commons/common_components/UniversalInput/UniversalInput";
-import UniversalBtn from "../../../../3_commons/common_components/UniversalBtn/UniversalBtn";
-import UniversalNavLink from "../../../../3_commons/common_components/UniversalNavLink/UniversalNavLink";
+import Title from "../../../../3_commons/common_components/Title/Title";
+import Input from "../../../../3_commons/common_components/Input/Input";
+import Button from "../../../../3_commons/common_components/Button/Button";
+import NavLinkLink from "../../../../3_commons/common_components/NavLink/NavLinkLink";
 import {PATH} from "../../../../3_commons/Path";
 import {useFormik} from 'formik';
 import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
@@ -46,32 +46,32 @@ const SignUp = () => {
     return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}
-            <UniversalTitle title={'Sign Up'}/>
+            <Title title={'Sign Up'}/>
             <form onSubmit={formik.handleSubmit}>
 
-                <UniversalInput {...formik.getFieldProps("email")}
-                                placeholder={"email"}
-                                error={formik.touched.email && formik.errors.email}
-                                textError={formik.errors.email}/>
+                <Input {...formik.getFieldProps("email")}
+                       placeholder={"email"}
+                       error={formik.touched.email && formik.errors.email}
+                       textError={formik.errors.email}/>
 
-                <UniversalInput {...formik.getFieldProps("password")}
-                                placeholder={"password"}
-                                type={"password"}
-                                error={formik.touched.password && formik.errors.password}
-                                textError={formik.errors.password}/>
+                <Input {...formik.getFieldProps("password")}
+                       placeholder={"password"}
+                       type={"password"}
+                       error={formik.touched.password && formik.errors.password}
+                       textError={formik.errors.password}/>
 
-                <UniversalInput {...formik.getFieldProps("repeatPassword")}
-                                placeholder={"confirm password"}
-                                type={"password"}
-                                error={formik.touched.repeatPassword && formik.errors.repeatPassword}
-                                textError={formik.errors.repeatPassword}/>
+                <Input {...formik.getFieldProps("repeatPassword")}
+                       placeholder={"confirm password"}
+                       type={"password"}
+                       error={formik.touched.repeatPassword && formik.errors.repeatPassword}
+                       textError={formik.errors.repeatPassword}/>
                 <ErrorResponse errorOfResponse={errorOfResponse}/>
-                <UniversalBtn disabled={Object.keys(formik.errors).length !== 0}
-                              type={'submit'}
-                              text={"Sign Up"}/>
+                <Button disabled={Object.keys(formik.errors).length !== 0}
+                        type={'submit'}
+                        text={"Sign Up"}/>
             </form>
             <p>Already have an account?</p>
-            <UniversalNavLink path={PATH.signIn} title={"Sign In"}/>
+            <NavLinkLink path={PATH.signIn} title={"Sign In"}/>
         </div>
     );
 };
