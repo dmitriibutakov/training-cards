@@ -1,4 +1,4 @@
-import {PackParamType, packsApi, PackType} from "../1_DAL/packs-api";
+import {packsApi, PackType} from "../1_DAL/packs-api";
 import {numberInit, stringInit} from "../3_commons/init-variables";
 import {AppThunk} from "./store";
 import {setIsFetching} from "../3_commons/common_actions/common_actions";
@@ -86,10 +86,10 @@ export const deletePackTC = (id: string): AppThunk => async dispatch => {
         dispatch(setIsFetching(false))
     }
 }
-const editPackTC = (id: string, title: string): AppThunk => async dispatch => {
+export const editPackTC = (_id: string, name: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
-        await packsApi.editPack(id, title)
+        await packsApi.editPack({cardsPack: {_id, name}})
         await dispatch(getPacksTC())
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

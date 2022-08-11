@@ -6,21 +6,21 @@ import {NavLink} from "react-router-dom";
 type RowPropsType = {
     cards?: boolean
     id: string
-    name: string
+    name?: string
     cardsCount?: number
     updated: string
     deleteCallback: (id: string) => void
-    editCallback: (id: string, name: string) => void
+    editCallback: (id: string, newTitle: string) => void
 }
 const Row: React.FC<RowPropsType> = ({
-                                                           name,
-                                                           cardsCount,
-                                                           updated,
-                                                           id,
-                                                           editCallback,
-                                                           deleteCallback,
-                                                           cards
-                                                       }) => {
+                                         name,
+                                         cardsCount,
+                                         updated,
+                                         id,
+                                         editCallback,
+                                         deleteCallback,
+                                         cards
+                                     }) => {
     return (
         <div className={privateClass.row}>
             <div>{name}</div>
@@ -31,7 +31,7 @@ const Row: React.FC<RowPropsType> = ({
                         className={privateClass.link}>
                     <img src={deleteImg} alt="icon"/>
                 </button>
-                <button onClick={() => editCallback(id, "updated title")}
+                <button onClick={() => editCallback(id, "pack updated")}
                         className={privateClass.link}>
                     <img src={editImg} alt="icon"/>
                 </button>

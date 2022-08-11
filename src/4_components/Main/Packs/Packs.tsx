@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import commonClass from "../../../3_commons/common_classes/commonTable.module.css"
 import {useAppDispatch, useAppSelector} from "../../../2_BLL/store";
 import NotAuthorized from "../NotAuthorized/NotAuthorized";
-import {addPackTC, deletePackTC, setPage} from "../../../2_BLL/packs-reducer";
+import {addPackTC, deletePackTC, editPackTC, setPage} from "../../../2_BLL/packs-reducer";
 import Title from "../../../3_commons/common_components/Title/Title";
 import Table from "../../../3_commons/common_components/Table/Table";
 import Preloader from "../../../3_commons/Preloader/Preloader";
@@ -36,7 +36,9 @@ const Packs = () => {
     const deletePackCallback = useCallback((id: string) => {
         dispatch(deletePackTC(id))
     }, [])
-    const editPackCallback = (useCallback((id: string, title: string) => {
+    const editPackCallback = (useCallback((id: string, newTitle: string) => {
+        dispatch(editPackTC(id, newTitle)
+        )
     }, []))
 
     if (!isLoggedIn) return <NotAuthorized/>
@@ -46,8 +48,8 @@ const Packs = () => {
             <Title title={"Packs list"}/>
             <PacksUtils inputError={inputError} addPack={addPackCallback}/>
             <Table headers={["Name", "Quantity cards", "Last update", "Actions"]}
-                   editCallback={editPackCallback}
                    collection={cardPacks}
+                   editCallback={editPackCallback}
                    deleteCallback={deletePackCallback}/>
             <Paginator page={page}
                        quantityValue={publicCardPacksCount / pageCount}

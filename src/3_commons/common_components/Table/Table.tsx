@@ -7,9 +7,9 @@ import Arrow from "../../../4_components/Main/Packs/PacksUtils/Arrow/Arrow";
 type TablePropsType = {
     cards?: boolean
     collection: Array<PackType>
-    deleteCallback: (id: string) => void
-    editCallback: (id: string, name: string) => void
     headers: [string, string, string, string]
+    deleteCallback: (id: string) => void
+    editCallback: (id: string, newTitle: string) => void
 }
 const Table: React.FC<TablePropsType> = ({collection, cards, headers, ...calbacks}) => {
     return (
