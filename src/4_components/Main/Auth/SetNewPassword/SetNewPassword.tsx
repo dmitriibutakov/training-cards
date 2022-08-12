@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
-import {Navigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {setNewPasswordTC} from "../../../../2_BLL/auth-reducer";
 import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
 import {useFormik} from "formik";
@@ -8,12 +8,14 @@ import Loader from "../../../../3_commons/Loader/Loader";
 import Input from "../../../../3_commons/common_components/Input/Input";
 import Button from "../../../../3_commons/common_components/Button/Button";
 import {ErrorFormikType} from "../../../../3_commons/validate";
+import SignIn from "../SignIn/SignIn";
 
 export const SetNewPassword = () => {
     const dispatch = useAppDispatch();
     const {token} = useParams();
-    const isFetching = useAppSelector(state => state.app.isFetching)
-    const isResponse = useAppSelector(state => state.app.isResponse)
+    console.log(token)
+    const {isFetching} = useAppSelector(state => state.app)
+    const {isResponse} = useAppSelector(state => state.app)
 
     const formik = useFormik({
         initialValues: {
@@ -40,7 +42,7 @@ export const SetNewPassword = () => {
             formik.resetForm()
         },
     })
-    if (isResponse) return <Navigate to={"sign-in"}/>
+    if (isResponse) return <SignIn/>
     return (
         <div className={commonClass.container}>
             {isFetching && <Loader/>}

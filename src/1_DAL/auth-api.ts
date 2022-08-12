@@ -1,21 +1,12 @@
-import {AxiosResponse} from "axios"
 import {instanceHeroku} from "./instance";
 
 export const authApi = {
     me: () => (instanceHeroku.post<ResponseDataProfileType>("auth/me")),
-
     signIn: (data: LoginParamsType) =>
-        instanceHeroku.post<LoginParamsType, AxiosResponse<ResponseDataProfileType>>
-        ("/auth/login", {...data}),
-
-    logOut: () =>
-        instanceHeroku.delete<AxiosResponse<ResponseDataProfileType>>
-        ("/auth/me"),
-
+        instanceHeroku.post<ResponseDataProfileType>("/auth/login", {...data}),
+    logOut: () => instanceHeroku.delete<{ info: string; error: string }>("/auth/me"),
     editProfile: (name: string) =>
-        instanceHeroku.put<string, AxiosResponse<ResponseEditProfile>>
-        ("/auth/me", {name}),
-
+        instanceHeroku.put<{ updatedUser: ResponseDataProfileType }>("/auth/me", {name}),
     resetPassword: (email: string) =>
         instanceHeroku.post<{ info: string; error: string }>
         ('/auth/forgot', {
@@ -24,18 +15,11 @@ export const authApi = {
                           password recovery link: <a href='https://training-cards.herokuapp.com/set-new-password/$token$'>link</a>
                       </div>`
         }),
-
     signUp: (email: string, password: string) =>
-        instanceHeroku.post<LoginParamsType,
-            AxiosResponse<ResponseSignUpType<ResponseDataProfileType>>>
-        ("/auth/register", {email, password}),
-
+        instanceHeroku.post<{ addedUser: ResponseDataProfileType }>("/auth/register", {email, password}),
     setNewPassword: (password: string, resetPasswordToken: string) =>
-        (instanceHeroku.post<{ info: string; error: string },
-            AxiosResponse<ResponseResetPasswordType>>(`auth/set-new-password`, {
-            password,
-            resetPasswordToken
-        })),
+        (instanceHeroku.post<{ info: string; error: string }>(`auth/set-new-password`, {password, resetPasswordToken}
+        )),
 }
 
 export type LoginParamsType = {
@@ -57,16 +41,4 @@ export type ResponseDataProfileType = {
     rememberMe: boolean;
     error?: string;
     info?: string
-}
-type ResponseSignUpType<T = {}> = {
-    addedUser: T
-}
-type ResponseResetPasswordType = {
-    info: string
-    error?: string
-}
-type ResponseEditProfile = {
-    token: string
-    tokenDeathTime: number
-    updatedUser: ResponseDataProfileType
 }
