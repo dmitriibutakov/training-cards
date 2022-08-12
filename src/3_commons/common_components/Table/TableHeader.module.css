@@ -2,10 +2,9 @@
     width: 90%;
     padding-bottom: 10px;
     display: flex;
-    justify-content: space-between;
+    text-align: center;
     align-items: center;
-    border-bottom: 1px solid rgba(13, 88, 166, 0.47);
-    overflow: hidden;
+    border-bottom: 2px solid rgba(134, 133, 133, 0.48);
 }
 
 .row > * {

@@ -18,29 +18,27 @@ const initialState: InitialStateType = {
 
 export const cardsReducer = (state: InitialStateType = initialState, action: CardsReducerType): InitialStateType => {
     switch (action.type) {
-        case "SET-CARDS":
-            return {...state, cards: action.cards}
+        case "SET-CARDS-COLLECTION":
         case "SET-PAGE-CARDS":
-            return {...state, page: action.page}
-        case "SET-CARD-PACK-ID":
-            return {...state, packUserId: action.id}
-        case "SET-CARDS-COUNT":
-            return {...state, cardsTotalCount: action.count}
+        case "SET-PACK-USER-ID":
+        case "SET-CARDS-TOTAL-COUNT":
+            return {...state, ...action}
         default:
             return state
     }
 }
 
 //types
-export type CardsReducerType = ReturnType<typeof setCards>
-    | SetPageCardsType | ReturnType<typeof setCardPackId> | ReturnType<typeof setCardsTotalCount>
-export type SetPageCardsType = ReturnType<typeof setPageCards>
+export type CardsReducerType = ReturnType<typeof setCardsCollection>
+    | ReturnType<typeof setPageCards>
+    | ReturnType<typeof setPackUserId>
+    | ReturnType<typeof setCardsTotalCount>
 
 //actions
-const setCards = (cards: Array<CardType>) => ({type: "SET-CARDS", cards} as const)
-const setCardsTotalCount = (count: number) => ({type: "SET-CARDS-COUNT", count} as const)
+const setCardsCollection = (cards: Array<CardType>) => ({type: "SET-CARDS-COLLECTION", cards} as const)
+const setCardsTotalCount = (cardsTotalCount: number) => ({type: "SET-CARDS-TOTAL-COUNT", cardsTotalCount} as const)
 export const setPageCards = (page: number) => ({type: "SET-PAGE-CARDS", page} as const)
-export const setCardPackId = (id: string) => ({type: "SET-CARD-PACK-ID", id} as const)
+export const setPackUserId = (packUserId: string) => ({type: "SET-PACK-USER-ID", packUserId} as const)
 
 //thunks
 export const getCardsTC = (cardsPack_id: string): AppThunk => async (dispatch, getState) => {
@@ -48,9 +46,9 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => async (dispatch, g
         const {page} = getState().cards
         const {pageCount} = getState().cards
         dispatch(setIsFetching(true))
-        dispatch(setCardPackId(cardsPack_id))
+        dispatch(setPackUserId(cardsPack_id))
         const response = await cardsApi.getCards({cardsPack_id, page, pageCount})
-        dispatch(setCards(response.data.cards))
+        dispatch(setCardsCollection(response.data.cards))
         dispatch(setCardsTotalCount(response.data.cardsTotalCount))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

@@ -10,7 +10,7 @@ import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
 import Loader from "../../../../3_commons/Loader/Loader";
 import {signUpTC} from "../../../../2_BLL/auth-reducer";
 import {useNavigate} from "react-router-dom";
-import {ErrorFormikType, validatePassword} from "../../../../3_commons/validate";
+import {ErrorFormikType} from "../../../../3_commons/validate";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 
 const SignUp = () => {
@@ -28,11 +28,21 @@ const SignUp = () => {
         validate: (values) => {
             const errors: ErrorFormikType = {}
             if (!values.email) {
-                errors.email = 'email is required'
+                errors.email = 'email is required';
             } else if (!/^[A-Z/d._%+-]+@[A-Z/d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address'
+                errors.email = 'Invalid email address';
             }
-            validatePassword(values, errors)
+            if (!values.password) {
+                errors.password = "password is required"
+            } else if (!values.repeatPassword) {
+                errors.repeatPassword = "password is required"
+            } else if (values.password.length < 8) {
+                errors.password = "min length 8 symbols"
+            } else if (values.repeatPassword.length < 8) {
+                errors.repeatPassword = "min length 8 symbols"
+            } else if (values.repeatPassword !== values.password) {
+                errors.repeatPassword = "confirm your password currently"
+            }
             return errors
         },
         onSubmit: values => {

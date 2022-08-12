@@ -3,7 +3,7 @@ import {AppThunk} from "./store";
 import {authApi, LoginParamsType} from "../1_DAL/auth-api";
 import {errorUtils} from "../3_commons/errors-utils";
 import {AxiosError} from "axios";
-import {setProfileData, setResponse} from "./app-reducer";
+import {setProfile, setResponse} from "./app-reducer";
 import {getPacksTC} from "./packs-reducer";
 
 export type AuthStateType = {
@@ -24,9 +24,7 @@ const AuthReducer = (state: AuthStateType = initialState, action: AuthReducerTyp
 };
 
 //types
-export type AuthReducerType = SetIsLoginType | SetIsFetchingType
-
-type SetIsLoginType = ReturnType<typeof setIsLogin>
+export type AuthReducerType = ReturnType<typeof setIsLogin> | SetIsFetchingType
 
 //actions
 export const setIsLogin = (isLoggedIn: boolean) => ({type: "SET-IS-LOGIN", isLoggedIn} as const)
@@ -46,7 +44,7 @@ export const signInTC = (data: LoginParamsType): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
         const response = await authApi.signIn(data)
-        dispatch(setProfileData(response.data))
+        dispatch(setProfile(response.data))
         await dispatch(getPacksTC())
         dispatch(setIsLogin(true))
         dispatch(setIsFetching(false))

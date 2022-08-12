@@ -7,7 +7,7 @@ import {useFormik} from "formik";
 import Loader from "../../../../3_commons/Loader/Loader";
 import Input from "../../../../3_commons/common_components/Input/Input";
 import Button from "../../../../3_commons/common_components/Button/Button";
-import {ErrorFormikType, validatePassword} from "../../../../3_commons/validate";
+import {ErrorFormikType} from "../../../../3_commons/validate";
 
 export const SetNewPassword = () => {
     const dispatch = useAppDispatch();
@@ -22,7 +22,17 @@ export const SetNewPassword = () => {
         },
         validate: (values) => {
             const errors: ErrorFormikType = {}
-            validatePassword(values, errors)
+            if (!values.password) {
+                errors.password = "password is required"
+            } else if (!values.repeatPassword) {
+                errors.repeatPassword = "password is required"
+            } else if (values.password.length < 8) {
+                errors.password = "min length 8 symbols"
+            } else if (values.repeatPassword.length < 8) {
+                errors.repeatPassword = "min length 8 symbols"
+            } else if (values.repeatPassword !== values.password) {
+                errors.repeatPassword = "confirm your password currently"
+            }
             return errors
         },
         onSubmit: ({password}: { password: string }) => {

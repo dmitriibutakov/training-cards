@@ -8,7 +8,7 @@
     background-color: #ffffff;
     font-size: 18px;
     padding: 5px 30px 10px 0;
-    border-bottom: 1px solid #3a3a3a;
+    border-bottom: 2px solid rgba(134, 133, 133, 0.48);
 }
 
 .input__password, .input {
@@ -33,10 +33,7 @@
 }
 
 .error {
-    width: 350px;
     position: absolute;
-    bottom: -8px;
-    right: 0;
     font-weight: 500;
     color: #fa4545;
 }

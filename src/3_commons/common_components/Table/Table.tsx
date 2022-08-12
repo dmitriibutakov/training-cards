@@ -1,23 +1,21 @@
 import React from 'react';
 import Row from "./Row/Row";
 import {PackType} from "../../../1_DAL/packs-api";
-import TableHeader from "./TableHeader";
-import Arrow from "../../../4_components/Main/Packs/PacksUtils/Arrow/Arrow";
+import commonClass from "../../common_classes/commonTable.module.css"
+import Arrow from "../Arrow/Arrow";
 import {CardType} from "../../../1_DAL/cards-api";
 
 type TablePropsType = {
     cards?: boolean
     collection: Array<PackType> | Array<CardType>
-    headers: [string, string, string, string]
     deleteCallback: (id: string) => void
     editCallback: (id: string, newTitle: string) => void
     getCallback?: (id: string) => void
 }
-const Table: React.FC<TablePropsType> = ({collection, cards, headers, ...calbacks}) => {
+const Table: React.FC<TablePropsType> = ({collection, cards, ...calbacks}) => {
     if (collection.length === 0) return <Arrow/>
     return (
-        <>
-            <TableHeader headers={headers}/>
+        <div className={commonClass.table__list}>
             {
                 collection.map(el => {
                     return (cards ?
@@ -38,7 +36,7 @@ const Table: React.FC<TablePropsType> = ({collection, cards, headers, ...calback
                                {...calbacks}/>)
                 })
             }
-        </>
+        </div>
     );
 };
 

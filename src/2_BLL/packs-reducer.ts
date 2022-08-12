@@ -18,9 +18,9 @@ let initialState: PacksStateType = {
 export const packsReducer = (state: PacksStateType = initialState, action: PacksReducerType): PacksStateType => {
     switch (action.type) {
         case "SET-PACKS":
-            return {...state, cardPacks: action.cardPacks}
         case "SET-PAGE-PACKS":
-            return {...state, page: action.page}
+        case "SET-PACKS-COUNT":
+            return {...state, ...action}
         default:
             return state
     }
@@ -28,10 +28,13 @@ export const packsReducer = (state: PacksStateType = initialState, action: Packs
 
 //types
 export type PacksReducerType = ReturnType<typeof setPacks>
+    | ReturnType<typeof setPacksTotalCount>
     | SetPagePackType
 export type SetPagePackType = ReturnType<typeof setPagePacks>
+
 //actions
 const setPacks = (cardPacks: Array<PackType>) => ({type: "SET-PACKS", cardPacks} as const)
+const setPacksTotalCount = (cardPacksTotalCount: number) => ({type: "SET-PACKS-COUNT", cardPacksTotalCount} as const)
 export const setPagePacks = (page: number) => ({type: "SET-PAGE-PACKS", page} as const)
 
 //thunks
@@ -43,6 +46,7 @@ export const getPacksTC = (): AppThunk => async (dispatch, getState) => {
         dispatch(setIsFetching(true))
         const response = await packsApi.getPacks({_id, pageCount, page})
         dispatch(setPacks(response.data.cardPacks))
+        dispatch(setPacksTotalCount(response.data.cardPacksTotalCount))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)
     } finally {

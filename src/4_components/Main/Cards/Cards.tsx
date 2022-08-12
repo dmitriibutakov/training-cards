@@ -17,15 +17,18 @@ const Cards = () => {
     const {page} = useAppSelector(state => state.cards)
     const {errorOfResponse} = useAppSelector(state => state.app)
 
+    const setPageHandler = (page: number) => {
+        dispatch(setPageCards(page))
+    }
     useEffect(() => {
-        if (cardsPack_id) {
-            dispatch(getCardsTC(cardsPack_id))
-        }}, [page, cardsPack_id])
+        cardsPack_id && dispatch(getCardsTC(cardsPack_id))
+    }, [page, cardsPack_id])
+
     if (!isLoggedIn) return <NotAuthorized/>
     if (isFetching) return <Preloader/>
 
     return (
-        <ValidateTable title={"Cards list"}
+        <ValidateTable title={"Cards"}
                        headers={["Question", "Answer", "Last update", "Actions"]}
                        cards={true}
                        collection={cards}
@@ -35,7 +38,7 @@ const Cards = () => {
                        addThunk={addCardTC}
                        deleteThunk={deleteCardTC}
                        editThunk={editCardTC}
-                       setPageActionCreator={setPageCards}
+                       setPageCallback={setPageHandler}
         />
     );
 };

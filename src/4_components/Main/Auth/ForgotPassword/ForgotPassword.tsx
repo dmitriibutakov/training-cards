@@ -19,14 +19,14 @@ const ForgotPassword = React.memo(() => {
 
     const formik = useFormik({
         initialValues: {
-            email: ''
+            email: ""
         },
         validate: (values) => {
             const errors: ErrorFormikType = {}
             if (!values.email) {
-                errors.email = 'email is required'
+                errors.email = 'email is required';
             } else if (!/^[A-Z/d._%+-]+@[A-Z/d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address'
+                errors.email = 'Invalid email address';
             }
             return errors
         },

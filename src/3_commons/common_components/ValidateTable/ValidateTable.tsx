@@ -1,22 +1,21 @@
 import React, {useCallback, useState} from "react";
-import {SetPageCardsType} from "../../../2_BLL/cards-reducer";
 import {AppThunk, useAppDispatch} from "../../../2_BLL/store";
-import {SetPagePackType} from "../../../2_BLL/packs-reducer";
 import commonClass from "../../common_classes/commonTable.module.css";
 import Title from "../Title/Title";
-import PacksUtils from "../../../4_components/Main/Packs/PacksUtils/PacksUtils";
+import PacksUtils from "../../../4_components/Main/Packs/PacksUtils";
 import Table from "../Table/Table";
 import Paginator from "../Paginator/Paginator";
 import ErrorResponse from "../ErrorResponse";
 import {PackType} from "../../../1_DAL/packs-api";
 import {CardType} from "../../../1_DAL/cards-api";
-import CardsUtils from "../../../4_components/Main/Cards/CardsUtils/CardsUtils";
+import CardsUtils from "../../../4_components/Main/Cards/CardsUtils";
+import TableHeader from "../Table/TableHeader";
 
 type ValidateTablePropsType = {
     cards?: boolean
     page: number
     title: string
-    setPageActionCreator: (page: number) => SetPagePackType | SetPageCardsType
+    setPageCallback: (page: number) => void
     addThunk: (title: string) => AppThunk
     deleteThunk: (id: string) => AppThunk
     editThunk: (id: string, newTitle: string) => AppThunk
@@ -27,7 +26,6 @@ type ValidateTablePropsType = {
     headers: [string, string, string, string]
 }
 export const ValidateTable: React.FC<ValidateTablePropsType> = ({
-                                                                    setPageActionCreator,
                                                                     page,
                                                                     addThunk,
                                                                     deleteThunk,
@@ -38,13 +36,11 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
                                                                     cards,
                                                                     quantityValue,
                                                                     errorOfResponse,
-                                                                    headers
+                                                                    headers,
+                                                                    setPageCallback
                                                                 }) => {
     const dispatch = useAppDispatch()
     const [inputError, setInputError] = useState<string | null>("")
-    const setPageHandler = () => {
-        dispatch(setPageActionCreator(page))
-    }
 
     const addValueCallback = useCallback((title: string) => {
         if (title.trim() === "" || title.length < 1 || title.length > 40) {
@@ -62,7 +58,7 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
         )
     }, []))
     const getValueCallback = useCallback((id: string) => {
-       getThunk && dispatch(getThunk(id))
+        getThunk && dispatch(getThunk(id))
     }, [])
 
     return (
@@ -70,15 +66,16 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
             <Title title={title}/>
             {cards ? <CardsUtils inputError={inputError} addCard={addValueCallback}/> :
                 <PacksUtils inputError={inputError} addPack={addValueCallback}/>}
-            <Table headers={headers}
-                   getCallback={getValueCallback}
-                   cards={cards}
-                   collection={collection}
-                   editCallback={editValueCallback}
-                   deleteCallback={deleteValueCallback}/>
+            <TableHeader headers={headers}/>
+            <Table
+                getCallback={getValueCallback}
+                cards={cards}
+                collection={collection}
+                editCallback={editValueCallback}
+                deleteCallback={deleteValueCallback}/>
             <Paginator page={page}
                        quantityValue={quantityValue}
-                       onClickPage={setPageHandler}/>
+                       onClickPage={setPageCallback}/>
             <ErrorResponse errorOfResponse={errorOfResponse}/>
         </div>
     )

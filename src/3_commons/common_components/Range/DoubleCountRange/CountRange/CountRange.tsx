@@ -4,11 +4,11 @@ import privateClass from "../DoubleRange.module.css";
 type CountRangePropsType = {
     setValue: (num: number) => void
     value: number
-    onChange: (setValue:(value:number)=>void, count:number) => void
+    onChange: (setValue: (value: number) => void, count: number) => void
     position?: "left"
     valueAll: [number, number]
 }
-const CountRange:React.FC<CountRangePropsType> = ({value, onChange, position, valueAll, setValue}) => {
+const CountRange: React.FC<CountRangePropsType> = ({value, onChange, position, valueAll, setValue}) => {
     const onChangeCount = (e: ChangeEvent<HTMLInputElement>) => {
         value = +e.currentTarget.value
         return onChange && onChange(setValue, value)

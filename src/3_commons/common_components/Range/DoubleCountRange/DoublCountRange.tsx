@@ -4,24 +4,25 @@ import CountRange from "./CountRange/CountRange";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 type SuperDoubleRangePropsType = DefaultInputPropsType & {
-    onChangeRange: (setValue:(value:number)=>void, count:number) => void
+    onChangeRange: (setValue: (value: number) => void, count: number) => void
     valueAll: [number, number]
     setMin: (value: number) => void
     setMax: (value: number) => void
 }
 
 
-const DoubleRange: React.FC<SuperDoubleRangePropsType> = (
+const DoublCountRange: React.FC<SuperDoubleRangePropsType> = (
     {
         onChangeRange, valueAll, setMin, setMax
     }
 ) => {
     return (
         <div className={privateClass.body}>
-            <CountRange valueAll={valueAll} setValue={setMin} position={"left"} value={valueAll[0]} onChange={onChangeRange}/>
+            <CountRange valueAll={valueAll} setValue={setMin} position={"left"} value={valueAll[0]}
+                        onChange={onChangeRange}/>
             <CountRange valueAll={valueAll} setValue={setMax} value={valueAll[1]} onChange={onChangeRange}/>
         </div>
     )
 }
 
-export default DoubleRange
+export default DoublCountRange

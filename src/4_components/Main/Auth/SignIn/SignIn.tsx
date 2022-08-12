@@ -4,7 +4,7 @@ import Title from "../../../../3_commons/common_components/Title/Title";
 import Input from "../../../../3_commons/common_components/Input/Input";
 import Button from "../../../../3_commons/common_components/Button/Button";
 import {PATH} from "../../../../3_commons/Path";
-import {Navigate, NavLink} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import NavLinkLink from "../../../../3_commons/common_components/NavLink/NavLinkLink";
 import Checkbox from "../../../../3_commons/common_components/Checkbox/Checkbox";
 import {useFormik} from "formik";
@@ -33,13 +33,12 @@ const SignIn = () => {
                 errors.email = 'email is required';
             } else if (!/^[A-Z/d._%+-]+@[A-Z/d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
-            }
-            if (!values.password) {
-                errors.password = 'password is required'
+            } else if (!values.password) {
+                errors.password = "password is required"
             } else if (values.password.length < 8) {
-                errors.password = 'must be more than 8 symbols'
+                errors.password = "min length 8 symbols"
             }
-            return errors;
+            return errors
         },
         onSubmit: values => {
             dispatch(signInTC(values))

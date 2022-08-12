@@ -20,7 +20,12 @@ export const cardsApi = {
     createCard: ({
                      question,
                      cardsPack_id,
-                 }: CardParamType) => instanceHeroku.post<{ newCard: CardType }>("cards/card", {card: {question, cardsPack_id}}),
+                 }: CardParamType) => instanceHeroku.post<{ newCard: CardType }>("cards/card", {
+        card: {
+            question,
+            cardsPack_id
+        }
+    }),
     deleteCard: (id: string) => instanceHeroku.delete<{ deletedCard: PackType }>("cards/card", {params: {id}}),
     editCard: (card: UpdateCardType) => instanceHeroku.put<{ updatedCard: CardType }>("cards/card", card)
 }
