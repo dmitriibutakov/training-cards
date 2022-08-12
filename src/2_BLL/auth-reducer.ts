@@ -55,12 +55,11 @@ export const signInTC = (data: LoginParamsType): AppThunk => async dispatch => {
     }
 }
 export const resetPasswordTC = (email: string): AppThunk => async dispatch => {
-    dispatch(setResponse(false))
     try {
+        dispatch(setResponse(false))
         dispatch(setIsFetching(true))
-        const response = await authApi.resetPassword(email)
-        dispatch(setResponse(!!response))
-        dispatch(setIsFetching(false))
+        await authApi.resetPassword(email)
+        dispatch(setResponse(true))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)
     } finally {
@@ -80,6 +79,7 @@ export const logoutTC = (): AppThunk => async dispatch => {
 }
 export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => async dispatch => {
     try {
+        dispatch(setResponse(false))
         dispatch(setIsFetching(true))
        await authApi.setNewPassword(password, resetPasswordToken);
         dispatch(setResponse(true))

@@ -4,7 +4,8 @@ import NotAuthorized from "../NotAuthorized/NotAuthorized";
 import Preloader from "../../../3_commons/Preloader/Preloader";
 import {addCardTC, deleteCardTC, editCardTC, getCardsTC, setPageCards} from "../../../2_BLL/cards-reducer";
 import {ValidateTable} from "../../../3_commons/common_components/ValidateTable/ValidateTable";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
+import {PATH} from "../../../3_commons/Path";
 
 const Cards = () => {
     const dispatch = useAppDispatch()
@@ -26,7 +27,6 @@ const Cards = () => {
 
     if (!isLoggedIn) return <NotAuthorized/>
     if (isFetching) return <Preloader/>
-
     return (
         <ValidateTable title={"Cards"}
                        headers={["Question", "Answer", "Last update", "Actions"]}

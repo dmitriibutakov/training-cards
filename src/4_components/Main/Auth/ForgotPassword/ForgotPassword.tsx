@@ -13,9 +13,9 @@ import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse
 
 const ForgotPassword = React.memo(() => {
     const dispatch = useAppDispatch();
-    const isFetching = useAppSelector(state => state.app.isFetching)
-    const errorOfResponse = useAppSelector(state => state.app.errorOfResponse)
-    const isResponse = useAppSelector(state => state.app.isResponse)
+    const {isFetching} = useAppSelector(state => state.app)
+    const {errorOfResponse} = useAppSelector(state => state.app)
+    const {isResponse} = useAppSelector(state => state.app)
 
     const formik = useFormik({
         initialValues: {

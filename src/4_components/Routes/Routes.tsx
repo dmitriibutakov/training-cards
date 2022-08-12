@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {CARDS, PACKS, PATH} from "../../3_commons/Path";
 import {Error404} from "../Main/Error404/Error404";
 import SignUp from "../Main/Auth/SignUp/SignUp";
@@ -16,7 +16,7 @@ const Pages = () => {
     return (
         <div>
             <Routes>
-                <Route path="*" element={<Error404/>}/>
+                <Route path="*" element={<Navigate to={PATH.error}/>}/>
                 <Route path="/" element={<Packs/>}/>
                 <Route path={PATH.profile} element={<Profile/>}></Route>
                 <Route path={PATH.emailPasswordSent} element={<EmailPasswordSent/>}></Route>

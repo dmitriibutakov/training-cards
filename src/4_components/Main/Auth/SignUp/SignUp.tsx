@@ -15,8 +15,8 @@ import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse
 
 const SignUp = () => {
     const navigate = useNavigate()
-    const isFetching = useAppSelector(state => state.app.isFetching)
-    const errorOfResponse = useAppSelector(state => state.app.errorOfResponse)
+    const {isFetching} = useAppSelector(state => state.app)
+    const {errorOfResponse} = useAppSelector(state => state.app)
     const dispatch = useAppDispatch()
 
     const formik = useFormik({
