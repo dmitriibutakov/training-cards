@@ -3,32 +3,32 @@ import {PackType} from "./packs-api";
 
 export const cardsApi = {
     getCards: ({
-                   cardAnswer,
-                   cardQuestion,
+                   answer,
+                   question,
                    cardsPack_id,
                    min, max,
                    page, pageCount
                }: CardParamType) => instanceHeroku.get<GetCardsResponseType>("cards/card", {
         params: {
-            cardAnswer,
-            cardQuestion,
+            answer,
+            question,
             cardsPack_id,
             min, max,
             page, pageCount
         }
     }),
     createCard: ({
-                     cardQuestion,
+                     question,
                      cardsPack_id,
-                 }: CardParamType) => instanceHeroku.post<{ newCard: CardType }>("cards/card", {card: {cardQuestion, cardsPack_id}}),
+                 }: CardParamType) => instanceHeroku.post<{ newCard: CardType }>("cards/card", {card: {question, cardsPack_id}}),
     deleteCard: (id: string) => instanceHeroku.delete<{ deletedCard: PackType }>("cards/card", {params: {id}}),
     editCard: (card: UpdateCardType) => instanceHeroku.put<{ updatedCard: CardType }>("cards/card", card)
 }
 
 //types cards
 export type CardParamType = {
-    cardAnswer?: string
-    cardQuestion?: string
+    answer?: string
+    question?: string
     cardsPack_id: string
     min?: number
     max?: number

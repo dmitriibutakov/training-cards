@@ -20,7 +20,6 @@ const Table: React.FC<TablePropsType> = ({collection, cards, headers, ...calback
             <TableHeader headers={headers}/>
             {
                 collection.map(el => {
-                    console.log(el)
                     return (cards ?
                         <Row key={el._id}
                              id={el._id}

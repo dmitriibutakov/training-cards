@@ -28,7 +28,7 @@ let initialState: AppType = {
     },
     isInit: false,
     isFetching: false,
-    isResponse: false
+    isResponse: false,
 }
 
 const appReducer = (state: AppType = initialState, action: AppReducerType): AppType => {
@@ -49,7 +49,11 @@ const appReducer = (state: AppType = initialState, action: AppReducerType): AppT
 };
 
 //types
-export type AppReducerType = SetAppErrorType | SetProfileDataType | SetIsInitType | SetIsFetchingType | SetResponseType
+export type AppReducerType = SetAppErrorType
+    | SetProfileDataType
+    | SetIsInitType
+    | SetIsFetchingType
+    | SetResponseType
 export type SetAppErrorType = ReturnType<typeof setAppError>
 type SetProfileDataType = ReturnType<typeof setProfileData>
 type SetIsInitType = ReturnType<typeof setIsInit>
@@ -69,10 +73,7 @@ export const initAppTC = (): AppThunk => async (dispatch, getState) => {
         dispatch(setProfileData(response.data))
         dispatch(setIsLogin(true))
     } catch (err) {
-        const {isLoggedIn} = getState().auth
-        if (isLoggedIn) {
             errorUtils(err as Error | AxiosError, dispatch)
-        }
     } finally {
         dispatch(setIsInit(true));
         dispatch(setIsFetching(false))

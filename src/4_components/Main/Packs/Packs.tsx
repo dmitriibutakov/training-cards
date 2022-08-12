@@ -1,13 +1,14 @@
-import React from 'react';
-import {useAppSelector} from "../../../2_BLL/store";
+import React, {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from "../../../2_BLL/store";
 import NotAuthorized from "../NotAuthorized/NotAuthorized";
-import {addPackTC, deletePackTC, editPackTC, setPagePacks} from "../../../2_BLL/packs-reducer";
+import {addPackTC, deletePackTC, editPackTC, getPacksTC, setPagePacks} from "../../../2_BLL/packs-reducer";
 import Preloader from "../../../3_commons/Preloader/Preloader";
 import {ValidateTable} from "../../../3_commons/common_components/ValidateTable/ValidateTable";
 import {getCardsTC} from "../../../2_BLL/cards-reducer";
 
 
 const Packs = () => {
+    const dispatch = useAppDispatch()
     const {publicCardPacksCount} = useAppSelector(state => state.app.profile)
     const {isFetching} = useAppSelector(state => state.app)
     const {isLoggedIn} = useAppSelector(state => state.auth)
@@ -15,6 +16,13 @@ const Packs = () => {
     const {cardPacks} = useAppSelector(state => state.packs)
     const {page} = useAppSelector(state => state.packs)
     const {errorOfResponse} = useAppSelector(state => state.app)
+    console.log(publicCardPacksCount)
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            dispatch(getPacksTC());
+        }
+    }, [isLoggedIn, page])
 
     if (!isLoggedIn) return <NotAuthorized/>
     if (isFetching) return <Preloader/>

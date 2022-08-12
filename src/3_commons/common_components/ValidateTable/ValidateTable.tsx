@@ -42,14 +42,13 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
                                                                 }) => {
     const dispatch = useAppDispatch()
     const [inputError, setInputError] = useState<string | null>("")
-
     const setPageHandler = () => {
         dispatch(setPageActionCreator(page))
     }
 
     const addValueCallback = useCallback((title: string) => {
-        if (title.length < 1 || title.length > 10) {
-            setInputError("value must be more 1 or less 10 symbols")
+        if (title.trim() === "" || title.length < 1 || title.length > 40) {
+            setInputError("value must be more 1 or less 40 symbols")
         } else {
             setInputError(null)
             dispatch(addThunk(title))

@@ -19,7 +19,7 @@ export const authApi = {
     resetPassword: (email: string) =>
         instanceHeroku.post<{ info: string; error: string }>
         ('/auth/forgot', {
-            email, from: `test-front-admin <hvi17@yandex.ru>`,
+            email, from: `test-front-admin <dmitryload@yahoo.com>`,
             message: `<div style='background-color: #ceeeff; border-radius: 10px; padding: 15px'>
                           password recovery link: <a href='https://training-cards.herokuapp.com/set-new-password/$token$'>link</a>
                       </div>`

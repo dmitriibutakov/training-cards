@@ -24,6 +24,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
             return {...state, page: action.page}
         case "SET-CARD-PACK-ID":
             return {...state, packUserId: action.id}
+        case "SET-CARDS-COUNT":
+            return {...state, cardsTotalCount: action.count}
         default:
             return state
     }
@@ -31,11 +33,12 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
 
 //types
 export type CardsReducerType = ReturnType<typeof setCards>
-    | SetPageCardsType | ReturnType<typeof setCardPackId>
+    | SetPageCardsType | ReturnType<typeof setCardPackId> | ReturnType<typeof setCardsTotalCount>
 export type SetPageCardsType = ReturnType<typeof setPageCards>
 
 //actions
 const setCards = (cards: Array<CardType>) => ({type: "SET-CARDS", cards} as const)
+const setCardsTotalCount = (count: number) => ({type: "SET-CARDS-COUNT", count} as const)
 export const setPageCards = (page: number) => ({type: "SET-PAGE-CARDS", page} as const)
 export const setCardPackId = (id: string) => ({type: "SET-CARD-PACK-ID", id} as const)
 
@@ -48,17 +51,18 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => async (dispatch, g
         dispatch(setCardPackId(cardsPack_id))
         const response = await cardsApi.getCards({cardsPack_id, page, pageCount})
         dispatch(setCards(response.data.cards))
+        dispatch(setCardsTotalCount(response.data.cardsTotalCount))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)
     } finally {
         dispatch(setIsFetching(false))
     }
 }
-export const addCardTC = (cardQuestion?: string): AppThunk => async (dispatch, getState) => {
+export const addCardTC = (question?: string): AppThunk => async (dispatch, getState) => {
     const {packUserId} = getState().cards
     try {
         dispatch(setIsFetching(true))
-        await cardsApi.createCard({cardQuestion, cardsPack_id: packUserId})
+        await cardsApi.createCard({question, cardsPack_id: packUserId})
         await dispatch(getCardsTC(packUserId))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

@@ -20,7 +20,7 @@ const Cards = () => {
     useEffect(() => {
         if (cardsPack_id) {
             dispatch(getCardsTC(cardsPack_id))
-        }}, [page])
+        }}, [page, cardsPack_id])
     if (!isLoggedIn) return <NotAuthorized/>
     if (isFetching) return <Preloader/>
 
