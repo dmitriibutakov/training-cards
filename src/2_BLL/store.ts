@@ -5,17 +5,19 @@ import authReducer, {AuthReducerType} from "./auth-reducer";
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {packsReducer, PacksReducerType} from "./packs-reducer";
+import {cardsReducer, CardsReducerType} from "./cards-reducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
-    packs: packsReducer
+    packs: packsReducer,
+    cards: cardsReducer
 })
 
 const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))
 export type AppStateType = ReturnType<typeof rootReducer>
 
-export type AppReducersTypes = AppReducerType | AuthReducerType | PacksReducerType
+export type AppReducersTypes = AppReducerType | AuthReducerType | PacksReducerType | CardsReducerType
 type RootStateType = ReturnType<typeof store.getState>
 type AppDispatchType = ThunkDispatch<RootStateType, unknown, AppReducersTypes>
 

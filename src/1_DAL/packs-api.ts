@@ -2,12 +2,14 @@ import {instanceHeroku} from "./instance";
 
 export const packsApi = {
     getPacks: ({min, max, _id, sortPacks, page, pageCount}: PackParamType) =>
-        instanceHeroku.get<ResponseGetCardsType>
+        instanceHeroku.get<GetPacksResponseType>
         (`cards/pack?packName?=english&min?=${min}&max?=${max}&sortPacks?=${sortPacks}&page=${page}&pageCount=${pageCount}&user_id=${_id}`),
-    createPack: (name?: string) => instanceHeroku.post<{ newCardsPack: CardType }>("cards/pack", {cardsPack: {name}}),
-    deletePack: (id: string) => instanceHeroku.delete<{ deletedCardsPack: CardType }>("cards/pack", {params: {id}}),
-    editPack: (pack: UpdateCardsPackType) => instanceHeroku.put<{ updatedCardsPack: CardType }>("cards/pack", pack),
+    createPack: (name?: string) => instanceHeroku.post<{ newCardsPack: PackType }>("cards/pack", {cardsPack: {name}}),
+    deletePack: (id: string) => instanceHeroku.delete<{ deletedCardsPack: PackType }>("cards/pack", {params: {id}}),
+    editPack: (pack: UpdateCardsPackType) => instanceHeroku.put<{ updatedCardsPack: PackType }>("cards/pack", pack),
 }
+
+//types packs
 export type PackParamType = {
     packName?: string
     min?: number
@@ -17,45 +19,17 @@ export type PackParamType = {
     pageCount?: number
     _id?: string
 }
-export type CardType = {
-    _id: string;
-    user_id: string;
-    user_name: string;
-    private: boolean;
-    name: string;
-    path: string;
-    grade: number;
-    shots: number;
-    deckCover?: string;
-    cardsCount: number;
-    type: string;
-    rating: number;
-    created: string;
-    updated: string;
-    more_id: string;
-};
-
-export type UpdateCardsPackType = {
-    cardsPack: CardsPackType;
-};
-
-type CardsPackType = {
-    _id: string;
-    name: string;
-    deckCover?: string;
-    private?: boolean;
-};
-
 export type PackType = {
     _id: string
     user_id: string
-    name: string
+    name?: string
     cardsCount: number
     created: string
     updated: string
+    question?: string
+    answer?: string
 }
-
-export type ResponseGetCardsType = {
+export type GetPacksResponseType = {
     cardPacks: Array<PackType>
     cardPacksTotalCount: number
     maxCardsCount: number
@@ -63,4 +37,13 @@ export type ResponseGetCardsType = {
     page: number
     pageCount: number
 }
+export type UpdateCardsPackType = {
+    cardsPack: PackEditType;
+};
+type PackEditType = {
+    _id: string;
+    name: string;
+    deckCover?: string;
+    private?: boolean;
+};
 

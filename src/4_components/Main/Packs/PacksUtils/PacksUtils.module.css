@@ -5,3 +5,26 @@
     justify-content: space-between;
     align-items: center;
 }
+.range {
+    position: relative;
+    padding-bottom: 20px;
+}
+.min, .max {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background-color: #f4faff;
+    border: 1px solid #366EFF;
+}
+.min {
+    left: -10px;
+    bottom: -25px;
+}
+.max {
+    right: -10px;
+    bottom: -25px;
+}

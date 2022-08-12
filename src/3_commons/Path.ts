@@ -12,3 +12,6 @@ export const PATH = {
 export const PACKS = {
     packs: "/packs"
 }
+export const CARDS = {
+    cards: "packs/:cardsPack_id"
+}

@@ -19,10 +19,10 @@ const PacksUtils: React.FC<PacksUtilsPropsType> = ({addPack, inputError}) => {
 
     return (
         <div className={privateClass.utils}>
-            <div>
-                <span>{min}</span>
+            <div className={privateClass.range}>
+                <span className={privateClass.min}>{min}</span>
                 <DoubleRange setMin={setMin} setMax={setMax} valueAll={valueAll} onChangeRange={onChangeRange}/>
-                <span>{max}</span>
+                <span className={privateClass.max}>{max}</span>
             </div>
             <Input error={inputError} textError={inputError} onButtonClickHandler={addPack} type={"text"}
                    placeholder={"create new pack"}/>

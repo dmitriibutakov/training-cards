@@ -7,10 +7,13 @@ type RowPropsType = {
     cards?: boolean
     id: string
     name?: string
+    question?: string
+    answer?: string
     cardsCount?: number
     updated: string
     deleteCallback: (id: string) => void
     editCallback: (id: string, newTitle: string) => void
+    getCallback?: (id: string) => void
 }
 const Row: React.FC<RowPropsType> = ({
                                          name,
@@ -19,12 +22,14 @@ const Row: React.FC<RowPropsType> = ({
                                          id,
                                          editCallback,
                                          deleteCallback,
-                                         cards
+                                         cards,
+                                         question,
+                                         answer
                                      }) => {
     return (
         <div className={privateClass.row}>
-            <div>{name}</div>
-            <div>{cardsCount}</div>
+            <div>{name || question}</div>
+            <div>{cardsCount || answer}</div>
             <div>{updated}</div>
             <div>
                 <button onClick={() => deleteCallback(id)}
@@ -36,7 +41,10 @@ const Row: React.FC<RowPropsType> = ({
                     <img src={editImg} alt="icon"/>
                 </button>
                 {!cards &&
-                    <NavLink className={privateClass.link} to={"/cards"}><img src={studyImg} alt="icon"/></NavLink>}
+                    <NavLink className={privateClass.link}
+                             to={`/packs/${id}`}>
+                        <img src={studyImg} alt="icon"/>
+                    </NavLink>}
             </div>
         </div>
     );

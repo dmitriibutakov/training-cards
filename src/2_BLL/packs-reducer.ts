@@ -1,29 +1,13 @@
-import {packsApi, PackType} from "../1_DAL/packs-api";
-import {numberInit, stringInit} from "../3_commons/init-variables";
+import {GetPacksResponseType, packsApi, PackType} from "../1_DAL/packs-api";
+import {numberInit} from "../3_commons/init-variables";
 import {AppThunk} from "./store";
 import {setIsFetching} from "../3_commons/common_actions/common_actions";
 import {errorUtils} from "../3_commons/errors-utils";
 import {AxiosError} from "axios";
 
-export type PacksStateType = {
-    cardPacks: Array<PackType>
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
-}
+export type PacksStateType = GetPacksResponseType
 let initialState: PacksStateType = {
-    cardPacks: [
-        {
-            _id: stringInit,
-            user_id: stringInit,
-            name: stringInit,
-            cardsCount: numberInit,
-            created: stringInit,
-            updated: stringInit
-        }
-    ],
+    cardPacks: [],
     cardPacksTotalCount: numberInit,
     maxCardsCount: numberInit,
     minCardsCount: numberInit,
@@ -35,7 +19,7 @@ export const packsReducer = (state: PacksStateType = initialState, action: Packs
     switch (action.type) {
         case "SET-PACKS":
             return {...state, cardPacks: action.cardPacks}
-        case "SET-PAGE":
+        case "SET-PAGE-PACKS":
             return {...state, page: action.page}
         default:
             return state
@@ -43,11 +27,12 @@ export const packsReducer = (state: PacksStateType = initialState, action: Packs
 }
 
 //types
-export type PacksReducerType = ReturnType<typeof setPacks> | ReturnType<typeof setPage>
-
+export type PacksReducerType = ReturnType<typeof setPacks>
+    | SetPagePackType
+export type SetPagePackType = ReturnType<typeof setPagePacks>
 //actions
 const setPacks = (cardPacks: Array<PackType>) => ({type: "SET-PACKS", cardPacks} as const)
-export const setPage = (page: number) => ({type: "SET-PAGE", page} as const)
+export const setPagePacks = (page: number) => ({type: "SET-PAGE-PACKS", page} as const)
 
 //thunks
 export const getPacksTC = (): AppThunk => async (dispatch, getState) => {

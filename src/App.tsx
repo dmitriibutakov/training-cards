@@ -9,10 +9,9 @@ import Preloader from "./3_commons/Preloader/Preloader";
 import {getPacksTC} from "./2_BLL/packs-reducer";
 
 const App = () => {
-    const isInit = useAppSelector(state => state.app.isInit)
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    const page = useAppSelector(state => state.packs.page)
-
+    const {isInit} = useAppSelector(state => state.app)
+    const {isLoggedIn} = useAppSelector(state => state.auth)
+    const {page} = useAppSelector(state => state.packs)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
