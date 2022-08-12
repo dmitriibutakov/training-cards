@@ -4,8 +4,7 @@ import NotAuthorized from "../NotAuthorized/NotAuthorized";
 import Preloader from "../../../3_commons/Preloader/Preloader";
 import {addCardTC, deleteCardTC, editCardTC, getCardsTC, setPageCards} from "../../../2_BLL/cards-reducer";
 import {ValidateTable} from "../../../3_commons/common_components/ValidateTable/ValidateTable";
-import {Navigate, useParams} from "react-router-dom";
-import {PATH} from "../../../3_commons/Path";
+import {useParams} from "react-router-dom";
 
 const Cards = () => {
     const dispatch = useAppDispatch()
