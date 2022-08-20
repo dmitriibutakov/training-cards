@@ -1,17 +1,21 @@
-import React, {useCallback, useState} from "react";
-import {AppThunk, useAppDispatch} from "../../../2_BLL/store";
-import commonClass from "../../common_classes/commonTable.module.css";
+import React, { useCallback, useState } from "react";
+import { AppThunk, useAppDispatch } from "../../../2_BLL/store";
+import commonClass from "../../classes/commonTable.module.css";
 import Title from "../Title/Title";
 import PacksUtils from "../../../4_components/Main/Packs/PacksUtils";
 import Table from "../Table/Table";
 import Paginator from "../Paginator/Paginator";
 import ErrorResponse from "../ErrorResponse";
-import {PackType} from "../../../1_DAL/packs-api";
-import {CardType} from "../../../1_DAL/cards-api";
+import { PackType } from "../../../1_DAL/packs-api";
+import { CardType } from "../../../1_DAL/cards-api";
 import CardsUtils from "../../../4_components/Main/Cards/CardsUtils";
 import TableHeader from "../Table/TableHeader";
 
 type ValidateTablePropsType = {
+    min: number
+    max: number
+    setMin: (c: number) => void
+    setMax: (c: number) => void
     cards?: boolean
     page: number
     title: string
@@ -24,21 +28,23 @@ type ValidateTablePropsType = {
     quantityValue: number,
     errorOfResponse: string | null
     headers: [string, string, string, string]
+
 }
 export const ValidateTable: React.FC<ValidateTablePropsType> = ({
-                                                                    page,
-                                                                    addThunk,
-                                                                    deleteThunk,
-                                                                    getThunk,
-                                                                    title,
-                                                                    editThunk,
-                                                                    collection,
-                                                                    cards,
-                                                                    quantityValue,
-                                                                    errorOfResponse,
-                                                                    headers,
-                                                                    setPageCallback
-                                                                }) => {
+    page,
+    addThunk,
+    deleteThunk,
+    getThunk,
+    title,
+    editThunk,
+    collection,
+    cards,
+    quantityValue,
+    errorOfResponse,
+    headers,
+    setPageCallback,
+    ...rangeParams
+}) => {
     const dispatch = useAppDispatch()
     const [inputError, setInputError] = useState<string | null>("")
 
@@ -49,34 +55,34 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
             setInputError(null)
             dispatch(addThunk(title))
         }
-    }, [])
+    }, [dispatch, addThunk])
     const deleteValueCallback = useCallback((id: string) => {
         dispatch(deleteThunk(id))
-    }, [])
+    }, [dispatch, deleteThunk])
     const editValueCallback = (useCallback((id: string, newTitle: string) => {
         dispatch(editThunk(id, newTitle)
         )
-    }, []))
+    }, [dispatch, editThunk]))
     const getValueCallback = useCallback((id: string) => {
         getThunk && dispatch(getThunk(id))
-    }, [])
+    }, [dispatch, getThunk])
 
     return (
         <div className={commonClass.table}>
-            <Title title={title}/>
-            {cards ? <CardsUtils inputError={inputError} addCard={addValueCallback}/> :
-                <PacksUtils inputError={inputError} addPack={addValueCallback}/>}
-            <TableHeader headers={headers}/>
+            <Title title={title} />
+            {cards ? <CardsUtils inputError={inputError} addCard={addValueCallback} /> :
+                <PacksUtils {...rangeParams} inputError={inputError} addPack={addValueCallback} />}
+            <TableHeader headers={headers} />
             <Table
                 getCallback={getValueCallback}
                 cards={cards}
                 collection={collection}
                 editCallback={editValueCallback}
-                deleteCallback={deleteValueCallback}/>
+                deleteCallback={deleteValueCallback} />
             <Paginator page={page}
-                       quantityValue={quantityValue}
-                       onClickPage={setPageCallback}/>
-            <ErrorResponse errorOfResponse={errorOfResponse}/>
+                quantityValue={quantityValue}
+                onClickPage={setPageCallback} />
+            <ErrorResponse errorOfResponse={errorOfResponse} />
         </div>
     )
 }

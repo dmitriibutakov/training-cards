@@ -4,11 +4,11 @@ import {useSelector} from "react-redux";
 import {Navigate, useNavigate} from "react-router-dom";
 import {editProfileTC} from "../../../2_BLL/app-reducer";
 import {AppStateType, useAppDispatch} from "../../../2_BLL/store";
-import privateClass from "../../../3_commons/common_classes/commonContainer.module.css";
+import privateClass from "../../../3_commons/classes/commonContainer.module.css";
 import Title from "../../../3_commons/common_components/Title/Title";
 import Input from "../../../3_commons/common_components/Input/Input";
 import Button from "../../../3_commons/common_components/Button/Button";
-import {incognitoImg} from "../../../3_commons/common_images/commonImages";
+import {incognitoImg} from "../../../3_commons/images/commonImages";
 import Avatar from "../../../3_commons/common_components/Avatar/Avatar";
 import {ResponseDataProfileType} from "../../../1_DAL/auth-api";
 

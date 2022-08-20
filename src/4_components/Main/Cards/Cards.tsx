@@ -22,7 +22,7 @@ const Cards = () => {
     }
     useEffect(() => {
         cardsPack_id && dispatch(getCardsTC(cardsPack_id))
-    }, [page, cardsPack_id])
+    }, [page, cardsPack_id, dispatch])
 
     if (!isLoggedIn) return <NotAuthorized/>
     if (isFetching) return <Preloader/>
@@ -38,6 +38,10 @@ const Cards = () => {
                        deleteThunk={deleteCardTC}
                        editThunk={editCardTC}
                        setPageCallback={setPageHandler}
+                       min={0}
+                       max={100}
+                       setMax={()=>{}}
+                       setMin={()=>{}}
         />
     );
 };

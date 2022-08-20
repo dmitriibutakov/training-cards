@@ -1,6 +1,6 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useState} from 'react';
 import privateClass from "./Input.module.css"
-import {addImg, searchImg, showImg} from "../../common_images/commonImages";
+import {addImg, searchImg, showImg} from "../../images/commonImages";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 

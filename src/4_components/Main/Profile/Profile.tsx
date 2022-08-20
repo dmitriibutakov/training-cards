@@ -2,10 +2,10 @@ import React from 'react';
 import {Navigate, useNavigate} from "react-router-dom";
 import {logoutTC} from '../../../2_BLL/auth-reducer';
 import {useAppDispatch, useAppSelector} from "../../../2_BLL/store";
-import privateClass from "../../../3_commons/common_classes/commonContainer.module.css";
+import privateClass from "../../../3_commons/classes/commonContainer.module.css";
 import Title from "../../../3_commons/common_components/Title/Title";
 import Button from "../../../3_commons/common_components/Button/Button";
-import {incognitoImg} from "../../../3_commons/common_images/commonImages";
+import {incognitoImg} from "../../../3_commons/images/commonImages";
 import Avatar from "../../../3_commons/common_components/Avatar/Avatar";
 import Preloader from "../../../3_commons/Preloader/Preloader";
 

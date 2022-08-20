@@ -1,5 +1,5 @@
 import React from 'react';
-import commonClass from "../../../3_commons/common_classes/commonUtils.module.css"
+import commonClass from "../../../3_commons/classes/commonUtils.module.css"
 import Input from "../../../3_commons/common_components/Input/Input";
 
 type CardsUtilsPropsType = {

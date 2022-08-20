@@ -28,6 +28,7 @@
 }
 
 .text {
+    font-size: 12px;
     position: absolute;
     bottom: -15px;
     right: 16%;
