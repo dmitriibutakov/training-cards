@@ -1,6 +1,6 @@
 import React from 'react';
 import privateClass from "./Row.module.css"
-import {deleteImg, editImg, studyImg} from "../../../common_images/commonImages";
+import {deleteImg, editImg, studyImg} from "../../../images/commonImages";
 import {NavLink} from "react-router-dom";
 
 type RowPropsType = {

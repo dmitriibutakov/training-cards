@@ -1,5 +1,5 @@
 import React from 'react';
-import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
+import commonClass from "../../../../3_commons/classes/commonContainer.module.css"
 import Title from "../../../../3_commons/common_components/Title/Title";
 import Input from "../../../../3_commons/common_components/Input/Input";
 import Button from "../../../../3_commons/common_components/Button/Button";

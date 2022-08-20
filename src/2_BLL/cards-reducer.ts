@@ -1,5 +1,5 @@
 import {AppThunk} from "./store";
-import {setIsFetching} from "../3_commons/common_actions/common_actions";
+import {setIsFetching} from "../3_commons/actions/common_actions";
 import {errorUtils} from "../3_commons/errors-utils";
 import {AxiosError} from "axios";
 import {cardsApi, CardType, GetCardsResponseType} from "../1_DAL/cards-api";

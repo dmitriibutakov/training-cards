@@ -3,7 +3,7 @@ import {instanceHeroku} from "./instance";
 export const packsApi = {
     getPacks: ({min, max, _id, sortPacks, page, pageCount}: PackParamType) =>
         instanceHeroku.get<GetPacksResponseType>
-        (`cards/pack?packName?=english&min?=${min}&max?=${max}&sortPacks?=${sortPacks}&page=${page}&pageCount=${pageCount}&user_id=${_id}`),
+        (`cards/pack?packName?=english&min=${min}&max=${max}&sortPacks?=${sortPacks}&page=${page}&pageCount=${pageCount}&user_id=${_id}`),
     createPack: (name?: string) => instanceHeroku.post<{ newCardsPack: PackType }>("cards/pack", {cardsPack: {name}}),
     deletePack: (id: string) => instanceHeroku.delete<{ deletedCardsPack: PackType }>("cards/pack", {params: {id}}),
     editPack: (pack: UpdateCardsPackType) => instanceHeroku.put<{ updatedCardsPack: PackType }>("cards/pack", pack),

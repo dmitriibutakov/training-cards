@@ -1,6 +1,6 @@
 import {errorUtils} from '../3_commons/errors-utils';
 import {AxiosError} from 'axios';
-import {setIsFetching, SetIsFetchingType} from '../3_commons/common_actions/common_actions';
+import {setIsFetching, SetIsFetchingType} from '../3_commons/actions/common_actions';
 import {AppThunk} from './store';
 import {authApi, ResponseDataProfileType} from '../1_DAL/auth-api';
 import {setIsLogin} from "./auth-reducer";

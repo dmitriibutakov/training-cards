@@ -1,32 +1,48 @@
-import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from "../../../2_BLL/store";
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from "../../../2_BLL/store";
 import NotAuthorized from "../NotAuthorized/NotAuthorized";
-import {addPackTC, deletePackTC, editPackTC, getPacksTC, setPagePacks} from "../../../2_BLL/packs-reducer";
+import { addPackTC, deletePackTC, editPackTC, getPacksTC, setMaxCardsCount, setMinCardsCount, setPagePacks } from "../../../2_BLL/packs-reducer";
 import Preloader from "../../../3_commons/Preloader/Preloader";
-import {ValidateTable} from "../../../3_commons/common_components/ValidateTable/ValidateTable";
-import {getCardsTC} from "../../../2_BLL/cards-reducer";
+import { ValidateTable } from "../../../3_commons/common_components/ValidateTable/ValidateTable";
+import { getCardsTC } from "../../../2_BLL/cards-reducer";
+import { useDebounce } from '../../../3_commons/hooks/useDebounse';
 
 const Packs = () => {
     const dispatch = useAppDispatch()
-    const {cardPacksTotalCount} = useAppSelector(state => state.packs)
-    const {isFetching} = useAppSelector(state => state.app)
-    const {isLoggedIn} = useAppSelector(state => state.auth)
-    const {pageCount} = useAppSelector(state => state.packs)
-    const {cardPacks} = useAppSelector(state => state.packs)
-    const {page} = useAppSelector(state => state.packs)
-    const {errorOfResponse} = useAppSelector(state => state.app)
+    const { cardPacksTotalCount } = useAppSelector(state => state.packs)
+    const { minCardsCount } = useAppSelector(state => state.packs)
+    const { maxCardsCount } = useAppSelector(state => state.packs)
+    const { isFetching } = useAppSelector(state => state.app)
+    const { isLoggedIn } = useAppSelector(state => state.auth)
+    const { pageCount } = useAppSelector(state => state.packs)
+    const { cardPacks } = useAppSelector(state => state.packs)
+    const { page } = useAppSelector(state => state.packs)
+    const { errorOfResponse } = useAppSelector(state => state.app)
+
+    const searchDelayMin = useDebounce(minCardsCount, 500)
+    const searchDelayMax = useDebounce(maxCardsCount, 500)
+    const setMaxCallback = (count: number) => {
+        dispatch(setMaxCardsCount(count))
+    }
+    const setMinCallback = (count: number) => {
+        dispatch(setMinCardsCount(count))
+    }
 
     const setPageHandler = (page: number) => {
         dispatch(setPagePacks(page))
     }
     useEffect(() => {
-        isLoggedIn && dispatch(getPacksTC());
-    }, [isLoggedIn, page])
+        isLoggedIn && dispatch(getPacksTC())
+    }, [isLoggedIn, page, searchDelayMin, searchDelayMax, dispatch])
 
-    if (!isLoggedIn) return <NotAuthorized/>
-    if (isFetching) return <Preloader/>
+    if (!isLoggedIn) return <NotAuthorized />
+    if (isFetching) return <Preloader />
     return (
         <ValidateTable
+            setMax={setMaxCallback}
+            setMin={setMinCallback}
+            min={minCardsCount}
+            max={maxCardsCount}
             headers={["Name", "Quantity cards", "Last update", "Actions"]}
             page={page}
             title={"My packs collections"}
@@ -37,7 +53,7 @@ const Packs = () => {
             getThunk={getCardsTC}
             collection={cardPacks}
             quantityValue={cardPacksTotalCount / pageCount}
-            errorOfResponse={errorOfResponse}/>
+            errorOfResponse={errorOfResponse} />
     );
 };
 

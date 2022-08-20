@@ -1,4 +1,4 @@
-import React, {DetailedHTMLProps, InputHTMLAttributes} from 'react'
+import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 import privateClass from "./DoubleRange.module.css"
 import CountRange from "./CountRange/CountRange";
 
@@ -19,8 +19,8 @@ const DoublCountRange: React.FC<SuperDoubleRangePropsType> = (
     return (
         <div className={privateClass.body}>
             <CountRange valueAll={valueAll} setValue={setMin} position={"left"} value={valueAll[0]}
-                        onChange={onChangeRange}/>
-            <CountRange valueAll={valueAll} setValue={setMax} value={valueAll[1]} onChange={onChangeRange}/>
+                onChange={onChangeRange} />
+            <CountRange valueAll={valueAll} setValue={setMax} value={valueAll[1]} onChange={onChangeRange} />
         </div>
     )
 }

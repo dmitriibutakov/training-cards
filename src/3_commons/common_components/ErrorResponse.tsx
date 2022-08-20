@@ -1,5 +1,5 @@
 import React from 'react';
-import commonClass from "../common_classes/commonContainer.module.css";
+import commonClass from "../classes/commonContainer.module.css";
 
 type ErrorResponseType = {
     errorOfResponse: string | null

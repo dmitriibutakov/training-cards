@@ -1,7 +1,7 @@
 import React from 'react';
 import Row from "./Row/Row";
 import {PackType} from "../../../1_DAL/packs-api";
-import commonClass from "../../common_classes/commonTable.module.css"
+import commonClass from "../../classes/commonTable.module.css"
 import Arrow from "../Arrow/Arrow";
 import {CardType} from "../../../1_DAL/cards-api";
 

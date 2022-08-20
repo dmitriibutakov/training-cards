@@ -2,7 +2,7 @@ import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
 import {Navigate, useParams} from "react-router-dom";
 import {setNewPasswordTC} from "../../../../2_BLL/auth-reducer";
-import commonClass from "../../../../3_commons/common_classes/commonContainer.module.css"
+import commonClass from "../../../../3_commons/classes/commonContainer.module.css"
 import {useFormik} from "formik";
 import Loader from "../../../../3_commons/Loader/Loader";
 import Input from "../../../../3_commons/common_components/Input/Input";
