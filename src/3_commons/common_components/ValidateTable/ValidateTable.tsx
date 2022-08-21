@@ -1,15 +1,18 @@
-import React, { useCallback, useState } from "react";
-import { AppThunk, useAppDispatch } from "../../../2_BLL/store";
+import React, {useCallback, useState} from "react";
+import {AppThunk, useAppDispatch} from "../../../2_BLL/store";
 import commonClass from "../../classes/commonTable.module.css";
 import Title from "../Title/Title";
-import PacksUtils from "../../../4_components/Main/Packs/PacksUtils";
-import Table from "../Table/Table";
+import Table from "./Table/Table";
 import Paginator from "../Paginator/Paginator";
 import ErrorResponse from "../ErrorResponse";
-import { PackType } from "../../../1_DAL/packs-api";
-import { CardType } from "../../../1_DAL/cards-api";
-import CardsUtils from "../../../4_components/Main/Cards/CardsUtils";
-import TableHeader from "../Table/TableHeader";
+import {PackType} from "../../../1_DAL/packs-api";
+import {CardType} from "../../../1_DAL/cards-api";
+import TableHeader from "./Table/TableHeader";
+import Utils from "../Utils/Utils";
+import Modal from "../Modal/Modal";
+import {useNavigate} from "react-router-dom";
+import {images} from "../../images/commonImages";
+import {ModalStatusesTypes} from "../../validates/validates";
 
 type ValidateTablePropsType = {
     min: number
@@ -20,69 +23,86 @@ type ValidateTablePropsType = {
     page: number
     title: string
     setPageCallback: (page: number) => void
-    addThunk: (title: string) => AppThunk
+    addThunk: (value: string, description?: string) => AppThunk
     deleteThunk: (id: string) => AppThunk
-    editThunk: (id: string, newTitle: string) => AppThunk
+    editThunk: (id: string, question: string, comments?: string) => AppThunk
     getThunk?: (id: string) => AppThunk
     collection: Array<PackType> | Array<CardType>
     quantityValue: number,
     errorOfResponse: string | null
     headers: [string, string, string, string]
+    pageCount: number
 
 }
-export const ValidateTable: React.FC<ValidateTablePropsType> = ({
-    page,
-    addThunk,
-    deleteThunk,
-    getThunk,
-    title,
-    editThunk,
-    collection,
-    cards,
-    quantityValue,
-    errorOfResponse,
-    headers,
-    setPageCallback,
-    ...rangeParams
-}) => {
-    const dispatch = useAppDispatch()
-    const [inputError, setInputError] = useState<string | null>("")
 
-    const addValueCallback = useCallback((title: string) => {
-        if (title.trim() === "" || title.length < 1 || title.length > 40) {
-            setInputError("value must be more 1 or less 40 symbols")
-        } else {
-            setInputError(null)
-            dispatch(addThunk(title))
-        }
-    }, [dispatch, addThunk])
-    const deleteValueCallback = useCallback((id: string) => {
+export const ValidateTable: React.FC<ValidateTablePropsType> = ({
+                                                                    page,
+                                                                    pageCount,
+                                                                    addThunk,
+                                                                    deleteThunk,
+                                                                    getThunk,
+                                                                    title,
+                                                                    editThunk,
+                                                                    collection,
+                                                                    cards,
+                                                                    quantityValue,
+                                                                    errorOfResponse,
+                                                                    headers,
+                                                                    setPageCallback,
+                                                                    ...rangeParams
+                                                                }) => {
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const [showModal, setShowModal] = useState<ModalStatusesTypes>("hidden")
+    const [valueId, setValueId] = useState("")
+
+    const addThunkCallback = useCallback((value: string, answer?: string) => {
+        cards ? dispatch(addThunk(value, answer)) : dispatch(addThunk(value))
+    }, [cards, dispatch, addThunk])
+
+    const deleteThunkCallback = useCallback((id: string) => {
         dispatch(deleteThunk(id))
     }, [dispatch, deleteThunk])
-    const editValueCallback = (useCallback((id: string, newTitle: string) => {
-        dispatch(editThunk(id, newTitle)
-        )
+
+    const editThunkCallback = (useCallback((id: string, value: string, answer?: string) => {
+        dispatch(editThunk(id, value, answer))
     }, [dispatch, editThunk]))
-    const getValueCallback = useCallback((id: string) => {
-        getThunk && dispatch(getThunk(id))
-    }, [dispatch, getThunk])
+
+    /*    const getValueCallback = useCallback((id: string) => {
+            getThunk && dispatch(getThunk(id))
+        }, [dispatch, getThunk])*/
 
     return (
         <div className={commonClass.table}>
-            <Title title={title} />
-            {cards ? <CardsUtils inputError={inputError} addCard={addValueCallback} /> :
-                <PacksUtils {...rangeParams} inputError={inputError} addPack={addValueCallback} />}
-            <TableHeader headers={headers} />
+            {cards && <button className={commonClass.btn__navigate}
+                              onClick={() => (navigate("/packs"))}>
+                <img src={images.backImg} alt="to-back"/>
+            </button>}
+            <Title title={title}/>
+            <Utils setShowModal={setShowModal} cards={cards} {...rangeParams}/>
+            <TableHeader headers={headers}/>
             <Table
-                getCallback={getValueCallback}
+                setValueId={setValueId}
                 cards={cards}
+                setShowModal={setShowModal}
                 collection={collection}
-                editCallback={editValueCallback}
-                deleteCallback={deleteValueCallback} />
-            <Paginator page={page}
-                quantityValue={quantityValue}
-                onClickPage={setPageCallback} />
-            <ErrorResponse errorOfResponse={errorOfResponse} />
+            />
+            <Paginator pageSize={8}
+                       currentPage={page}
+                       portionSize={pageCount}
+                       quantityValue={quantityValue}
+                       onClickCallback={setPageCallback}/>
+
+            <ErrorResponse errorOfResponse={errorOfResponse}/>
+
+            {showModal !== "hidden" && <Modal
+                editCallback={editThunkCallback}
+                deleteCallback={deleteThunkCallback}
+                addCallback={addThunkCallback}
+                valueId={valueId}
+                showModal={showModal}
+                setShowModal={setShowModal}
+                cards={cards}/>}
         </div>
     )
 }

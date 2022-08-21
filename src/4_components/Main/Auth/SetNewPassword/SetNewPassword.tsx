@@ -4,15 +4,14 @@ import {Navigate, useParams} from "react-router-dom";
 import {setNewPasswordTC} from "../../../../2_BLL/auth-reducer";
 import commonClass from "../../../../3_commons/classes/commonContainer.module.css"
 import {useFormik} from "formik";
-import Loader from "../../../../3_commons/Loader/Loader";
+import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import Input from "../../../../3_commons/common_components/Input/Input";
 import Button from "../../../../3_commons/common_components/Button/Button";
-import {ErrorFormikType} from "../../../../3_commons/validate";
+import {ErrorFormikType} from "../../../../3_commons/validates/validates";
 
 export const SetNewPassword = () => {
     const dispatch = useAppDispatch();
     const {token} = useParams();
-    console.log(token)
     const {isFetching} = useAppSelector(state => state.app)
     const {isResponse} = useAppSelector(state => state.app)
 

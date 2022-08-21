@@ -60,10 +60,10 @@ export const getPacksTC = (params?: PackParamType): AppThunk => async (dispatch,
         dispatch(setIsFetching(false))
     }
 }
-export const addPackTC = (name?: string): AppThunk => async dispatch => {
+export const addPackTC = (value: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
-        await packsApi.createPack(name)
+        await packsApi.createPack(value)
         await dispatch(getPacksTC())
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

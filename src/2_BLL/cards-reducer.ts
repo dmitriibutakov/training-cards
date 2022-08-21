@@ -56,11 +56,11 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => async (dispatch, g
         dispatch(setIsFetching(false))
     }
 }
-export const addCardTC = (question?: string): AppThunk => async (dispatch, getState) => {
+export const addCardTC = (question: string, answer?: string): AppThunk => async (dispatch, getState) => {
     const {packUserId} = getState().cards
     try {
         dispatch(setIsFetching(true))
-        await cardsApi.createCard({question, cardsPack_id: packUserId})
+        await cardsApi.createCard({question,answer, cardsPack_id: packUserId})
         await dispatch(getCardsTC(packUserId))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)
@@ -80,11 +80,11 @@ export const deleteCardTC = (id: string): AppThunk => async (dispatch, getState)
         dispatch(setIsFetching(false))
     }
 }
-export const editCardTC = (_id: string, question: string): AppThunk => async (dispatch, getState) => {
+export const editCardTC = (_id: string, question: string, answer?: string): AppThunk => async (dispatch, getState) => {
     const {packUserId} = getState().cards
     try {
         dispatch(setIsFetching(true))
-        await cardsApi.editCard({card: {_id, question}})
+        await cardsApi.editCard({card: {_id, question, answer}})
         await dispatch(getCardsTC(packUserId))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

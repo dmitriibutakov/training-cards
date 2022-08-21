@@ -27,7 +27,6 @@ const Navigation = () => {
                     <NavLink to={PATH.signIn} className={privateClass.link}>Sign In</NavLink>
                     <NavLink to={PATH.signUp} className={privateClass.link}>Sign Up</NavLink>
                     <NavLink to={PACKS.packs} className={privateClass.link}>Packs</NavLink>
-                    <NavLink to={PATH.error} className={privateClass.link}>404</NavLink>
                 </nav>
             </div>
         </div>

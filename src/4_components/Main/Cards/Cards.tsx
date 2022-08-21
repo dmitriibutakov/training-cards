@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../2_BLL/store";
 import NotAuthorized from "../NotAuthorized/NotAuthorized";
-import Preloader from "../../../3_commons/Preloader/Preloader";
+import Preloader from "../../../3_commons/common_components/Preloader/Preloader";
 import {addCardTC, deleteCardTC, editCardTC, getCardsTC, setPageCards} from "../../../2_BLL/cards-reducer";
 import {ValidateTable} from "../../../3_commons/common_components/ValidateTable/ValidateTable";
 import {useParams} from "react-router-dom";
@@ -27,21 +27,25 @@ const Cards = () => {
     if (!isLoggedIn) return <NotAuthorized/>
     if (isFetching) return <Preloader/>
     return (
-        <ValidateTable title={"Cards"}
-                       headers={["Question", "Answer", "Last update", "Actions"]}
-                       cards={true}
-                       collection={cards}
-                       errorOfResponse={errorOfResponse}
-                       page={page}
-                       quantityValue={cardsTotalCount / pageCount}
-                       addThunk={addCardTC}
-                       deleteThunk={deleteCardTC}
-                       editThunk={editCardTC}
-                       setPageCallback={setPageHandler}
-                       min={0}
-                       max={100}
-                       setMax={()=>{}}
-                       setMin={()=>{}}
+        <ValidateTable
+            title={"Cards"}
+            headers={["Question", "Answer", "Last update", "Actions"]}
+            cards={true}
+            collection={cards}
+            errorOfResponse={errorOfResponse}
+            addThunk={addCardTC}
+            deleteThunk={deleteCardTC}
+            editThunk={editCardTC}
+            setPageCallback={setPageHandler}
+            page={page}
+            quantityValue={cardsTotalCount}
+            min={0}
+            pageCount={pageCount}
+            max={100}
+            setMax={() => {
+            }}
+            setMin={() => {
+            }}
         />
     );
 };

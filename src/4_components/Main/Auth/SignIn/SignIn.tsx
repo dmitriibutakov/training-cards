@@ -10,9 +10,9 @@ import Checkbox from "../../../../3_commons/common_components/Checkbox/Checkbox"
 import {useFormik} from "formik";
 import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
 import {signInTC} from "../../../../2_BLL/auth-reducer";
-import Loader from "../../../../3_commons/Loader/Loader";
-import {ErrorFormikType} from "../../../../3_commons/validate";
+import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
+import {ErrorFormikType} from "../../../../3_commons/validates/validates";
 
 
 const SignIn = () => {

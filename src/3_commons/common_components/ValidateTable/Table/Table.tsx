@@ -1,18 +1,18 @@
 import React from 'react';
 import Row from "./Row/Row";
-import {PackType} from "../../../1_DAL/packs-api";
-import commonClass from "../../classes/commonTable.module.css"
-import Arrow from "../Arrow/Arrow";
-import {CardType} from "../../../1_DAL/cards-api";
+import {PackType} from "../../../../1_DAL/packs-api";
+import commonClass from "../../../classes/commonTable.module.css"
+import Arrow from "../../Arrow/Arrow";
+import {CardType} from "../../../../1_DAL/cards-api";
+import {ModalStatusesTypes} from "../../../validates/validates";
 
 type TablePropsType = {
     cards?: boolean
-    collection: Array<PackType> | Array<CardType>
-    deleteCallback: (id: string) => void
-    editCallback: (id: string, newTitle: string) => void
-    getCallback?: (id: string) => void
+    collection: Array<CardType> | Array<PackType>
+    setShowModal: (modal: ModalStatusesTypes) => void
+    setValueId: (id: string) => void
 }
-const Table: React.FC<TablePropsType> = ({collection, cards, ...calbacks}) => {
+const Table: React.FC<TablePropsType> = ({collection, cards, ...restProps}) => {
     if (collection.length === 0) return <Arrow/>
     return (
         <div className={commonClass.table__list}>
@@ -22,18 +22,18 @@ const Table: React.FC<TablePropsType> = ({collection, cards, ...calbacks}) => {
                         <Row key={el._id}
                              id={el._id}
                              cards={cards}
-                             question={el.question}
-                             answer={el.answer}
+                             value={el.question}
+                             value2={el.answer}
                              updated={el.updated && el.updated.slice(0, 10)}
-                             {...calbacks}/>
+                             {...restProps}/>
 
                         : <Row key={el._id}
                                id={el._id}
                                cards={cards}
-                               name={el.name}
-                               cardsCount={el.cardsCount}
+                               value={el.name}
+                               value2={el.cardsCount}
                                updated={el.updated && el.updated.slice(0, 10)}
-                               {...calbacks}/>)
+                               {...restProps}/>)
                 })
             }
         </div>

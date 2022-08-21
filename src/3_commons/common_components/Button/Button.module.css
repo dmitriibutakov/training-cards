@@ -6,12 +6,12 @@
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    border-radius: 5px;
+    border-radius: 10px;
     text-transform: uppercase;
 }
 
 .btn {
-    background-color: #366EFF;
+    background-color: #21268F;
     color: #fff;
 }
 
@@ -43,10 +43,11 @@
     background: #e5e5e5;
     opacity: 0;
     z-index: -1;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .btn:hover:after {
     opacity: 1;
     height: 100%;
+    border-radius: 10px;
 }

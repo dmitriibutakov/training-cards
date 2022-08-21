@@ -19,10 +19,12 @@ export const cardsApi = {
     }),
     createCard: ({
                      question,
+                     answer,
                      cardsPack_id,
                  }: CardParamType) => instanceHeroku.post<{ newCard: CardType }>("cards/card", {
         card: {
             question,
+            answer,
             cardsPack_id
         }
     }),
@@ -68,5 +70,5 @@ export type UpdateCardType = {
 type CardEditType = {
     _id: string
     question?: string
-    comments?: string
+    answer?: string
 }

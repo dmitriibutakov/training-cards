@@ -7,17 +7,17 @@ import NavLinkLink from "../../../../3_commons/common_components/NavLink/NavLink
 import {PATH} from "../../../../3_commons/Path";
 import {useFormik} from 'formik';
 import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
-import Loader from "../../../../3_commons/Loader/Loader";
+import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import {signUpTC} from "../../../../2_BLL/auth-reducer";
 import {useNavigate} from "react-router-dom";
-import {ErrorFormikType} from "../../../../3_commons/validate";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
+import {ErrorFormikType} from "../../../../3_commons/validates/validates";
 
 const SignUp = () => {
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const {isFetching} = useAppSelector(state => state.app)
     const {errorOfResponse} = useAppSelector(state => state.app)
-    const dispatch = useAppDispatch()
 
     const formik = useFormik({
         initialValues: {

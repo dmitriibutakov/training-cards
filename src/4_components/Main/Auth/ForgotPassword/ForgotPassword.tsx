@@ -5,11 +5,11 @@ import Button from "../../../../3_commons/common_components/Button/Button";
 import {useFormik} from "formik";
 import {resetPasswordTC} from "../../../../2_BLL/auth-reducer";
 import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
-import Loader from "../../../../3_commons/Loader/Loader";
+import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import Input from "../../../../3_commons/common_components/Input/Input";
 import {Navigate} from "react-router-dom";
-import {ErrorFormikType} from "../../../../3_commons/validate";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
+import {ErrorFormikType} from "../../../../3_commons/validates/validates";
 
 const ForgotPassword = React.memo(() => {
     const dispatch = useAppDispatch();

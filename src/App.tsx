@@ -5,7 +5,7 @@ import Navigation from "./4_components/Navigation/Navigation";
 import {BrowserRouter} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "./2_BLL/store";
 import {initAppTC} from "./2_BLL/app-reducer";
-import Preloader from "./3_commons/Preloader/Preloader";
+import Preloader from "./3_commons/common_components/Preloader/Preloader";
 
 const App = () => {
     const {isInit} = useAppSelector(state => state.app)
@@ -13,7 +13,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(initAppTC())
-    }, [])
+    }, [dispatch])
     if (!isInit) {
         return <Preloader/>
     }

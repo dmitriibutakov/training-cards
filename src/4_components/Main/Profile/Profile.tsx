@@ -5,16 +5,16 @@ import {useAppDispatch, useAppSelector} from "../../../2_BLL/store";
 import privateClass from "../../../3_commons/classes/commonContainer.module.css";
 import Title from "../../../3_commons/common_components/Title/Title";
 import Button from "../../../3_commons/common_components/Button/Button";
-import {incognitoImg} from "../../../3_commons/images/commonImages";
 import Avatar from "../../../3_commons/common_components/Avatar/Avatar";
-import Preloader from "../../../3_commons/Preloader/Preloader";
+import Preloader from "../../../3_commons/common_components/Preloader/Preloader";
+import {images} from "../../../3_commons/images/commonImages";
 
 const Profile = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const profile = useAppSelector(state => state.app.profile)
-    const avatar = useAppSelector(state => state.app.profile.avatar || incognitoImg);
+    const avatar = useAppSelector(state => state.app.profile.avatar || images.incognitoImg);
     const isFetching = useAppSelector(state => state.app.isFetching)
 
     if (isFetching) return <Preloader/>

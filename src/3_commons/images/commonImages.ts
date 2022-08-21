@@ -1,15 +1,20 @@
-import show from "./eye.png"
-import incognito from "./incognito.png"
-import study from "./cap.png"
-import remove from "./delete.png"
-import edit from "./edit.png"
-import add from "./add.png"
-import search from "./search.png"
+import showImg from "./eye.png"
+import incognitoImg from "./incognito.png"
+import studyImg from "./cap.png"
+import deleteImg from "./delete.png"
+import editImg from "./edit.png"
+import addImg from "./add.png"
+import searchImg from "./search.png"
+import nextImg from "./next.png"
+import previousImg from "./previous.png"
+import closeImg from "./close.png"
+import backImg from "./back.png"
 
-export const showImg = show
-export const incognitoImg = incognito
-export const deleteImg = remove
-export const editImg = edit
-export const studyImg = study
-export const addImg = add
-export const searchImg = search
+export const images = {
+    showImg, incognitoImg,
+    deleteImg, editImg,
+    studyImg, addImg,
+    searchImg, nextImg,
+    previousImg, closeImg,
+    backImg
+}
