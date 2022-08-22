@@ -11,6 +11,7 @@ import {Navigate} from "react-router-dom";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 import {ErrorFormikType} from "../../../../3_commons/validates/validates";
 import { Fade } from '../../../../3_commons/animations';
+import {PATH} from "../../../../3_commons/Path";
 
 const ForgotPassword = React.memo(() => {
     const dispatch = useAppDispatch();
@@ -36,13 +37,13 @@ const ForgotPassword = React.memo(() => {
             formik.resetForm()
         },
     })
-    if (isResponse) return <Navigate to={"/email-password-sent"}/>
+    if (isResponse) return <Navigate to={PATH.emailPasswordSent}/>
     return (
         <Fade delay={100} effect={"fadeInUp"}>
         <div className={commonClass.container}>
             {isFetching &&<Loader/>}
             <Title title={'Reset Password'}/>
-            <p>Enter your email address below and we'll send you a link to reset your password.</p>
+            <p>we'll send instructions on email</p>
             <form onSubmit={formik.handleSubmit}>
                 <Input placeholder={"email"}
                        error={formik.touched.email && formik.errors.email}

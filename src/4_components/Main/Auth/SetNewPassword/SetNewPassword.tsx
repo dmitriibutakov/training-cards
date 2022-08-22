@@ -8,7 +8,7 @@ import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import Input from "../../../../3_commons/common_components/Input/Input";
 import Button from "../../../../3_commons/common_components/Button/Button";
 import {ErrorFormikType} from "../../../../3_commons/validates/validates";
-import {Fade} from '../../../../3_commons/animations';
+import {PATH} from "../../../../3_commons/Path";
 
 export const SetNewPassword = () => {
     const dispatch = useAppDispatch();
@@ -43,6 +43,7 @@ export const SetNewPassword = () => {
             formik.resetForm()
         },
     })
+    if (isResponse) <Navigate to={PATH.signIn}/>
     return (
             <div className={commonClass.container}>
                 {isFetching && <Loader/>}
