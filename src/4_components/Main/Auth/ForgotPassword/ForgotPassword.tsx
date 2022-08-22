@@ -42,6 +42,7 @@ const ForgotPassword = React.memo(() => {
         <div className={commonClass.container}>
             {isFetching &&<Loader/>}
             <Title title={'Reset Password'}/>
+            <p>Enter your email address below and we'll send you a link to reset your password.</p>
             <form onSubmit={formik.handleSubmit}>
                 <Input placeholder={"email"}
                        error={formik.touched.email && formik.errors.email}
