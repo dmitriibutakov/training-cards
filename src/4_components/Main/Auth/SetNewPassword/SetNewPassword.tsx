@@ -16,6 +16,7 @@ export const SetNewPassword = () => {
     const {isFetching} = useAppSelector(state => state.app)
     const {isResponse} = useAppSelector(state => state.app)
 
+    console.log(token)
     const formik = useFormik({
         initialValues: {
             password: "",
@@ -37,13 +38,12 @@ export const SetNewPassword = () => {
             return errors
         },
         onSubmit: ({password}: { password: string }) => {
+            console.log(token)
             token && dispatch(setNewPasswordTC(password, token))
             formik.resetForm()
         },
     })
-    if (isResponse) return <Navigate to={"sign-in"}/>
     return (
-        <Fade delay={100} effect={"fadeInUp"}>
             <div className={commonClass.container}>
                 {isFetching && <Loader/>}
                 <h1>Create new password</h1>
@@ -61,6 +61,5 @@ export const SetNewPassword = () => {
                     <Button disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
                 </form>
             </div>
-        </Fade>
     );
 };

@@ -11,7 +11,6 @@ import EmailPasswordSent from "../Main/Auth/EmailPasswordSent/EmailPasswordSent"
 import {SetNewPassword} from "../Main/Auth/SetNewPassword/SetNewPassword";
 import Packs from "../Main/Packs/Packs";
 import Cards from "../Main/Cards/Cards";
-import { Fade } from '../../3_commons/animations';
 
 const Pages = () => {
     return (
@@ -28,7 +27,7 @@ const Pages = () => {
                 <Route path={PATH.error} element={<Error404/>}></Route>
                 <Route path={PATH.setNewPassword} element={<SetNewPassword/>}/>
                 <Route path={PACKS.packs} element={ <Packs/>}/>
-                <Route path={CARDS.cards} element={<Fade effect={"fadeInUp"}><Cards/></Fade>}/>
+                <Route path={CARDS.cards} element={<Cards/>}/>
             </Routes>
         </>
     );

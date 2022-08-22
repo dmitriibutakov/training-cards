@@ -67,6 +67,7 @@ const Modal: React.FC<ModalPropsType & CallbacksTypes> = ({
         },
     })
     return (
+        <Fade effect={"fadeInUp"}>
         <div onClick={hideModal} className={privateClass.modal__block}>
             <div className={privateClass.modal__block_container}>
                 <h2 className={privateClass.modal__title}>{validateTitle(cards || false, showModal)}</h2>
@@ -94,6 +95,7 @@ const Modal: React.FC<ModalPropsType & CallbacksTypes> = ({
 
             </div>
         </div>
+        </Fade>
     );
 };
 
