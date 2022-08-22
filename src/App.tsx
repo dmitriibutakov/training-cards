@@ -17,12 +17,10 @@ const App = () => {
         return <Preloader/>
     }
     return (
-        <>
-            <BrowserRouter>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <Navigation/>
                 <Pages/>
             </BrowserRouter>
-        </>
     );
 };
 
