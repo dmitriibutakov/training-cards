@@ -1,11 +1,10 @@
 .utils {
     margin-bottom: 50px;
-    width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .utils > *:not(:last-child) {
-    margin-right: 40px;
+    margin-right: 20px;
 }

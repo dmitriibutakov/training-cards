@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import commonClass from "../../classes/commonUtils.module.css"
 import Input from "../Input/Input";
 import Range from "../Range/Range";
@@ -12,7 +12,8 @@ type PacksUtilsPropsType = {
     setMin: (c: number) => void
     setMax: (c: number) => void
     setShowModal: (modal: ModalStatusesTypes) => void
-
+    searchParams: string
+    setSearchParams: (params: string) => void
 }
 const Utils: React.FC<PacksUtilsPropsType> = ({
                                                   setShowModal,
@@ -20,16 +21,21 @@ const Utils: React.FC<PacksUtilsPropsType> = ({
                                                   max,
                                                   setMin,
                                                   setMax, cards,
+    setSearchParams, searchParams
                                               }) => {
     const valueAll: [number, number] = [min, max]
+
     const onChangeRange = (setValue: (value: number) => void, count: number) => {
         setValue(count)
+    }
+    const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchParams(e.currentTarget.value)
     }
     const rangeProps = {setMax, setMin, max, min, valueAll, onChangeRange}
     return (
         <div className={commonClass.utils}>
-            <Input value={""} onChange={()=>{}} searchParams={"searchParams"}/>
-            <Range {...rangeProps} />
+            <Input value={searchParams} onChange={onChangeInput} searchParams={true}/>
+            {!cards && <Range {...rangeProps} />}
             <Button onClicked={() => setShowModal("add")} text={cards ? "add card" : "add pack"}/>
         </div>
     );

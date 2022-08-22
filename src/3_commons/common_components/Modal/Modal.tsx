@@ -11,7 +11,7 @@ import {
     validateCallbacks,
     validateTitle
 } from "../../validates/validates";
-import { Fade } from '../../animations';
+import {Fade} from '../../animations';
 
 type ModalPropsType = {
     setShowModal: (modal: ModalStatusesTypes) => void
@@ -68,33 +68,35 @@ const Modal: React.FC<ModalPropsType & CallbacksTypes> = ({
     })
     return (
         <Fade effect={"fadeInUp"}>
-        <div onClick={hideModal} className={privateClass.modal__block}>
-            <div className={privateClass.modal__block_container}>
-                <h2 className={privateClass.modal__title}>{validateTitle(cards || false, showModal)}</h2>
-                <button className={privateClass.modal__btn_close}
-                        onClick={() => setShowModal("hidden")}>
-                    <img src={images.closeImg} alt=""/>
-                </button>
+            <div onClick={hideModal} className={privateClass.modal__block}>
+                <div className={privateClass.modal__block_container}>
+                    <h2 className={privateClass.modal__title}>{validateTitle(cards || false, showModal)}</h2>
+                    <button className={privateClass.modal__btn_close}
+                            onClick={() => setShowModal("hidden")}>
+                        <img src={images.closeImg} alt=""/>
+                    </button>
 
-                <form onSubmit={formik.handleSubmit} className={privateClass.modal__form}>
+                    <form onSubmit={formik.handleSubmit} className={privateClass.modal__form}>
 
-                    {cards && showModal !== "delete" && <Input {...formik.getFieldProps("description")}
-                                                               placeholder={"answer"}
-                                                               error={formik.touched.description && formik.errors.description}
-                                                               textError={formik.errors.description}/>}
+                        {cards && showModal !== "delete" && <Input {...formik.getFieldProps("description")}
+                                                                   placeholder={"answer"}
+                                                                   error={formik.touched.description && formik.errors.description}
+                                                                   textError={formik.errors.description}/>}
 
-                    {showModal === "delete" ? <p className={privateClass.modal__description}>Are you sure that you want to delete?</p>
-                        : <Input {...formik.getFieldProps("value")}
-                                 placeholder={cards ? "new question" : "name pack"}
-                                 error={formik.touched.value && formik.errors.value}
-                                 textError={formik.errors.value}/>
-                    }
+                        {showModal === "delete" ?
+                            <p className={privateClass.modal__description}>Are you sure that you want to delete?</p>
+                            : <Input {...formik.getFieldProps("value")}
+                                     placeholder={cards ? "new question" : "name pack"}
+                                     error={formik.touched.value && formik.errors.value}
+                                     textError={formik.errors.value}/>
+                        }
 
-                    <Button disabled={Object.keys(formik.errors).length !== 0} text={showModal === "delete" ? "delete" : "add"}/>
-                </form>
+                        <Button disabled={Object.keys(formik.errors).length !== 0}
+                                text={showModal === "delete" ? "delete" : "add"}/>
+                    </form>
 
+                </div>
             </div>
-        </div>
         </Fade>
     );
 };

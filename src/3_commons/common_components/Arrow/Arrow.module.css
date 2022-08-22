@@ -1,12 +1,12 @@
 .things {
     position: relative;
-    height: 300px;
+    height: 150px;
     width: 70%;
 }
 .arrow__body {
     position: absolute;
     right: 0;
-    top: -10%;
+    bottom: -50px;
 }
 .things > .content {
     position: relative;
@@ -16,10 +16,9 @@
     line-height: 1.3;
     width: 200px;
     font-size: 20px;
-    right: 0;
-    top: 100px;
+    right: 180px;
+    top: 30px;
     position: absolute;
-    height: 150px;
 }
 
 /* Arrow */

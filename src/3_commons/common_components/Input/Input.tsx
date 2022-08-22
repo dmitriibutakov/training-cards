@@ -1,4 +1,4 @@
-import React, {DetailedHTMLProps, InputHTMLAttributes, useState} from 'react';
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useState} from 'react';
 import privateClass from "./Input.module.css"
 import {images} from "../../images/commonImages";
 
@@ -8,17 +8,16 @@ type InputPropsType = DefaultInputPropsType & {
     error?: string | false | null
     textError?: string | null
     onButtonClickCallback?: (title: string) => void
-    searchParams?: string
+    searchParams?: true
+    setSearchParams?: (param: string) => void
     value: string
 }
 const Input: React.FC<InputPropsType> = ({
                                              error,
-                                             textError,
-                                             placeholder,
-                                             type,
-                                             searchParams,
-                                             onButtonClickCallback,
-                                             value,
+                                             textError, placeholder,
+                                             type, searchParams,
+                                             onButtonClickCallback, value,
+                                             setSearchParams,
                                              ...restProps
                                          }) => {
     const [show, setShow] = useState<boolean>(false)

@@ -6,21 +6,21 @@ import Arrow from "../../Arrow/Arrow";
 import {CardType} from "../../../../1_DAL/cards-api";
 import {ModalStatusesTypes} from "../../../validates/validates";
 import {Fade} from '../../../animations';
-import {useAppSelector} from "../../../../2_BLL/store";
-import Loader from "../../Loader/Loader";
 
 type TablePropsType = {
     cards?: boolean
     collection: Array<CardType> | Array<PackType>
     setShowModal: (modal: ModalStatusesTypes) => void
     setValueId: (id: string) => void
+    searchParams: string
 }
-const Table: React.FC<TablePropsType> = ({collection, cards, ...restProps}) => {
+const Table: React.FC<TablePropsType> = ({collection, cards, searchParams, ...restProps}) => {
     if (collection.length === 0) return <Arrow/>
     return (
         <Fade effect={"fadeInUp"}>
             <div className={commonClass.table__list}>
                 {
+
                     collection.map(el => {
                         return (cards ?
                             <Row key={el._id}
@@ -28,6 +28,7 @@ const Table: React.FC<TablePropsType> = ({collection, cards, ...restProps}) => {
                                  cards={cards}
                                  value={el.question}
                                  value2={el.answer}
+                                 rating={el.rating}
                                  updated={el.updated && el.updated.slice(0, 10)}
                                  {...restProps}/>
 

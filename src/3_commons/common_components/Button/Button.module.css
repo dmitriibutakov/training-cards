@@ -1,10 +1,11 @@
 .btn, .btn__disabled {
-    position: relative;
-    width: 120px;
-    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    min-width: 100px;
+    padding: 5px;
+    height: 40px;
     font-weight: 600;
     border-radius: 10px;
     text-transform: uppercase;

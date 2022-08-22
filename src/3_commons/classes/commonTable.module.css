@@ -1,10 +1,10 @@
 .table {
     padding: 40px;
     display: flex;
-    height: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-width: 600px;
     border-radius: 20px;
     background-color: #F6F6F7;
     box-shadow: 10px 20px 100px 80px rgba(0, 0, 0, 0.02), 0 64px 46px rgba(0, 0, 0, 0.0151852), 0 38px 25px rgba(0, 0, 0, 0.0121481), 0 20px 13px rgba(0, 0, 0, 0.01), 0 8px 6px rgba(0, 0, 0, 0.00785185), 0 1px 3px rgba(0, 0, 0, 0.00481481);
@@ -24,14 +24,7 @@
     top: 30px;
     text-transform: uppercase;
     font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3px 7px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    height: 40px;
-    width: 50px;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .btn__navigate img {
