@@ -29,9 +29,14 @@ a, a:visited, a:focus, a:active, a:hover {
 }
 
 html, body {
-  min-height: 100vh;
+  height: 100%;
   width: 100%;
   line-height: 1;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 input, button, textarea {

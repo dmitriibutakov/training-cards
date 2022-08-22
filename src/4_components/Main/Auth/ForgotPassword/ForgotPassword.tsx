@@ -10,6 +10,7 @@ import Input from "../../../../3_commons/common_components/Input/Input";
 import {Navigate} from "react-router-dom";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 import {ErrorFormikType} from "../../../../3_commons/validates/validates";
+import { Fade } from '../../../../3_commons/animations';
 
 const ForgotPassword = React.memo(() => {
     const dispatch = useAppDispatch();
@@ -37,19 +38,20 @@ const ForgotPassword = React.memo(() => {
     })
     if (isResponse) return <Navigate to={"/email-password-sent"}/>
     return (
+        <Fade delay={100} effect={"fadeInUp"}>
         <div className={commonClass.container}>
-            {isFetching && <Loader/>}
+            {isFetching &&<Loader/>}
             <Title title={'Reset Password'}/>
             <form onSubmit={formik.handleSubmit}>
                 <Input placeholder={"email"}
                        error={formik.touched.email && formik.errors.email}
                        textError={formik.errors.email}
                        {...formik.getFieldProps("email")}/>
-                <ErrorResponse errorOfResponse={errorOfResponse}/>
                 <Button disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
+                <ErrorResponse errorOfResponse={errorOfResponse}/>
             </form>
-
         </div>
+        </Fade>
     );
 });
 

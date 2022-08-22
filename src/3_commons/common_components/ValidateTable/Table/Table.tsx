@@ -5,6 +5,9 @@ import commonClass from "../../../classes/commonTable.module.css"
 import Arrow from "../../Arrow/Arrow";
 import {CardType} from "../../../../1_DAL/cards-api";
 import {ModalStatusesTypes} from "../../../validates/validates";
+import {Fade} from '../../../animations';
+import {useAppSelector} from "../../../../2_BLL/store";
+import Loader from "../../Loader/Loader";
 
 type TablePropsType = {
     cards?: boolean
@@ -15,28 +18,30 @@ type TablePropsType = {
 const Table: React.FC<TablePropsType> = ({collection, cards, ...restProps}) => {
     if (collection.length === 0) return <Arrow/>
     return (
-        <div className={commonClass.table__list}>
-            {
-                collection.map(el => {
-                    return (cards ?
-                        <Row key={el._id}
-                             id={el._id}
-                             cards={cards}
-                             value={el.question}
-                             value2={el.answer}
-                             updated={el.updated && el.updated.slice(0, 10)}
-                             {...restProps}/>
+        <Fade effect={"fadeInUp"}>
+            <div className={commonClass.table__list}>
+                {
+                    collection.map(el => {
+                        return (cards ?
+                            <Row key={el._id}
+                                 id={el._id}
+                                 cards={cards}
+                                 value={el.question}
+                                 value2={el.answer}
+                                 updated={el.updated && el.updated.slice(0, 10)}
+                                 {...restProps}/>
 
-                        : <Row key={el._id}
-                               id={el._id}
-                               cards={cards}
-                               value={el.name}
-                               value2={el.cardsCount}
-                               updated={el.updated && el.updated.slice(0, 10)}
-                               {...restProps}/>)
-                })
-            }
-        </div>
+                            : <Row key={el._id}
+                                   id={el._id}
+                                   cards={cards}
+                                   value={el.name}
+                                   value2={el.cardsCount}
+                                   updated={el.updated && el.updated.slice(0, 10)}
+                                   {...restProps}/>)
+                    })
+                }
+            </div>
+        </Fade>
     );
 };
 

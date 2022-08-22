@@ -9,7 +9,6 @@ import {useParams} from "react-router-dom";
 const Cards = () => {
     const dispatch = useAppDispatch()
     const {cardsPack_id} = useParams();
-    const {isFetching} = useAppSelector(state => state.app)
     const {isLoggedIn} = useAppSelector(state => state.auth)
     const {pageCount} = useAppSelector(state => state.cards)
     const {cardsTotalCount} = useAppSelector(state => state.cards)
@@ -23,9 +22,7 @@ const Cards = () => {
     useEffect(() => {
         cardsPack_id && dispatch(getCardsTC(cardsPack_id))
     }, [page, cardsPack_id, dispatch])
-
     if (!isLoggedIn) return <NotAuthorized/>
-    if (isFetching) return <Preloader/>
     return (
         <ValidateTable
             title={"Cards"}

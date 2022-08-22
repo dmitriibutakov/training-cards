@@ -5,7 +5,7 @@ import Input from "../../../../3_commons/common_components/Input/Input";
 import Button from "../../../../3_commons/common_components/Button/Button";
 import {PATH} from "../../../../3_commons/Path";
 import {Navigate} from "react-router-dom";
-import NavLinkLink from "../../../../3_commons/common_components/NavLink/NavLinkLink";
+import Link from "../../../../3_commons/common_components/Link/Link";
 import Checkbox from "../../../../3_commons/common_components/Checkbox/Checkbox";
 import {useFormik} from "formik";
 import {useAppDispatch, useAppSelector} from "../../../../2_BLL/store";
@@ -13,6 +13,7 @@ import {signInTC} from "../../../../2_BLL/auth-reducer";
 import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 import {ErrorFormikType} from "../../../../3_commons/validates/validates";
+import {Fade} from '../../../../3_commons/animations';
 
 
 const SignIn = () => {
@@ -47,38 +48,40 @@ const SignIn = () => {
     })
     if (isLoggedIn) return <Navigate to={"/packs"}/>
     return (
-        <div className={commonClass.container}>
-            {isFetching && <Loader/>}
-            <Title title={'Sign in'}/>
-            <p>email: <b>test_projects@yahoo.com</b></p>
-            <p>password: <b>test123456</b></p>
-            <form onSubmit={formik.handleSubmit}>
+        <Fade delay={100} effect={"fadeInUp"}>
+            <div className={commonClass.container}>
+                {isFetching && <Loader/>}
+                <Title title={'Sign in'}/>
+                <p>email: <b>test_projects@yahoo.com</b></p>
+                <p>password: <b>test123456</b></p>
+                <form onSubmit={formik.handleSubmit}>
 
-                <Input placeholder={"email"}
-                       error={formik.touched.email && formik.errors.email}
-                       textError={formik.errors.email}
-                       {...formik.getFieldProps("email")}/>
+                    <Input placeholder={"email"}
+                           error={formik.touched.email && formik.errors.email}
+                           textError={formik.errors.email}
+                           {...formik.getFieldProps("email")}/>
 
-                <Input {...formik.getFieldProps("password")}
-                       placeholder={"password"}
-                       type={"password"}
-                       error={formik.touched.password && formik.errors.password}
-                       textError={formik.errors.password}/>
+                    <Input {...formik.getFieldProps("password")}
+                           placeholder={"password"}
+                           type={"password"}
+                           error={formik.touched.password && formik.errors.password}
+                           textError={formik.errors.password}/>
 
-                <Checkbox children={"Remember me"}
-                          {...formik.getFieldProps("rememberMe")}/>
+                    <Checkbox children={"Remember me"}
+                              {...formik.getFieldProps("rememberMe")}/>
 
-                <div>
-                    <NavLinkLink path={PATH.forgotPassword} title={"forgot password?"}/>
-                </div>
-                <Button text={"Login"}
-                        type={"submit"}
-                        disabled={Object.keys(formik.errors).length !== 0}/>
-            </form>
-            <ErrorResponse errorOfResponse={errorOfResponse}/>
-            <p>Don't have an account?</p>
-            <NavLinkLink path={PATH.signUp} title={"Sign Up"}/>
-        </div>
+                    <div>
+                        <Link path={PATH.forgotPassword} title={"forgot password?"}/>
+                    </div>
+                    <Button text={"Login"}
+                            type={"submit"}
+                            disabled={Object.keys(formik.errors).length !== 0}/>
+                </form>
+                <p>Don't have an account?</p>
+                <ErrorResponse errorOfResponse={errorOfResponse}/>
+                <Link path={PATH.signUp} title={"Sign Up"}/>
+            </div>
+        </Fade>
     );
 };
 

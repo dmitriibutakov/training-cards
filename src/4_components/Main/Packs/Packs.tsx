@@ -14,13 +14,13 @@ import Preloader from "../../../3_commons/common_components/Preloader/Preloader"
 import {ValidateTable} from "../../../3_commons/common_components/ValidateTable/ValidateTable";
 import {getCardsTC} from "../../../2_BLL/cards-reducer";
 import {useDebounce} from '../../../3_commons/hooks/useDebounse';
+import { Fade } from '../../../3_commons/animations';
 
 const Packs = () => {
     const dispatch = useAppDispatch()
     const {cardPacksTotalCount} = useAppSelector(state => state.packs)
     const {minCardsCount} = useAppSelector(state => state.packs)
     const {maxCardsCount} = useAppSelector(state => state.packs)
-    const {isFetching} = useAppSelector(state => state.app)
     const {isLoggedIn} = useAppSelector(state => state.auth)
     const {pageCount} = useAppSelector(state => state.packs)
     const {cardPacks} = useAppSelector(state => state.packs)
@@ -44,7 +44,6 @@ const Packs = () => {
     }, [isLoggedIn, page, searchDelayMin, searchDelayMax, dispatch])
 
     if (!isLoggedIn) return <NotAuthorized/>
-    if (isFetching) return <Preloader/>
     return (
         <ValidateTable
             setMax={setMaxCallback}

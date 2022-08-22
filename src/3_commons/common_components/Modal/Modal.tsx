@@ -11,7 +11,7 @@ import {
     validateCallbacks,
     validateTitle
 } from "../../validates/validates";
-import Title from "../Title/Title";
+import { Fade } from '../../animations';
 
 type ModalPropsType = {
     setShowModal: (modal: ModalStatusesTypes) => void
@@ -66,7 +66,6 @@ const Modal: React.FC<ModalPropsType & CallbacksTypes> = ({
             formik.resetForm()
         },
     })
-    console.log(formik.errors)
     return (
         <div onClick={hideModal} className={privateClass.modal__block}>
             <div className={privateClass.modal__block_container}>
@@ -78,6 +77,10 @@ const Modal: React.FC<ModalPropsType & CallbacksTypes> = ({
 
                 <form onSubmit={formik.handleSubmit} className={privateClass.modal__form}>
 
+                    {cards && showModal !== "delete" && <Input {...formik.getFieldProps("description")}
+                                                               placeholder={"answer"}
+                                                               error={formik.touched.description && formik.errors.description}
+                                                               textError={formik.errors.description}/>}
 
                     {showModal === "delete" ? <p className={privateClass.modal__description}>Are you sure that you want to delete?</p>
                         : <Input {...formik.getFieldProps("value")}
@@ -86,12 +89,7 @@ const Modal: React.FC<ModalPropsType & CallbacksTypes> = ({
                                  textError={formik.errors.value}/>
                     }
 
-                    {cards && showModal !== "delete" && <Input {...formik.getFieldProps("description")}
-                                                               placeholder={"answer"}
-                                                               error={formik.touched.description && formik.errors.description}
-                                                               textError={formik.errors.description}/>}
-
-                    <Button disabled={Object.keys(formik.errors).length !== 0} text={"add"}/>
+                    <Button disabled={Object.keys(formik.errors).length !== 0} text={showModal === "delete" ? "delete" : "add"}/>
                 </form>
 
             </div>

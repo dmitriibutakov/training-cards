@@ -7,17 +7,11 @@
     min-height: 20px;
     background-color: rgba(33, 38, 143, 0.04);
     font-size: 18px;
-    padding: 5px 30px 10px 0;
+    padding: 5px 30px 10px 10px;
     border-bottom: 2px solid rgba(134, 133, 133, 0.48);
 }
-
-.input__password, .input {
-    padding: 5px 30px 10px 0;
-}
-
 .input__add {
     max-width: 180px;
-    padding: 5px 20px 10px 0;
 }
 
 .show, .add {
@@ -29,7 +23,8 @@
 
 .show, .add {
     cursor: pointer;
-    right: 0;
+    right: 5px;
+    top: 18px;
 }
 
 .error {

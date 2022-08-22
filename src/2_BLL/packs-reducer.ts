@@ -12,7 +12,7 @@ let initialState: PacksStateType = {
     maxCardsCount: 100,
     minCardsCount: 0,
     page: 1,
-    pageCount: 8,
+    pageCount: 4,
 }
 
 export const packsReducer = (state: PacksStateType = initialState, action: PacksReducerType): PacksStateType => {

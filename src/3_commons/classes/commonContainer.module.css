@@ -1,15 +1,16 @@
 .container {
+    overflow: hidden;
+    position: relative;
     margin: 20px 5px;
+    min-height: 300px;
     padding: 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     justify-content: center;
-    min-width: 320px;
-    min-height: 550px;
-    background-color: rgba(255, 255, 255, 0.93);
     border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.93);
     box-shadow: 10px 20px 100px 80px rgba(0, 0, 0, 0.02), 0 64px 46px rgba(0, 0, 0, 0.0151852), 0 38px 25px rgba(0, 0, 0, 0.0121481), 0 20px 13px rgba(0, 0, 0, 0.01), 0 8px 6px rgba(0, 0, 0, 0.00785185), 0 1px 3px rgba(0, 0, 0, 0.00481481);
 }
 
@@ -36,7 +37,7 @@
 }
 
 .container > *:not(:last-child) {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .container form > *:not(:last-child) {
@@ -44,5 +45,7 @@
 }
 
 .error {
+    position: absolute;
+    bottom: 10px;
     color: #fa4545;
 }

@@ -10,7 +10,7 @@ const initialState: InitialStateType = {
     cards: [],
     cardsTotalCount: numberInit,
     page: 1,
-    pageCount: 8,
+    pageCount: 4,
     maxGrade: numberInit,
     minGrade: numberInit,
     packUserId: stringInit
@@ -42,10 +42,10 @@ export const setPackUserId = (packUserId: string) => ({type: "SET-PACK-USER-ID",
 
 //thunks
 export const getCardsTC = (cardsPack_id: string): AppThunk => async (dispatch, getState) => {
+    dispatch(setIsFetching(true))
     try {
         const {page} = getState().cards
         const {pageCount} = getState().cards
-        dispatch(setIsFetching(true))
         dispatch(setPackUserId(cardsPack_id))
         const response = await cardsApi.getCards({cardsPack_id, page, pageCount})
         dispatch(setCardsCollection(response.data.cards))

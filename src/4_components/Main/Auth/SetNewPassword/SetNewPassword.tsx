@@ -8,6 +8,7 @@ import Loader from "../../../../3_commons/common_components/Loader/Loader";
 import Input from "../../../../3_commons/common_components/Input/Input";
 import Button from "../../../../3_commons/common_components/Button/Button";
 import {ErrorFormikType} from "../../../../3_commons/validates/validates";
+import {Fade} from '../../../../3_commons/animations';
 
 export const SetNewPassword = () => {
     const dispatch = useAppDispatch();
@@ -42,22 +43,24 @@ export const SetNewPassword = () => {
     })
     if (isResponse) return <Navigate to={"sign-in"}/>
     return (
-        <div className={commonClass.container}>
-            {isFetching && <Loader/>}
-            <h1>Create new password</h1>
-            <form onSubmit={formik.handleSubmit}>
-                <Input {...formik.getFieldProps("password")}
-                       placeholder={"password"}
-                       type={"password"}
-                       error={formik.touched.password && formik.errors.password}
-                       textError={formik.errors.password}/>
-                <Input {...formik.getFieldProps("repeatPassword")}
-                       placeholder={"repeat password"}
-                       type={"password"}
-                       error={formik.touched.repeatPassword && formik.errors.repeatPassword}
-                       textError={formik.errors.repeatPassword}/>
-                <Button disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
-            </form>
-        </div>
+        <Fade delay={100} effect={"fadeInUp"}>
+            <div className={commonClass.container}>
+                {isFetching && <Loader/>}
+                <h1>Create new password</h1>
+                <form onSubmit={formik.handleSubmit}>
+                    <Input {...formik.getFieldProps("password")}
+                           placeholder={"password"}
+                           type={"password"}
+                           error={formik.touched.password && formik.errors.password}
+                           textError={formik.errors.password}/>
+                    <Input {...formik.getFieldProps("repeatPassword")}
+                           placeholder={"repeat password"}
+                           type={"password"}
+                           error={formik.touched.repeatPassword && formik.errors.repeatPassword}
+                           textError={formik.errors.repeatPassword}/>
+                    <Button disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
+                </form>
+            </div>
+        </Fade>
     );
 };

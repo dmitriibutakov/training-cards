@@ -1,4 +1,4 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useState} from 'react';
+import React, {DetailedHTMLProps, InputHTMLAttributes, useState} from 'react';
 import privateClass from "./Input.module.css"
 import {images} from "../../images/commonImages";
 

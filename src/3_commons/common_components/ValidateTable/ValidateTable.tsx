@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from "react";
-import {AppThunk, useAppDispatch} from "../../../2_BLL/store";
+import {AppThunk, useAppDispatch, useAppSelector} from "../../../2_BLL/store";
 import commonClass from "../../classes/commonTable.module.css";
 import Title from "../Title/Title";
 import Table from "./Table/Table";
@@ -13,6 +13,9 @@ import Modal from "../Modal/Modal";
 import {useNavigate} from "react-router-dom";
 import {images} from "../../images/commonImages";
 import {ModalStatusesTypes} from "../../validates/validates";
+import Loader from "../Loader/Loader";
+import Preloader from "../Preloader/Preloader";
+import { Fade } from "../../animations";
 
 type ValidateTablePropsType = {
     min: number
@@ -53,26 +56,31 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
                                                                 }) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const {isFetching} = useAppSelector(state => state.app)
     const [showModal, setShowModal] = useState<ModalStatusesTypes>("hidden")
     const [valueId, setValueId] = useState("")
 
     const addThunkCallback = useCallback((value: string, answer?: string) => {
         cards ? dispatch(addThunk(value, answer)) : dispatch(addThunk(value))
+        setShowModal("hidden")
     }, [cards, dispatch, addThunk])
 
     const deleteThunkCallback = useCallback((id: string) => {
         dispatch(deleteThunk(id))
+        setShowModal("hidden")
     }, [dispatch, deleteThunk])
 
     const editThunkCallback = (useCallback((id: string, value: string, answer?: string) => {
         dispatch(editThunk(id, value, answer))
+        setShowModal("hidden")
     }, [dispatch, editThunk]))
 
     /*    const getValueCallback = useCallback((id: string) => {
             getThunk && dispatch(getThunk(id))
         }, [dispatch, getThunk])*/
-
+if (isFetching) return <Preloader/>
     return (
+        <Fade delay={100} effect={"fadeInUp"}>
         <div className={commonClass.table}>
             {cards && <button className={commonClass.btn__navigate}
                               onClick={() => (navigate("/packs"))}>
@@ -104,5 +112,6 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
                 setShowModal={setShowModal}
                 cards={cards}/>}
         </div>
+        </Fade>
     )
 }

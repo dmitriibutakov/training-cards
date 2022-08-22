@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import privateClass from "./App.module.css"
 import Pages from "./4_components/Routes/Routes";
 import Navigation from "./4_components/Navigation/Navigation";
 import {BrowserRouter} from "react-router-dom";
@@ -18,12 +17,12 @@ const App = () => {
         return <Preloader/>
     }
     return (
-        <BrowserRouter>
-            <div className={privateClass.body}>
+        <>
+            <BrowserRouter>
                 <Navigation/>
                 <Pages/>
-            </div>
-        </BrowserRouter>
+            </BrowserRouter>
+        </>
     );
 };
 
