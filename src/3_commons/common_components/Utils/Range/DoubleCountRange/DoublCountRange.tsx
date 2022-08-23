@@ -6,12 +6,12 @@ type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElem
 type SuperDoubleRangePropsType = DefaultInputPropsType & {
     onChangeRange: (setValue: (value: number) => void, count: number) => void
     valueAll: [number, number]
-    setMin: (value: number) => void
-    setMax: (value: number) => void
+    setMin?: (value: number) => void
+    setMax?: (value: number) => void
 }
 
 
-const DoublCountRange: React.FC<SuperDoubleRangePropsType> = (
+const DoubleCountRange: React.FC<SuperDoubleRangePropsType> = (
     {
         onChangeRange, valueAll, setMin, setMax
     }
@@ -25,4 +25,4 @@ const DoublCountRange: React.FC<SuperDoubleRangePropsType> = (
     )
 }
 
-export default DoublCountRange
+export default DoubleCountRange

@@ -1,60 +1,64 @@
 import React from 'react';
 import privateClass from "./Row.module.css"
-import {NavLink} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {images} from "../../../../images/commonImages";
 import {ModalStatusesTypes} from "../../../../validates/validates";
 import {Rating} from "react-simple-star-rating";
+import {useAppDispatch} from "../../../../../2_BLL/store";
+import {setPackName} from "../../../../../2_BLL/cards-reducer";
 
 type RowPropsType = {
-    cards?: boolean
+    isCards?: boolean
     id: string
     value?: string
     value2?: string | number
-    updated: string
+    value3: string | number
     setShowModal: (modal: ModalStatusesTypes) => void
     setValueId: (id: string) => void
     rating?: number
 }
 const Row: React.FC<RowPropsType> = ({
-                                         updated,
+                                         value3,
                                          id,
-                                         cards,
+                                         isCards,
                                          value, value2,
                                          setShowModal,
                                          setValueId, rating
                                      }) => {
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+const validateStyles = isCards ? privateClass.row__cards : privateClass.row__packs
     return (
-        <div className={privateClass.row} onClick={cards ? ()=>setShowModal("learn") : ()=>{}}>
-            <div>{value}</div>
+        <div className={validateStyles}>
+            <div onClick={!isCards ? () => navigate(`/packs/${id}`) : ()=> setShowModal("edit")}>{value}</div>
             <div>{value2}</div>
-            <div>{updated}</div>
-            {cards ?
-                <div><Rating
-                    ratingValue={rating || 0}
-                    allowHalfIcon={true}
-                    readonly={true}
-                    size={20}
-                    className={privateClass.rating}
-                /></div>
-                : <div>
+            <div>{value3}</div>
+
+            {isCards && <div><Rating
+                ratingValue={rating || 0}
+                allowHalfIcon={true}
+                readonly={true}
+                size={20}
+                className={privateClass.rating}
+            /></div>}
+            {<div>
                     <button onClick={() => {
                         setValueId(id)
-                        setShowModal("delete")
-                    }}
-                            className={privateClass.link}>
+                        setShowModal("delete")}} className={privateClass.link}>
                         <img src={images.deleteImg} alt="icon"/>
                     </button>
+
                     <button onClick={() => {
                         setValueId(id)
-                        setShowModal("edit")
-                    }}
-                            className={privateClass.link}>
+                        setShowModal("edit")}} className={privateClass.link}>
                         <img src={images.editImg} alt="icon"/>
                     </button>
-                    <NavLink className={privateClass.link}
-                             to={`/packs/${id}`}>
+
+
+                {!isCards && <button className={privateClass.link}
+                             onClick={()=>setShowModal("learn")}>
                         <img src={images.studyImg} alt="icon"/>
-                    </NavLink>
+                    </button>}
                 </div>}
         </div>
     );

@@ -8,13 +8,13 @@ import {ModalStatusesTypes} from "../../../validates/validates";
 import {Fade} from '../../../animations';
 
 type TablePropsType = {
-    cards?: boolean
+    isCards?: boolean
     collection: Array<CardType> | Array<PackType>
     setShowModal: (modal: ModalStatusesTypes) => void
     setValueId: (id: string) => void
     searchParams: string
 }
-const Table: React.FC<TablePropsType> = ({collection, cards, searchParams, ...restProps}) => {
+const Table: React.FC<TablePropsType> = ({collection, isCards, searchParams, ...restProps}) => {
     if (collection.length === 0) return <Arrow/>
     return (
         <Fade effect={"fadeInUp"}>
@@ -22,22 +22,22 @@ const Table: React.FC<TablePropsType> = ({collection, cards, searchParams, ...re
                 {
 
                     collection.map(el => {
-                        return (cards ?
+                        return (isCards ?
                             <Row key={el._id}
                                  id={el._id}
-                                 cards={cards}
+                                 isCards={isCards}
                                  value={el.question}
                                  value2={el.answer}
                                  rating={el.rating}
-                                 updated={el.updated && el.updated.slice(0, 10)}
+                                 value3={el.shots || 0}
                                  {...restProps}/>
 
                             : <Row key={el._id}
                                    id={el._id}
-                                   cards={cards}
+                                   isCards={isCards}
                                    value={el.name}
                                    value2={el.cardsCount}
-                                   updated={el.updated && el.updated.slice(0, 10)}
+                                   value3={el.updated && el.updated.slice(0, 10)}
                                    {...restProps}/>)
                     })
                 }

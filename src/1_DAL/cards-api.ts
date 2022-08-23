@@ -17,8 +17,7 @@ export const cardsApi = {
             page, pageCount
         }
     }),
-    createCard: ({
-                     question,
+    createCard: ({question,
                      answer,
                      cardsPack_id,
                  }: CardParamType) => instanceHeroku.post<{ newCard: CardType }>("cards/card", {
@@ -64,6 +63,7 @@ export type GetCardsResponseType = {
     page: number
     pageCount: number
     packUserId: string
+    packName?: string
 };
 export type UpdateCardType = {
     card: CardEditType

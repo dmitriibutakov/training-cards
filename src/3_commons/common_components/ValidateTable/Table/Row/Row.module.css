@@ -1,23 +1,28 @@
-.row {
+.row__cards, .row__packs {
     width: 100%;
     padding: 10px 0;
     display: flex;
-    justify-content: center;
     align-items: center;
     border-bottom: 1px solid rgba(134, 133, 133, 0.48);
+    line-height: 1.3;
 }
 
-.row > *:not(:first-of-type) {
+    .row__cards > *:not(:first-of-type), .row__packs> *:not(:first-of-type) {
     text-align: center;
 }
 
-.row > * {
-    flex: 0 0 24.5%;
+.row__packs > * {
+    flex: 0 0 24.9%;
+}
+.row__cards  > *{
+    flex: 0 0 19.9%;
 }
 
-.row > :first-child {
+.row__packs > :first-child, .row__cards >:first-child {
     font-weight: 500;
+    cursor: pointer;
 }
+
 
 .link {
     background-color: rgba(255, 255, 255, 0);

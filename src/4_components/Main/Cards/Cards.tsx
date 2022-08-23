@@ -7,6 +7,7 @@ import {ValidateTable} from "../../../3_commons/common_components/ValidateTable/
 import {useDebounce} from "../../../3_commons/hooks/useDebounse";
 import {CardType} from "../../../1_DAL/cards-api";
 
+
 const Cards = () => {
     const dispatch = useAppDispatch()
     const {cardsPack_id} = useParams();
@@ -34,15 +35,16 @@ const Cards = () => {
     }, [page, cardsPack_id, dispatch])
 
     if (!isLoggedIn) return <NotAuthorized/>
+
     return (
         <ValidateTable
             searchParams={searchTitle}
             setSearchParams={setSearchTitle}
             valueId={cardId}
             setValueId={setCardId}
-            title={"Cards"}
-            headers={["Question", "Answer", "Last update", "Actions"]}
-            cards={true}
+            title={`cards`}
+            headers={["Question", "Answer", "Shots", "Rating", "Actions"]}
+            isCards={true}
             collection={validateBySearchParams}
             errorOfResponse={errorOfResponse}
             addThunk={addCardTC}
@@ -51,13 +53,7 @@ const Cards = () => {
             setPageCallback={setPageHandler}
             page={page}
             quantityValue={cardsTotalCount}
-            min={0}
             pageCount={pageCount}
-            max={100}
-            setMax={() => {
-            }}
-            setMin={() => {
-            }}
         />
     );
 };

@@ -34,7 +34,7 @@ export const validateTitle = (isCards: boolean, isShowModal: ModalStatusesTypes)
 export const validateCallbacks = (value: string,
                                   valueId: string,
                                   description: string,
-                                  addCallBack: (value: string) => void,
+                                  addCallBack: (value: string, description?: string) => void,
                                   deleteCallback: (valueId: string) => void,
                                   editCallback: (id: string, value: string, comments?: string) => void,
                                   isCards: boolean,
@@ -42,7 +42,7 @@ export const validateCallbacks = (value: string,
     if (isCards) {
         switch (isShowModal) {
             case "add":
-                return addCallBack(value)
+                return addCallBack(value, description)
             case "delete":
                 return deleteCallback(valueId)
             case "edit":

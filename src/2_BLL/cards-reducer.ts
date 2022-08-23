@@ -13,9 +13,10 @@ const initialState: InitialStateType = {
     pageCount: 4,
     maxGrade: numberInit,
     minGrade: numberInit,
-    packUserId: stringInit
+    packUserId: stringInit,
+    packName: stringInit
 };
-
+console.log(initialState.packName)
 export const cardsReducer = (state: InitialStateType = initialState, action: CardsReducerType): InitialStateType => {
     switch (action.type) {
         case "SET-CARDS-COLLECTION":
@@ -32,16 +33,17 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
 export type CardsReducerType = ReturnType<typeof setCardsCollection>
     | ReturnType<typeof setPageCards>
     | ReturnType<typeof setPackUserId>
-    | ReturnType<typeof setCardsTotalCount>
+    | ReturnType<typeof setCardsTotalCount> | ReturnType<typeof setPackName>
 
 //actions
 const setCardsCollection = (cards: Array<CardType>) => ({type: "SET-CARDS-COLLECTION", cards} as const)
 const setCardsTotalCount = (cardsTotalCount: number) => ({type: "SET-CARDS-TOTAL-COUNT", cardsTotalCount} as const)
 export const setPageCards = (page: number) => ({type: "SET-PAGE-CARDS", page} as const)
 export const setPackUserId = (packUserId: string) => ({type: "SET-PACK-USER-ID", packUserId} as const)
+export const setPackName = (packName: string) => ({type: "SET-PACK-NAME", packName} as const)
 
 //thunks
-export const getCardsTC = (cardsPack_id: string): AppThunk => async (dispatch, getState) => {
+export const getCardsTC = ( cardsPack_id: string): AppThunk => async (dispatch, getState) => {
     dispatch(setIsFetching(true))
     try {
         const {page} = getState().cards

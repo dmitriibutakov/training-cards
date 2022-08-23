@@ -85,7 +85,7 @@ export const deletePackTC = (id: string): AppThunk => async dispatch => {
 export const editPackTC = (_id: string, name: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
-        await packsApi.editPack({ cardsPack: { _id, name } })
+        await packsApi.editPack({ cardsPack: { _id, name} })
         await dispatch(getPacksTC())
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

@@ -7,7 +7,7 @@ import Paginator from "../Paginator/Paginator";
 import ErrorResponse from "../ErrorResponse";
 import TableHeader from "./Table/TableHeader";
 import Utils from "../Utils/Utils";
-import Modal from "../Modal/Modal";
+import Modal from "../Utils/Modal/Modal";
 import {useNavigate} from "react-router-dom";
 import {images} from "../../images/commonImages";
 import {ModalStatusesTypes} from "../../validates/validates";
@@ -20,7 +20,7 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
                                                                     addThunk, deleteThunk,
                                                                     getThunk, title,
                                                                     editThunk, collection,
-                                                                    cards, quantityValue,
+                                                                    isCards, quantityValue,
                                                                     errorOfResponse, headers,
                                                                     valueId, setValueId,
                                                                     setPageCallback, ...validateParams
@@ -29,10 +29,11 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
     const navigate = useNavigate()
     const {isFetching} = useAppSelector(state => state.app)
     const [showModal, setShowModal] = useState<ModalStatusesTypes>("hidden")
+
     const addThunkCallback = useCallback((value: string, answer?: string) => {
-        cards ? dispatch(addThunk(value, answer)) : dispatch(addThunk(value))
+        isCards ? dispatch(addThunk(value, answer)) : dispatch(addThunk(value))
         setShowModal("hidden")
-    }, [cards, dispatch, addThunk])
+    }, [isCards, dispatch, addThunk])
 
     const deleteThunkCallback = useCallback((id: string) => {
         dispatch(deleteThunk(id))
@@ -48,17 +49,17 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
     return (
         <Fade delay={100} effect={"fadeInUp"}>
             <div className={commonClass.table}>
-                {cards && <button className={commonClass.btn__navigate}
+                {isCards && <button className={commonClass.btn__navigate}
                                   onClick={() => (navigate("/packs"))}>
                     <img src={images.backImg} alt="to-back"/>
                 </button>}
                 <Title title={title}/>
-                <Utils setShowModal={setShowModal} cards={cards} {...validateParams}/>
-                <TableHeader headers={headers}/>
+                <Utils setShowModal={setShowModal} isCards={isCards} {...validateParams}/>
+                <TableHeader isCards={isCards} headers={headers}/>
                 <Table
                     searchParams={validateParams.searchParams}
                     setValueId={setValueId}
-                    cards={cards}
+                    isCards={isCards}
                     setShowModal={setShowModal}
                     collection={collection}
                 />
@@ -77,7 +78,7 @@ export const ValidateTable: React.FC<ValidateTablePropsType> = ({
                     valueId={valueId}
                     showModal={showModal}
                     setShowModal={setShowModal}
-                    cards={cards}/>}
+                    isCards={isCards}/>}
             </div>
         </Fade>
     )

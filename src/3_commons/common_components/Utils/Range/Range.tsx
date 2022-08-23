@@ -3,10 +3,10 @@ import privateClass from "./Range.module.css";
 import DoublCountRange from "./DoubleCountRange/DoublCountRange";
 
 type RangePropsType = {
-    setMin: (c: number) => void
-    min: number
-    setMax: (c: number) => void
-    max: number
+    setMin?: (count: number) => void
+    min?: number
+    setMax?: (count: number) => void
+    max?: number
     valueAll: [number, number]
     onChangeRange: (setValue: (value: number) => void, count: number) => void
 }

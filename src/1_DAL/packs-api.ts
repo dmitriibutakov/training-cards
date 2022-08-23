@@ -29,6 +29,7 @@ export type PackType = {
     answer?: string
     question?: string
     rating?: number
+    shots?: number
 }
 export type GetPacksResponseType = {
     cardPacks: Array<PackType>

@@ -4,9 +4,9 @@
 }
 
 .min, .max {
-    padding: 5px;
-    font-size: 12px;
+    padding: 6px;
     display: flex;
+    font-size: 12px;
     align-items: center;
     justify-content: center;
     position: absolute;
@@ -31,5 +31,5 @@
     font-size: 12px;
     position: absolute;
     bottom: 0;
-    right: 20%;
+    right: 15%;
 }
