@@ -1,1 +1,1 @@
-link: https://training-cards.herokuapp.com
+link: https://training-cards.vercel.app
