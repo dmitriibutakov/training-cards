@@ -10,7 +10,7 @@ import Input from "../../../../3_commons/common_components/Input/Input";
 import {Navigate} from "react-router-dom";
 import ErrorResponse from "../../../../3_commons/common_components/ErrorResponse";
 import {ErrorFormikType} from "../../../../3_commons/validates/validates";
-import { Fade } from '../../../../3_commons/animations';
+import {Fade} from '../../../../3_commons/animations';
 import {PATH} from "../../../../3_commons/Path";
 
 const ForgotPassword = React.memo(() => {
@@ -40,19 +40,19 @@ const ForgotPassword = React.memo(() => {
     if (isResponse) return <Navigate to={PATH.emailPasswordSent}/>
     return (
         <Fade delay={100} effect={"fadeInUp"}>
-        <div className={commonClass.container}>
-            {isFetching &&<Loader/>}
-            <Title title={'Reset Password'}/>
-            <p>we'll send instructions on email</p>
-            <form onSubmit={formik.handleSubmit}>
-                <Input placeholder={"email"}
-                       error={formik.touched.email && formik.errors.email}
-                       textError={formik.errors.email}
-                       {...formik.getFieldProps("email")}/>
-                <Button disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
-                <ErrorResponse errorOfResponse={errorOfResponse}/>
-            </form>
-        </div>
+            <div className={commonClass.container}>
+                {isFetching && <Loader/>}
+                <Title title={'Reset Password'}/>
+                <p>we'll send instructions on email</p>
+                <form onSubmit={formik.handleSubmit}>
+                    <Input placeholder={"email"}
+                           error={formik.touched.email && formik.errors.email}
+                           textError={formik.errors.email}
+                           {...formik.getFieldProps("email")}/>
+                    <Button disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
+                    <ErrorResponse errorOfResponse={errorOfResponse}/>
+                </form>
+            </div>
         </Fade>
     );
 });

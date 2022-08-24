@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, {ChangeEvent} from 'react';
 import privateClass from "../DoubleRange.module.css";
 
 type CountRangePropsType = {
@@ -8,18 +8,18 @@ type CountRangePropsType = {
     position?: "left"
     valueAll: [number?, number?]
 }
-const CountRange: React.FC<CountRangePropsType> = ({ value, onChange, position, valueAll, setValue }) => {
+const CountRange: React.FC<CountRangePropsType> = ({value, onChange, position, valueAll, setValue}) => {
     const onChangeCount = (e: ChangeEvent<HTMLInputElement>) => {
         value = +e.currentTarget.value
         return setValue && onChange && onChange(setValue, value)
     }
     return (
         <input type={'range'}
-            value={value}
-            onChange={onChangeCount}
-            className={`${privateClass.slider} ${position === "left" ? privateClass.min : privateClass.max}`}
-            min={0}
-            max={100} />
+               value={value}
+               onChange={onChangeCount}
+               className={`${privateClass.slider} ${position === "left" ? privateClass.min : privateClass.max}`}
+               min={0}
+               max={100}/>
 
     );
 };

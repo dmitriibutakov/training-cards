@@ -10,7 +10,7 @@ import {Fade} from '../../../animations';
 type TablePropsType = {
     isCards?: boolean
     collection: Array<CardType> | Array<PackType>
-    setShowModal: (modal: ModalStatusesTypes) => void
+    setModalStatus: (modal: ModalStatusesTypes) => void
     setValueId: (id: string) => void
     searchParams: string
 }
@@ -20,20 +20,19 @@ const Table: React.FC<TablePropsType> = ({collection, isCards, searchParams, ...
         <Fade effect={"fadeInUp"}>
             <div className={commonClass.table__list}>
                 {
-
                     collection.map(el => {
                         return (isCards ?
                             <Row key={el._id}
-                                 id={el._id}
+                                 valueId={el._id}
                                  isCards={isCards}
                                  value={el.question}
                                  value2={el.answer}
-                                 rating={el.rating}
+                                 grade={el.grade}
                                  value3={el.shots || 0}
                                  {...restProps}/>
 
                             : <Row key={el._id}
-                                   id={el._id}
+                                   valueId={el._id}
                                    isCards={isCards}
                                    value={el.name}
                                    value2={el.cardsCount}

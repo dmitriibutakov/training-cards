@@ -1,19 +1,26 @@
 .btn, .btn__disabled {
+    box-sizing: border-box;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     min-width: 100px;
-    padding: 5px;
+    padding: 0 5px;
     height: 40px;
     font-weight: 600;
     border-radius: 10px;
     text-transform: uppercase;
+    background-color: rgba(33, 38, 143, 0.8);
 }
 
 .btn {
-    background-color: #21268F;
+    border-color: #21268F;
     color: #fff;
+    background-image: linear-gradient(45deg, #21268F 50%, transparent 50%);
+    background-position: 100%;
+    background-size: 400%;
+    -webkit-transition: background 1s ease-in-out;
+    transition: background 1s ease-in-out;
 }
 
 .btn__disabled {
@@ -21,34 +28,6 @@
     color: #232328;
 }
 
-.btn:after, .btn:before {
-    transition: .5s all;
-}
-
 .btn:hover {
-    color: #232328;
-    z-index: 2;
-}
-
-.btn:after {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    margin: auto;
-    width: 100%;
-    height: 1px;
-    content: '';
-    background: #e5e5e5;
-    opacity: 0;
-    z-index: -1;
-    border-radius: 10px;
-}
-
-.btn:hover:after {
-    opacity: 1;
-    height: 100%;
-    border-radius: 10px;
+    background-position: 0;
 }

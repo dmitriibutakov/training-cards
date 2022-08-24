@@ -17,7 +17,8 @@ export const cardsApi = {
             page, pageCount
         }
     }),
-    createCard: ({question,
+    createCard: ({
+                     question,
                      answer,
                      cardsPack_id,
                  }: CardParamType) => instanceHeroku.post<{ newCard: CardType }>("cards/card", {
@@ -28,7 +29,14 @@ export const cardsApi = {
         }
     }),
     deleteCard: (id: string) => instanceHeroku.delete<{ deletedCard: PackType }>("cards/card", {params: {id}}),
-    editCard: (card: UpdateCardType) => instanceHeroku.put<{ updatedCard: CardType }>("cards/card", card)
+    editCard: (card: UpdateCardType) => instanceHeroku.put<{ updatedCard: CardType }>("cards/card", card),
+    gradeCard: ({
+                    grade,
+                    card_id
+                }: CardRateType) => instanceHeroku.put<{ updatedGrade: UpdatedGradeType }>("cards/grade", {
+        grade,
+        card_id
+    })
 }
 
 //types cards
@@ -46,12 +54,14 @@ export type CardType = {
     question: string
     cardsPack_id: string
     grade: number
-    shots: 1
+    shots: number
     rating: number
-    user_id: string
+    user_id?: string
     created: string
     updated: string
+    more_id?: string
     _id: string
+    type?: string
     name?: string
     cardsCount?: number
 };
@@ -64,6 +74,8 @@ export type GetCardsResponseType = {
     pageCount: number
     packUserId: string
     packName?: string
+    randomCard: CardType
+    loadingModal?: boolean
 };
 export type UpdateCardType = {
     card: CardEditType
@@ -72,4 +84,16 @@ type CardEditType = {
     _id: string
     question?: string
     answer?: string
+}
+type CardRateType = {
+    grade: number
+    card_id: string
+}
+export type UpdatedGradeType = {
+    _id: "5eb543f6bea3ad21480f1ee7"
+    cardsPack_id: "5eb543f6bea3ad21480f1ee7"
+    card_id: "5eb543f6bea3ad21480f1ee7"
+    user_id: "5eb543f6bea3ad21480f1ee7"
+    grade: 3
+    shots: 1
 }

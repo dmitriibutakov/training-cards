@@ -28,7 +28,7 @@ export type PackType = {
     updated: string
     answer?: string
     question?: string
-    rating?: number
+    grade?: number
     shots?: number
 }
 export type GetPacksResponseType = {

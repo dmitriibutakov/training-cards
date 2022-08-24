@@ -2,8 +2,9 @@ export type ErrorFormikType = { password?: string, repeatPassword?: string, emai
 export type ModalStatusesTypes = "add" | "delete" | "edit" | "learn" | "hidden"
 export type CallbacksTypes = {
     addCallback: (value: string, description?: string) => void
-    deleteCallback: (valueId: string) => void
     editCallback: (id: string, value: string, comments?: string) => void
+    deleteCallback: (valueId: string) => void
+
 }
 
 export const validateTitle = (isCards: boolean, isShowModal: ModalStatusesTypes) => {
@@ -15,6 +16,8 @@ export const validateTitle = (isCards: boolean, isShowModal: ModalStatusesTypes)
                 return "Delete Card"
             case "edit":
                 return "Edit Card"
+            case "learn":
+                return "Answer the question"
             default :
                 return "undefined"
         }
@@ -24,6 +27,8 @@ export const validateTitle = (isCards: boolean, isShowModal: ModalStatusesTypes)
                 return "Add Pack"
             case "delete" :
                 return "Delete Pack"
+            case "learn":
+                return "Answer the question"
             case "edit" :
                 return "Edit Pack"
             default :
@@ -31,11 +36,11 @@ export const validateTitle = (isCards: boolean, isShowModal: ModalStatusesTypes)
         }
     }
 }
+
 export const validateCallbacks = (value: string,
                                   valueId: string,
                                   description: string,
                                   addCallBack: (value: string, description?: string) => void,
-                                  deleteCallback: (valueId: string) => void,
                                   editCallback: (id: string, value: string, comments?: string) => void,
                                   isCards: boolean,
                                   isShowModal: ModalStatusesTypes) => {
@@ -43,21 +48,19 @@ export const validateCallbacks = (value: string,
         switch (isShowModal) {
             case "add":
                 return addCallBack(value, description)
-            case "delete":
-                return deleteCallback(valueId)
             case "edit":
                 return editCallback(valueId, value, description)
-            default: return
+            default:
+                return
         }
     } else {
         switch (isShowModal) {
             case "add":
                 return addCallBack(value)
-            case "delete":
-                return deleteCallback(valueId)
             case "edit":
                 return editCallback(valueId, value)
-            default: return
+            default:
+                return
         }
     }
 }

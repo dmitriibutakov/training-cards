@@ -22,7 +22,7 @@ const UsersPaginator: React.FC<UsersPaginatorType> = ({
     const portionCount = Math.ceil(pagesCount / portionSize)
     const [portionNumber, setPortionNumber] = useState(currentPage)
     const leftPortionNumber = currentPage < 3 ? 1 : portionNumber - 2
-    const rightPortionNumber = currentPage < 3 ? 5:  portionNumber + 2
+    const rightPortionNumber = currentPage < 3 ? 5 : portionNumber + 2
 
     return (
         <div className={privateClass.paginator__body}>

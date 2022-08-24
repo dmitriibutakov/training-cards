@@ -3,25 +3,26 @@ import {PackType} from "../../../1_DAL/packs-api";
 import {CardType} from "../../../1_DAL/cards-api";
 
 export type ValidateTablePropsType = {
+    isCards?: boolean
     min?: number
     max?: number
+    page: number
+    quantityValue: number
+    pageCount: number
+    searchParams: string
+    valueId: string
+    title: string
     setMin?: (count: number) => void
     setMax?: (count: number) => void
-    searchParams: string
-    setSearchParams: (params: string) => void
-    valueId: string
-    setValueId: (id: string) => void
-    isCards?: boolean
-    page: number
-    title: string
     setPageCallback: (page: number) => void
+    setSearchParams: (params: string) => void
+    setValueId: (id: string) => void
+    collection: Array<PackType> | Array<CardType>
+    errorOfResponse: string | null
+    headers: string[]
     addThunk: (value: string, description?: string) => AppThunk
     deleteThunk: (id: string) => AppThunk
     editThunk: (id: string, question: string, comments?: string) => AppThunk
     getThunk?: (id: string) => AppThunk
-    collection: Array<PackType> | Array<CardType>
-    quantityValue: number,
-    errorOfResponse: string | null
-    headers: string[]
-    pageCount: number
+
 }

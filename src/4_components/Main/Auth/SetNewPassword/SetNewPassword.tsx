@@ -45,22 +45,22 @@ export const SetNewPassword = () => {
     })
     if (isResponse) <Navigate to={PATH.signIn}/>
     return (
-            <div className={commonClass.container}>
-                {isFetching && <Loader/>}
-                <h1>Create new password</h1>
-                <form onSubmit={formik.handleSubmit}>
-                    <Input {...formik.getFieldProps("password")}
-                           placeholder={"password"}
-                           type={"password"}
-                           error={formik.touched.password && formik.errors.password}
-                           textError={formik.errors.password}/>
-                    <Input {...formik.getFieldProps("repeatPassword")}
-                           placeholder={"repeat password"}
-                           type={"password"}
-                           error={formik.touched.repeatPassword && formik.errors.repeatPassword}
-                           textError={formik.errors.repeatPassword}/>
-                    <Button disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
-                </form>
-            </div>
+        <div className={commonClass.container}>
+            {isFetching && <Loader/>}
+            <h1>Create new password</h1>
+            <form onSubmit={formik.handleSubmit}>
+                <Input {...formik.getFieldProps("password")}
+                       placeholder={"password"}
+                       type={"password"}
+                       error={formik.touched.password && formik.errors.password}
+                       textError={formik.errors.password}/>
+                <Input {...formik.getFieldProps("repeatPassword")}
+                       placeholder={"repeat password"}
+                       type={"password"}
+                       error={formik.touched.repeatPassword && formik.errors.repeatPassword}
+                       textError={formik.errors.repeatPassword}/>
+                <Button disabled={Object.keys(formik.errors).length !== 0} text={"send"}/>
+            </form>
+        </div>
     );
 };

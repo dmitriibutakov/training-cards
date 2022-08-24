@@ -1,9 +1,9 @@
-import { GetPacksResponseType, PackParamType, packsApi, PackType } from "../1_DAL/packs-api";
-import { numberInit } from "../3_commons/init-variables";
-import { AppThunk } from "./store";
-import { setIsFetching } from "../3_commons/actions/common_actions";
-import { errorUtils } from "../3_commons/errors-utils";
-import { AxiosError } from "axios";
+import {GetPacksResponseType, PackParamType, packsApi, PackType} from "../1_DAL/packs-api";
+import {numberInit} from "../3_commons/init-variables";
+import {AppThunk} from "./store";
+import {setIsFetching} from "../3_commons/actions/common_actions";
+import {errorUtils} from "../3_commons/errors-utils";
+import {AxiosError} from "axios";
 
 export type PacksStateType = GetPacksResponseType
 let initialState: PacksStateType = {
@@ -22,7 +22,7 @@ export const packsReducer = (state: PacksStateType = initialState, action: Packs
         case "SET-PACKS-COUNT":
         case "SET-MAX-CARDS-COUNT":
         case "SET-MIN-CARDS-COUNT":
-            return { ...state, ...action }
+            return {...state, ...action}
         default:
             return state
     }
@@ -34,24 +34,29 @@ export type PacksReducerType = ReturnType<typeof setPacks>
     | ReturnType<typeof setPagePacks> | ReturnType<typeof setMaxCardsCount> | ReturnType<typeof setMinCardsCount>
 
 
-
 //actions
-const setPacks = (cardPacks: Array<PackType>) => ({ type: "SET-PACKS", cardPacks } as const)
-const setPacksTotalCount = (cardPacksTotalCount: number) => ({ type: "SET-PACKS-COUNT", cardPacksTotalCount } as const)
-export const setPagePacks = (page: number) => ({ type: "SET-PAGE-PACKS", page } as const)
-export const setMaxCardsCount = (maxCardsCount: number) => ({ type: "SET-MAX-CARDS-COUNT", maxCardsCount } as const)
-export const setMinCardsCount = (minCardsCount: number) => ({ type: "SET-MIN-CARDS-COUNT", minCardsCount } as const)
+const setPacks = (cardPacks: Array<PackType>) => ({type: "SET-PACKS", cardPacks} as const)
+const setPacksTotalCount = (cardPacksTotalCount: number) => ({type: "SET-PACKS-COUNT", cardPacksTotalCount} as const)
+export const setPagePacks = (page: number) => ({type: "SET-PAGE-PACKS", page} as const)
+export const setMaxCardsCount = (maxCardsCount: number) => ({type: "SET-MAX-CARDS-COUNT", maxCardsCount} as const)
+export const setMinCardsCount = (minCardsCount: number) => ({type: "SET-MIN-CARDS-COUNT", minCardsCount} as const)
 
 //thunks
 export const getPacksTC = (params?: PackParamType): AppThunk => async (dispatch, getState) => {
     try {
-        const { _id } = getState().app.profile
-        const { pageCount } = getState().packs
-        const { page } = getState().packs
-        const { maxCardsCount } = getState().packs
-        const { minCardsCount } = getState().packs
+        const {_id} = getState().app.profile
+        const {pageCount} = getState().packs
+        const {page} = getState().packs
+        const {maxCardsCount} = getState().packs
+        const {minCardsCount} = getState().packs
         dispatch(setIsFetching(true))
-        const response = await packsApi.getPacks({ _id, pageCount, page, min: minCardsCount, max: maxCardsCount, ...params  })
+        const response = await packsApi.getPacks({
+            _id,
+            pageCount,
+            page,
+            min: minCardsCount,
+            max: maxCardsCount, ...params
+        })
         dispatch(setPacks(response.data.cardPacks))
         dispatch(setPacksTotalCount(response.data.cardPacksTotalCount))
     } catch (err) {
@@ -85,7 +90,7 @@ export const deletePackTC = (id: string): AppThunk => async dispatch => {
 export const editPackTC = (_id: string, name: string): AppThunk => async dispatch => {
     try {
         dispatch(setIsFetching(true))
-        await packsApi.editPack({ cardsPack: { _id, name} })
+        await packsApi.editPack({cardsPack: {_id, name}})
         await dispatch(getPacksTC())
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

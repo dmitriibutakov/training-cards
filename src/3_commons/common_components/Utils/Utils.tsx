@@ -11,17 +11,17 @@ type PacksUtilsPropsType = {
     max?: number
     setMin?: (count: number) => void
     setMax?: (count: number) => void
-    setShowModal: (modal: ModalStatusesTypes) => void
+    setModalStatus: (modal: ModalStatusesTypes) => void
     searchParams: string
     setSearchParams: (params: string) => void
 }
 const Utils: React.FC<PacksUtilsPropsType> = ({
-                                                  setShowModal,
+                                                  setModalStatus,
                                                   min,
                                                   max,
                                                   setMin,
                                                   setMax, isCards,
-    setSearchParams, searchParams
+                                                  setSearchParams, searchParams
                                               }) => {
     const valueAll: [number, number] = [min || 0, max || 100]
 
@@ -36,7 +36,7 @@ const Utils: React.FC<PacksUtilsPropsType> = ({
         <div className={commonClass.utils}>
             <Input value={searchParams} onChange={onChangeInput} searchParams={true}/>
             {!isCards && <Range {...rangeProps} />}
-            <Button onClicked={() => setShowModal("add")} text={isCards ? "add card" : "add pack"}/>
+            <Button onClicked={() => setModalStatus("add")} text={isCards ? "add card" : "add pack"}/>
         </div>
     );
 };

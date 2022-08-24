@@ -81,7 +81,7 @@ export const setNewPasswordTC = (password: string, resetPasswordToken: string): 
     try {
         dispatch(setResponse(false))
         dispatch(setIsFetching(true))
-       await authApi.setNewPassword(password, resetPasswordToken);
+        await authApi.setNewPassword(password, resetPasswordToken);
         dispatch(setResponse(true))
     } catch (err) {
         errorUtils(err as Error | AxiosError, dispatch)

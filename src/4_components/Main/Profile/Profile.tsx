@@ -8,7 +8,7 @@ import Button from "../../../3_commons/common_components/Button/Button";
 import Avatar from "../../../3_commons/common_components/Avatar/Avatar";
 import Preloader from "../../../3_commons/common_components/Preloader/Preloader";
 import {images} from "../../../3_commons/images/commonImages";
-import { Fade } from '../../../3_commons/animations';
+import {Fade} from '../../../3_commons/animations';
 
 const Profile = () => {
     const dispatch = useAppDispatch();
@@ -22,13 +22,13 @@ const Profile = () => {
     if (!isLoggedIn) return <Navigate to={"/sign-in"}/>
     return (
         <Fade delay={100} effect={"fadeInUp"}>
-        <div className={privateClass.container}>
-            <Title title={'Personal Information'}/>
-            <Avatar avatarImg={avatar}/>
-            <h1>{profile.name}</h1>
-            <Button onClicked={() => navigate("/edit")} text={"Edit profile"}/>
-            <Button onClicked={() => dispatch(logoutTC())} text={"Logout"}/>
-        </div>
+            <div className={privateClass.container}>
+                <Title title={'Personal Information'}/>
+                <Avatar avatarImg={avatar}/>
+                <h1>{profile.name}</h1>
+                <Button onClicked={() => navigate("/edit")} text={"Edit profile"}/>
+                <Button onClicked={() => dispatch(logoutTC())} text={"Logout"}/>
+            </div>
         </Fade>
     );
 };

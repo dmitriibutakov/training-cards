@@ -5,33 +5,32 @@
 }
 
 .input, .input__password, .input__add {
-    margin: 10px 0;
+    margin: 15px 0;
     min-height: 20px;
     background-color: rgba(33, 38, 143, 0.04);
     font-size: 18px;
     padding: 5px 30px 10px 10px;
     border-bottom: 2px solid rgba(134, 133, 133, 0.48);
 }
+
 .input {
     width: 100%;
     height: 100%;
 }
-.show, .add {
-    position: absolute;
-    top: 25%;
-    width: 20px;
-    height: 20px;
-}
 
 .show, .add {
-    cursor: pointer;
+    position: absolute;
+    width: 20px;
+    height: 20px;
     right: 5px;
-    top: 18px;
+    top: 24px;
 }
 
 .error {
     position: absolute;
-    font-size: 12px;
+    bottom: -1px;
+    right: 0;
+    font-size: 10px;
     font-weight: 500;
     color: #fa4545;
 }

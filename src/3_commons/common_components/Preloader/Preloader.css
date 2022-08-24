@@ -18,8 +18,8 @@
     border-radius: 50%;
     border: 3px solid transparent;
     border-top-color: #15185b;
-    -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
-    animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
 }
 
 #preloader:before {

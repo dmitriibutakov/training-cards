@@ -7,11 +7,9 @@ import {ValidateTable} from "../../../3_commons/common_components/ValidateTable/
 import {useDebounce} from "../../../3_commons/hooks/useDebounse";
 import {CardType} from "../../../1_DAL/cards-api";
 
-
 const Cards = () => {
     const dispatch = useAppDispatch()
     const {cardsPack_id} = useParams();
-
     const {isLoggedIn} = useAppSelector(state => state.auth)
     const {pageCount} = useAppSelector(state => state.cards)
     const {cardsTotalCount} = useAppSelector(state => state.cards)

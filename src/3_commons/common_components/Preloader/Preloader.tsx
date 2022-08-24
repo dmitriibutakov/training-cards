@@ -1,13 +1,13 @@
 import React from 'react';
-import { Fade } from '../../animations';
+import {Fade} from '../../animations';
 import "./Preloader.css"
 
 const Preloader = () => {
     return (
         <Fade effect={"fadeInUp"}>
-        <div id={"preloader-wrapper"}>
-            <div id={"preloader"}></div>
-        </div>
+            <div id={"preloader-wrapper"}>
+                <div id={"preloader"}></div>
+            </div>
         </Fade>
     );
 };

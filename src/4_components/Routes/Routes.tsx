@@ -26,7 +26,7 @@ const Pages = () => {
                 <Route path={PATH.forgotPassword} element={<ForgotPassword/>}></Route>
                 <Route path={PATH.error} element={<Error404/>}></Route>
                 <Route path={PATH.setNewPassword} element={<SetNewPassword/>}/>
-                <Route path={PACKS.packs} element={ <Packs/>}/>
+                <Route path={PACKS.packs} element={<Packs/>}/>
                 <Route path={CARDS.cards} element={<Cards/>}/>
             </Routes>
         </>

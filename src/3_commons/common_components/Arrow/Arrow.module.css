@@ -3,11 +3,13 @@
     height: 150px;
     width: 70%;
 }
+
 .arrow__body {
     position: absolute;
     right: 0;
     bottom: -50px;
 }
+
 .things > .content {
     position: relative;
 }
@@ -56,11 +58,11 @@
 .arrow .point:before {
     top: -11px;
     left: -11px;
-    transform:rotate(-74deg);
+    transform: rotate(-74deg);
 }
 
 .arrow .point:after {
     top: -20px;
     left: 5px;
-    transform:rotate(12deg);
+    transform: rotate(12deg);
 }

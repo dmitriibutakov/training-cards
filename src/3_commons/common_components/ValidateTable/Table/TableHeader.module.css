@@ -12,6 +12,7 @@
     font-size: 18px;
     font-weight: 500;
 }
+
 .row__cards > * {
     flex: 0 0 20%;
     font-size: 18px;
