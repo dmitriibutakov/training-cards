@@ -78,8 +78,8 @@ const SignIn = () => {
                             disabled={Object.keys(formik.errors).length !== 0}/>
                 </form>
                 <p>Don't have an account?</p>
-                <ErrorResponse errorOfResponse={errorOfResponse}/>
                 <Link path={PATH.signUp} title={"Sign Up"}/>
+                <ErrorResponse errorOfResponse={errorOfResponse}/>
             </div>
         </Fade>
     );
