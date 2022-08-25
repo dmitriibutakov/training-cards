@@ -56,7 +56,7 @@ export type SetAppErrorType = ReturnType<typeof setAppError>
 export const setAppError = (errorOfResponse: string | null) => ({type: 'SET-ERROR', errorOfResponse} as const)
 export const setProfile = (profile: ResponseDataProfileType) => ({type: 'SET-PROFILE', profile} as const)
 export const setResponse = (isResponse: boolean) => ({type: "SET-RESPONSE", isResponse} as const)
-const setIsInit = (isInit: boolean) => ({type: 'SET-INIT', isInit} as const)
+export const setIsInit = (isInit: boolean) => ({type: 'SET-INIT', isInit} as const)
 
 //thunks
 export const initAppTC = (): AppThunk => async (dispatch) => {

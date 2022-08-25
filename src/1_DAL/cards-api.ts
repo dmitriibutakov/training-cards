@@ -90,10 +90,10 @@ type CardRateType = {
     card_id: string
 }
 export type UpdatedGradeType = {
-    _id: "5eb543f6bea3ad21480f1ee7"
-    cardsPack_id: "5eb543f6bea3ad21480f1ee7"
-    card_id: "5eb543f6bea3ad21480f1ee7"
-    user_id: "5eb543f6bea3ad21480f1ee7"
-    grade: 3
-    shots: 1
+    _id: string
+    cardsPack_id?: string
+    card_id?: string
+    user_id?: string
+    grade: number
+    shots: number
 }

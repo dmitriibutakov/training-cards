@@ -51,13 +51,13 @@ export type CardsReducerType =
     | ReturnType<typeof setChangeGradeCards>
 
 //actions
-const setCardsCollection = (cards: Array<CardType>) => ({type: "SET-CARDS-COLLECTION", cards} as const)
-const setCardsTotalCount = (cardsTotalCount: number) => ({type: "SET-CARDS-TOTAL-COUNT", cardsTotalCount} as const)
+export const setCardsCollection = (cards: Array<CardType>) => ({type: "SET-CARDS-COLLECTION", cards} as const)
+export const setCardsTotalCount = (cardsTotalCount: number) => ({type: "SET-CARDS-TOTAL-COUNT", cardsTotalCount} as const)
 export const setPageCards = (page: number) => ({type: "SET-PAGE-CARDS", page} as const)
 export const setPackUserId = (packUserId: string) => ({type: "SET-PACK-USER-ID", packUserId} as const)
-const setRandomCard = (randomCard: CardType) => ({type: "SET-RANDOM-CARD", randomCard} as const)
-const setLoadingModal = (loadingModal: boolean) => ({type: "SET-LOADING-MODAL", loadingModal} as const)
-const setChangeGradeCards = (card: UpdatedGradeType) => ({type: "SET-CHANGE-GRADE-CARDS", card} as const)
+export const setRandomCard = (randomCard: CardType) => ({type: "SET-RANDOM-CARD", randomCard} as const)
+export const setLoadingModal = (loadingModal: boolean) => ({type: "SET-LOADING-MODAL", loadingModal} as const)
+export const setChangeGradeCards = (card: UpdatedGradeType) => ({type: "SET-CHANGE-GRADE-CARDS", card} as const)
 
 //thunks
 export const getCardsTC = (cardsPack_id: string): AppThunk => async (dispatch, getState) => {
