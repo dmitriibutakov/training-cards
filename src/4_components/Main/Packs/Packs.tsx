@@ -46,7 +46,6 @@ const Packs = () => {
 
     if (!isLoggedIn) return <NotAuthorized/>
     return (
-
         <ValidateTable
             searchParams={searchTitle}
             setSearchParams={setSearchTitle}
